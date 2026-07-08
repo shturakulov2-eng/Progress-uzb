@@ -1,0 +1,880 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  ArrowUpRight,
+  BarChart3,
+  BrainCircuit,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  CircleHelp,
+  Clapperboard,
+  Globe2,
+  Landmark,
+  LayoutTemplate,
+  Megaphone,
+  MessageSquareQuote,
+  Palette,
+  PhoneCall,
+  Rocket,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Workflow,
+} from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ComponentType, ReactNode } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+
+import logoImage from "../../logo progress ver.png";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { Button } from "@/components/ui/button";
+import { baseSiteConfig } from "@/content/base";
+import type { SiteContent } from "@/content/types";
+import { useLanguage } from "@/context/language-context";
+import { createLeadSchema, type LeadFormValues } from "@/lib/validators";
+import { cn } from "@/lib/utils";
+
+const serviceIcons = [
+  Megaphone,
+  Globe2,
+  Clapperboard,
+  Sparkles,
+  Palette,
+  LayoutTemplate,
+  Workflow,
+  BrainCircuit,
+] as const;
+
+export default function Home() {
+  const { content } = useLanguage();
+  const {
+    navigation,
+    heroMetrics,
+    hero,
+    sections,
+    differentiators,
+    services,
+    processSteps,
+    portfolioItems,
+    statistics,
+    testimonials,
+    faqs,
+    common,
+  } = content;
+
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveTestimonial((current) => (current + 1) % testimonials.length);
+    }, 5000);
+
+    return () => window.clearInterval(interval);
+  }, [testimonials.length]);
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 700);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <div className="relative overflow-x-hidden bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)]">
+      <div className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow" />
+      <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
+
+      <header className="sticky top-0 z-50 border-b border-white/60 bg-white/75 backdrop-blur-xl">
+        <div className="section-shell">
+          <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <Image
+                src={logoImage}
+                alt="Progress.uzb logo"
+                width={120}
+                className="h-auto w-[110px] sm:w-[120px]"
+                priority
+              />
+              <div className="hidden text-sm text-slate-500 lg:block">
+                {hero.navTagline}
+              </div>
+            </div>
+
+            <nav
+              aria-label={common.primaryNav}
+              className="hide-scrollbar flex gap-2 overflow-x-auto md:items-center"
+            >
+              {navigation.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+              <a href="#contact" className="hidden md:block">
+                <Button>{common.freeConsultation}</Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section id="home" className="section-shell pt-10 pb-20 sm:pt-14 sm:pb-24">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <Reveal>
+              <div className="space-y-8">
+                <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-4 py-2 text-sm text-[#0C3272] shadow-sm backdrop-blur-sm">
+                  <ShieldCheck className="size-4" />
+                  {hero.badge}
+                </div>
+                <div className="space-y-5">
+                  <h1 className="max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+                    {hero.title}
+                  </h1>
+                  <p className="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+                    {hero.subtitle}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-4 sm:flex-row">
+                  <a href="#contact">
+                    <Button size="large" className="w-full sm:w-auto">
+                      {hero.ctaPrimary}
+                      <ArrowUpRight className="ml-2 size-4" />
+                    </Button>
+                  </a>
+                  <a href="#services">
+                    <Button variant="secondary" size="large" className="w-full sm:w-auto">
+                      {hero.ctaSecondary}
+                    </Button>
+                  </a>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {heroMetrics.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="glass-card rounded-[24px] border border-white/50 px-5 py-4"
+                    >
+                      <p className="text-2xl font-semibold text-slate-950">
+                        {metric.value}
+                      </p>
+                      <p className="mt-1 text-sm text-slate-500">{metric.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="relative">
+                <div className="glass-card relative overflow-hidden rounded-[36px] border border-white/60 p-6 sm:p-8">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(12,50,114,0.18),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(12,50,114,0.08),_transparent_30%)]" />
+                  <div className="relative space-y-6">
+                    <div className="flex items-center justify-between rounded-[28px] bg-[#0C3272] p-5 text-white shadow-[0_20px_60px_rgba(12,50,114,0.28)]">
+                      <div>
+                        <p className="text-sm uppercase tracking-[0.2em] text-blue-100">
+                          {hero.strategyLabel}
+                        </p>
+                        <p className="mt-2 text-2xl font-semibold">
+                          {hero.strategyTitle}
+                        </p>
+                      </div>
+                      <Rocket className="size-11 text-blue-100" />
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {hero.showcaseCards.map((card) => (
+                        <div
+                          key={card.title}
+                          className="rounded-[28px] border border-slate-200/70 bg-white/90 p-5 shadow-sm"
+                        >
+                          <div className="mb-4 flex size-11 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272]">
+                            <Sparkles className="size-5" />
+                          </div>
+                          <p className="font-semibold text-slate-950">{card.title}</p>
+                          <p className="mt-2 text-sm leading-6 text-slate-500">
+                            {card.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="rounded-[30px] border border-dashed border-[#0C3272]/20 bg-[#0C3272]/5 p-6">
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0C3272]">
+                            {hero.locatedIn}
+                          </p>
+                          <p className="mt-2 text-2xl font-semibold text-slate-950">
+                            {content.siteConfig.location}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3 rounded-full border border-white bg-white px-4 py-3 shadow-sm">
+                          <PhoneCall className="size-4 text-[#0C3272]" />
+                          <a
+                            href={baseSiteConfig.phoneHref}
+                            className="font-semibold text-slate-950"
+                          >
+                            {baseSiteConfig.phoneDisplay}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="section-shell py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.whyChoose.eyebrow}
+              title={sections.whyChoose.title}
+              description={sections.whyChoose.description}
+              align="center"
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {differentiators.map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.06}>
+                <div className="glass-card h-full rounded-[30px] border border-white/50 p-6">
+                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272]">
+                    <ShieldCheck className="size-5" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {item.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section id="services" className="section-shell py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.services.eyebrow}
+              title={sections.services.title}
+              description={sections.services.description}
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-5 xl:grid-cols-2">
+            {services.map((service, index) => {
+              const Icon = serviceIcons[index];
+              return (
+                <Reveal key={service.title} delay={index * 0.05}>
+                  <div className="glass-card h-full rounded-[32px] border border-white/60 p-7">
+                    <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="space-y-4">
+                        <div className="flex size-14 items-center justify-center rounded-[20px] bg-[#0C3272] text-white shadow-[0_16px_40px_rgba(12,50,114,0.22)]">
+                          <Icon className="size-6" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-semibold text-slate-950">
+                            {service.title}
+                          </h3>
+                          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+                            {service.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {service.items.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-full border border-[#0C3272]/12 bg-[#0C3272]/5 px-4 py-2 text-sm font-medium text-slate-700"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </section>
+
+        <section id="process" className="section-shell py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.process.eyebrow}
+              title={sections.process.title}
+              description={sections.process.description}
+              align="center"
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-5 lg:grid-cols-6">
+            {processSteps.map((step, index) => (
+              <Reveal key={step} delay={index * 0.06}>
+                <div className="relative h-full rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-sm">
+                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-sm font-semibold text-white">
+                    {index + 1}
+                  </div>
+                  <h3 className="text-lg font-semibold text-slate-950">{step}</h3>
+                  {index < processSteps.length - 1 ? (
+                    <div className="pointer-events-none absolute right-[-16px] top-1/2 hidden -translate-y-1/2 lg:block">
+                      <ArrowUpRight className="size-8 rotate-45 text-[#0C3272]/30" />
+                    </div>
+                  ) : null}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section id="portfolio" className="section-shell py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.portfolio.eyebrow}
+              title={sections.portfolio.title}
+              description={sections.portfolio.description}
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {portfolioItems.map((item, index) => (
+              <Reveal key={item.name} delay={index * 0.05}>
+                <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
+                  <div className="relative aspect-[16/11] overflow-hidden bg-[linear-gradient(135deg,#0C3272,#1a56c6)] p-6 text-white">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.18),_transparent_25%)]" />
+                    <div className="relative flex h-full flex-col justify-between">
+                      <div className="flex items-center justify-between">
+                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em]">
+                          {sections.portfolio.projectPreview}
+                        </span>
+                        <Landmark className="size-5 text-blue-100" />
+                      </div>
+                      <div className="rounded-[24px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+                        <p className="text-sm text-blue-100">{item.category}</p>
+                        <p className="mt-2 text-2xl font-semibold">{item.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0C3272]">
+                      {item.category}
+                    </p>
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">
+                      {item.name}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                      {item.description}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-shell py-20">
+          <div className="rounded-[36px] bg-slate-950 px-6 py-12 text-white shadow-[0_30px_80px_rgba(15,23,42,0.18)] sm:px-10">
+            <Reveal>
+              <SectionHeading
+                eyebrow={sections.results.eyebrow}
+                title={sections.results.title}
+                description={sections.results.description}
+              />
+            </Reveal>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              {statistics.map((item, index) => (
+                <Reveal key={item.label} delay={index * 0.06}>
+                  <div className="rounded-[30px] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                    <AnimatedCounter value={item.value} suffix={item.suffix} />
+                    <p className="mt-3 text-sm uppercase tracking-[0.2em] text-blue-100">
+                      {item.label}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="testimonials" className="section-shell py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.testimonials.eyebrow}
+              title={sections.testimonials.title}
+              description={sections.testimonials.description}
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-6 lg:grid-cols-[0.45fr_0.55fr]">
+            <Reveal>
+              <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-sm">
+                <div className="flex items-center gap-3 text-[#0C3272]">
+                  <MessageSquareQuote className="size-6" />
+                  <span className="text-sm font-semibold uppercase tracking-[0.2em]">
+                    {sections.testimonials.whatClientsSay}
+                  </span>
+                </div>
+                <p className="mt-6 text-3xl font-semibold leading-tight text-slate-950">
+                  {sections.testimonials.sideQuote}
+                </p>
+                <div className="mt-8 flex gap-3">
+                  <button
+                    type="button"
+                    aria-label={common.previousTestimonial}
+                    onClick={() =>
+                      setActiveTestimonial((current) =>
+                        current === 0 ? testimonials.length - 1 : current - 1,
+                      )
+                    }
+                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272]"
+                  >
+                    <ChevronLeft className="size-5" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label={common.nextTestimonial}
+                    onClick={() =>
+                      setActiveTestimonial((current) => (current + 1) % testimonials.length)
+                    }
+                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272]"
+                  >
+                    <ChevronRight className="size-5" />
+                  </button>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <div className="glass-card rounded-[36px] border border-white/60 p-8">
+                <motion.div
+                  key={activeTestimonial}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  className="space-y-6"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex size-16 items-center justify-center rounded-full bg-[#0C3272]/10 text-[#0C3272]">
+                      <Star className="size-6 fill-current" />
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold text-slate-950">
+                        {testimonials[activeTestimonial]?.name}
+                      </p>
+                      <p className="text-sm text-slate-500">
+                        {testimonials[activeTestimonial]?.company}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 text-amber-400">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <Star key={index} className="size-5 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-xl leading-9 text-slate-700">
+                    “{testimonials[activeTestimonial]?.review}”
+                  </p>
+                  <div className="flex gap-2">
+                    {testimonials.map((item, index) => (
+                      <button
+                        key={item.name}
+                        type="button"
+                        onClick={() => setActiveTestimonial(index)}
+                        className={cn(
+                          "h-2.5 rounded-full transition-all",
+                          activeTestimonial === index
+                            ? "w-10 bg-[#0C3272]"
+                            : "w-2.5 bg-slate-300",
+                        )}
+                        aria-label={`${common.showTestimonial} ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section id="faq" className="section-shell py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.faq.eyebrow}
+              title={sections.faq.title}
+              description={sections.faq.description}
+              align="center"
+            />
+          </Reveal>
+          <div className="mx-auto mt-12 max-w-4xl space-y-4">
+            {faqs.map((faq, index) => {
+              const isOpen = activeFaq === index;
+
+              return (
+                <Reveal key={faq.question} delay={index * 0.03}>
+                  <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setActiveFaq(isOpen ? null : index)}
+                      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272]/8 text-[#0C3272]">
+                          <CircleHelp className="size-5" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-slate-950">
+                            {faq.question}
+                          </h3>
+                        </div>
+                      </div>
+                      <ChevronRight
+                        className={cn(
+                          "size-5 shrink-0 text-slate-400 transition-transform",
+                          isOpen && "rotate-90 text-[#0C3272]",
+                        )}
+                      />
+                    </button>
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isOpen ? "auto" : 0,
+                        opacity: isOpen ? 1 : 0,
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-6 pl-20 text-sm leading-7 text-slate-600">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="section-shell py-20">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-[40px] bg-[#0C3272] px-6 py-12 text-white shadow-[0_30px_90px_rgba(12,50,114,0.28)] sm:px-10 lg:px-14">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.16),_transparent_20%)]" />
+              <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+                <div className="space-y-4">
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100">
+                    {sections.finalCta.eyebrow}
+                  </p>
+                  <h2 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+                    {sections.finalCta.title}
+                  </h2>
+                  <p className="max-w-2xl text-lg leading-8 text-blue-50">
+                    {sections.finalCta.description}
+                  </p>
+                </div>
+                <a href="#contact" className="w-full lg:w-auto">
+                  <Button
+                    size="large"
+                    className="w-full bg-white text-slate-950 hover:bg-slate-100"
+                  >
+                    {sections.finalCta.cta}
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+      </main>
+
+      <footer id="contact" className="bg-slate-950 py-20 text-white">
+        <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <Reveal>
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-100">
+                <PhoneCall className="size-4" />
+                {sections.contact.badge}
+              </div>
+              <h2 className="max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">
+                {sections.contact.title}
+              </h2>
+              <p className="max-w-xl text-lg leading-8 text-slate-300">
+                {sections.contact.description}
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <ContactCard
+                  icon={PhoneCall}
+                  label={sections.contact.phoneLabel}
+                  value={baseSiteConfig.phoneDisplay}
+                  href={baseSiteConfig.phoneHref}
+                />
+                <ContactCard
+                  icon={BarChart3}
+                  label={sections.contact.servicesLabel}
+                  value={sections.contact.servicesValue}
+                />
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="rounded-[36px] border border-white/10 bg-white/6 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
+              <ContactForm key={content.locale} content={content} />
+            </div>
+          </Reveal>
+        </div>
+      </footer>
+
+      <button
+        type="button"
+        aria-label={common.backToTop}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className={cn(
+          "fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all",
+          showBackToTop
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-4 opacity-0",
+        )}
+      >
+        <ChevronUp className="size-5" />
+      </button>
+    </div>
+  );
+}
+
+function ContactForm({ content }: { content: SiteContent }) {
+  const { form } = content;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const leadSchema = useMemo(
+    () => createLeadSchema(content.validation),
+    [content.validation],
+  );
+
+  const formMethods = useForm<LeadFormValues>({
+    resolver: zodResolver(leadSchema),
+    defaultValues: {
+      fullName: "",
+      companyName: "",
+      businessType: "",
+      phoneNumber: "",
+      website: "",
+    },
+  });
+
+  async function onSubmit(values: LeadFormValues) {
+    setIsSubmitting(true);
+    setIsSuccess(false);
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const payload = (await response.json()) as { error?: string; message?: string };
+
+      if (!response.ok) {
+        toast.error(payload.error || form.errorGeneric);
+        return;
+      }
+
+      formMethods.reset();
+      setIsSuccess(true);
+      toast.success(payload.message || form.success);
+    } catch {
+      toast.error(form.errorNetwork);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-5">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <FormField
+          label={form.fullName}
+          error={formMethods.formState.errors.fullName?.message}
+        >
+          <input
+            {...formMethods.register("fullName")}
+            aria-invalid={!!formMethods.formState.errors.fullName}
+            className={inputStyles}
+            placeholder={form.placeholders.fullName}
+          />
+        </FormField>
+        <FormField
+          label={form.companyName}
+          error={formMethods.formState.errors.companyName?.message}
+        >
+          <input
+            {...formMethods.register("companyName")}
+            aria-invalid={!!formMethods.formState.errors.companyName}
+            className={inputStyles}
+            placeholder={form.placeholders.companyName}
+          />
+        </FormField>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <FormField
+          label={form.businessType}
+          error={formMethods.formState.errors.businessType?.message}
+        >
+          <input
+            {...formMethods.register("businessType")}
+            aria-invalid={!!formMethods.formState.errors.businessType}
+            className={inputStyles}
+            placeholder={form.placeholders.businessType}
+          />
+        </FormField>
+        <FormField
+          label={form.phoneNumber}
+          error={formMethods.formState.errors.phoneNumber?.message}
+        >
+          <input
+            {...formMethods.register("phoneNumber")}
+            aria-invalid={!!formMethods.formState.errors.phoneNumber}
+            className={inputStyles}
+            placeholder={form.placeholders.phoneNumber}
+          />
+        </FormField>
+      </div>
+
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        {...formMethods.register("website")}
+      />
+
+      <Button type="submit" size="large" className="w-full">
+        {isSubmitting ? form.submitting : form.submit}
+      </Button>
+
+      {isSuccess ? (
+        <div
+          role="status"
+          className="rounded-[24px] border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-700"
+        >
+          {form.success}
+        </div>
+      ) : null}
+    </form>
+  );
+}
+
+function Reveal({
+  children,
+  delay = 0,
+}: {
+  children: ReactNode;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55, delay, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function AnimatedCounter({
+  value,
+  suffix,
+}: {
+  value: number;
+  suffix: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const start = performance.now();
+    const duration = 1200;
+
+    const frame = (time: number) => {
+      const progress = Math.min((time - start) / duration, 1);
+      setDisplayValue(Math.round(value * progress));
+      if (progress < 1) {
+        window.requestAnimationFrame(frame);
+      }
+    };
+
+    window.requestAnimationFrame(frame);
+  }, [isInView, value]);
+
+  return (
+    <div ref={ref} className="text-5xl font-semibold tracking-tight">
+      {displayValue}
+      {suffix}
+    </div>
+  );
+}
+
+function ContactCard({
+  icon: Icon,
+  label,
+  value,
+  href,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+  href?: string;
+}) {
+  const content = (
+    <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition hover:bg-white/8">
+      <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-white/10">
+        <Icon className="size-5 text-blue-100" />
+      </div>
+      <p className="text-sm text-slate-300">{label}</p>
+      <p className="mt-2 text-base font-semibold text-white">{value}</p>
+    </div>
+  );
+
+  if (!href) return content;
+
+  return <a href={href}>{content}</a>;
+}
+
+function FormField({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className="block space-y-2">
+      <span className="text-sm font-medium text-white">{label}</span>
+      {children}
+      {error ? <span className="text-sm text-red-300">{error}</span> : null}
+    </label>
+  );
+}
+
+const inputStyles =
+  "h-12 w-full rounded-2xl border border-white/12 bg-white/8 px-4 text-white outline-none placeholder:text-slate-400 transition focus:border-blue-200/60 focus:bg-white/12";
