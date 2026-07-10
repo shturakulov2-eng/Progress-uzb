@@ -27,11 +27,13 @@ export const contentEn: SiteContent = {
     title: "Grow Your Business With Professional Digital Marketing",
     subtitle:
       "Progress.uzb helps businesses in Samarkand and beyond scale with premium strategy, websites, social campaigns, content, automation, and AI-powered solutions built to generate qualified leads.",
-    ctaPrimary: "Get Free Consultation",
+    ctaPrimary: "Book a Consultation",
     ctaSecondary: "View Our Services",
     strategyLabel: "Strategy-first",
     strategyTitle: "Premium Growth Systems",
     locatedIn: "Located in",
+    videoQuote:
+      "Money spent on marketing is not an expense. It is a long-term profitable investment!",
     showcaseCards: [
       {
         title: "Premium strategy systems",
@@ -101,12 +103,12 @@ export const contentEn: SiteContent = {
       eyebrow: "Ready to grow?",
       title: "Build a stronger brand presence and a more predictable lead pipeline.",
       description:
-        "Book your free consultation with Progress.uzb and we will identify the smartest next step for your business.",
-      cta: "Get Free Consultation",
+        "Book a consultation with Progress.uzb and we will identify the smartest next step for your business.",
+      cta: "Book a Consultation",
     },
     contact: {
       badge: "Contact Progress.uzb",
-      title: "Request your free consultation and let's discuss your next growth move.",
+      title: "Book a consultation and let's discuss your next growth move.",
       description:
         "Share a few details about your business and our team will contact you shortly with the best next step.",
       phoneLabel: "Phone",
@@ -238,7 +240,7 @@ export const contentEn: SiteContent = {
     },
   ],
   processSteps: [
-    "Free Consultation",
+    "Consultation",
     "Business Analysis",
     "Strategy",
     "Execution",
@@ -323,7 +325,7 @@ export const contentEn: SiteContent = {
     {
       question: "How do you start a new project?",
       answer:
-        "We begin with a free consultation, review your current situation, define priorities, then create a strategy and execution roadmap.",
+        "We begin with a consultation, review your current situation, define priorities, then create a strategy and execution roadmap.",
     },
     {
       question: "Can you help generate leads for our business?",
@@ -372,14 +374,21 @@ export const contentEn: SiteContent = {
       businessType: "e.g. E-commerce, Clinic, Startup",
       phoneNumber: "+998 90 123 45 67",
     },
-    submit: "Request Free Consultation",
+    submit: "Book a Consultation",
     submitting: "Sending...",
     success: "Thank you! We will contact you shortly.",
     errorGeneric: "Something went wrong.",
     errorNetwork: "Unable to send your request right now. Please try again.",
   },
+  popup: {
+    eyebrow: "Limited offer",
+    title: "Let's take your business to the next level",
+    description:
+      "Leave your details — our team will reach out with a strategy to grow your sales.",
+    close: "Close",
+  },
   common: {
-    freeConsultation: "Free Consultation",
+    freeConsultation: "Book a Consultation",
     backToTop: "Back to top",
     previousTestimonial: "Previous testimonial",
     nextTestimonial: "Next testimonial",

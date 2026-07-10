@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowUpRight,
   BarChart3,
@@ -17,7 +16,6 @@ import {
   MessageSquareQuote,
   Palette,
   PhoneCall,
-  Rocket,
   ShieldCheck,
   Sparkles,
   Star,
@@ -25,19 +23,17 @@ import {
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ComponentType, ReactNode } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import logoImage from "../../logo progress ver.png";
+import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
+import { LeadPopup } from "@/components/shared/lead-popup";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { baseSiteConfig } from "@/content/base";
-import type { SiteContent } from "@/content/types";
 import { useLanguage } from "@/context/language-context";
-import { createLeadSchema, type LeadFormValues } from "@/lib/validators";
 import { cn } from "@/lib/utils";
 
 const serviceIcons = [
@@ -92,50 +88,55 @@ export default function Home() {
       <div className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow" />
       <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
 
-      <header className="sticky top-0 z-50 border-b border-white/60 bg-white/75 backdrop-blur-xl">
-        <div className="section-shell">
-          <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3">
+      <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/20 bg-[#0C3272]/88 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-xl">
+        <div className="relative px-5 sm:px-7 lg:px-8">
+          <div className="flex flex-col gap-4 py-3.5 md:flex-row md:items-center md:justify-between md:gap-5">
+            <div className="flex shrink-0 items-center gap-3">
               <Image
                 src={logoImage}
                 alt="Progress.uzb logo"
                 width={120}
-                className="h-auto w-[110px] sm:w-[120px]"
+                className="h-auto w-[110px] brightness-0 invert sm:w-[120px]"
                 priority
               />
-              <div className="hidden text-sm text-slate-500 lg:block">
+              <div className="hidden whitespace-pre-line text-sm leading-snug text-white/80 xl:block">
                 {hero.navTagline}
               </div>
             </div>
 
             <nav
               aria-label={common.primaryNav}
-              className="hide-scrollbar flex gap-2 overflow-x-auto md:items-center"
+              className="hide-scrollbar flex gap-1 overflow-x-auto md:items-center md:justify-center"
             >
               {navigation.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950"
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white transition hover:bg-white/15 hover:text-white"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
-              <LanguageSwitcher />
+            <div className="relative z-10 flex shrink-0 items-center gap-3">
+              <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:hover:border-white/60 [&>button]:hover:text-white" />
               <a href="#contact" className="hidden md:block">
-                <Button>{common.freeConsultation}</Button>
+                <Button
+                  variant="ghost"
+                  className="border border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                >
+                  {common.freeConsultation}
+                </Button>
               </a>
             </div>
           </div>
         </div>
       </header>
 
-      <main>
+      <main className="pt-32">
         <section id="home" className="section-shell pt-10 pb-20 sm:pt-14 sm:pb-24">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <Reveal>
               <div className="space-y-8">
                 <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-4 py-2 text-sm text-[#0C3272] shadow-sm backdrop-blur-sm">
@@ -182,60 +183,24 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="relative">
-                <div className="glass-card relative overflow-hidden rounded-[36px] border border-white/60 p-6 sm:p-8">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(12,50,114,0.18),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(12,50,114,0.08),_transparent_30%)]" />
-                  <div className="relative space-y-6">
-                    <div className="flex items-center justify-between rounded-[28px] bg-[#0C3272] p-5 text-white shadow-[0_20px_60px_rgba(12,50,114,0.28)]">
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.2em] text-blue-100">
-                          {hero.strategyLabel}
-                        </p>
-                        <p className="mt-2 text-2xl font-semibold">
-                          {hero.strategyTitle}
-                        </p>
-                      </div>
-                      <Rocket className="size-11 text-blue-100" />
-                    </div>
-
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {hero.showcaseCards.map((card) => (
-                        <div
-                          key={card.title}
-                          className="rounded-[28px] border border-slate-200/70 bg-white/90 p-5 shadow-sm"
-                        >
-                          <div className="mb-4 flex size-11 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272]">
-                            <Sparkles className="size-5" />
-                          </div>
-                          <p className="font-semibold text-slate-950">{card.title}</p>
-                          <p className="mt-2 text-sm leading-6 text-slate-500">
-                            {card.description}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="rounded-[30px] border border-dashed border-[#0C3272]/20 bg-[#0C3272]/5 p-6">
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0C3272]">
-                            {hero.locatedIn}
-                          </p>
-                          <p className="mt-2 text-2xl font-semibold text-slate-950">
-                            {content.siteConfig.location}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-3 rounded-full border border-white bg-white px-4 py-3 shadow-sm">
-                          <PhoneCall className="size-4 text-[#0C3272]" />
-                          <a
-                            href={baseSiteConfig.phoneHref}
-                            className="font-semibold text-slate-950"
-                          >
-                            {baseSiteConfig.phoneDisplay}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+              <div className="relative mx-auto w-full max-w-[420px] lg:ml-auto lg:mr-0">
+                <div className="pointer-events-none absolute -inset-4 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(12,50,114,0.22),transparent_55%)] blur-2xl" />
+                <div className="glass-card relative aspect-[3/4] overflow-hidden rounded-[36px] border border-white/60 shadow-[0_24px_80px_rgba(12,50,114,0.18)]">
+                  <video
+                    src="/videos/hero-businessman.mp4"
+                    className="absolute inset-0 h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label="Progress.uzb"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,50,114,0.12)_0%,transparent_28%,transparent_62%,rgba(12,50,114,0.45)_100%)]" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+                    <p className="text-lg font-semibold leading-snug text-white sm:text-xl">
+                      {hero.videoQuote}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -649,131 +614,9 @@ export default function Home() {
       >
         <ChevronUp className="size-5" />
       </button>
+
+      <LeadPopup content={content} />
     </div>
-  );
-}
-
-function ContactForm({ content }: { content: SiteContent }) {
-  const { form } = content;
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const leadSchema = useMemo(
-    () => createLeadSchema(content.validation),
-    [content.validation],
-  );
-
-  const formMethods = useForm<LeadFormValues>({
-    resolver: zodResolver(leadSchema),
-    defaultValues: {
-      fullName: "",
-      companyName: "",
-      businessType: "",
-      phoneNumber: "",
-      website: "",
-    },
-  });
-
-  async function onSubmit(values: LeadFormValues) {
-    setIsSubmitting(true);
-    setIsSuccess(false);
-
-    try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      const payload = (await response.json()) as { error?: string; message?: string };
-
-      if (!response.ok) {
-        toast.error(payload.error || form.errorGeneric);
-        return;
-      }
-
-      formMethods.reset();
-      setIsSuccess(true);
-      toast.success(payload.message || form.success);
-    } catch {
-      toast.error(form.errorNetwork);
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
-  return (
-    <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <FormField
-          label={form.fullName}
-          error={formMethods.formState.errors.fullName?.message}
-        >
-          <input
-            {...formMethods.register("fullName")}
-            aria-invalid={!!formMethods.formState.errors.fullName}
-            className={inputStyles}
-            placeholder={form.placeholders.fullName}
-          />
-        </FormField>
-        <FormField
-          label={form.companyName}
-          error={formMethods.formState.errors.companyName?.message}
-        >
-          <input
-            {...formMethods.register("companyName")}
-            aria-invalid={!!formMethods.formState.errors.companyName}
-            className={inputStyles}
-            placeholder={form.placeholders.companyName}
-          />
-        </FormField>
-      </div>
-      <div className="grid gap-5 sm:grid-cols-2">
-        <FormField
-          label={form.businessType}
-          error={formMethods.formState.errors.businessType?.message}
-        >
-          <input
-            {...formMethods.register("businessType")}
-            aria-invalid={!!formMethods.formState.errors.businessType}
-            className={inputStyles}
-            placeholder={form.placeholders.businessType}
-          />
-        </FormField>
-        <FormField
-          label={form.phoneNumber}
-          error={formMethods.formState.errors.phoneNumber?.message}
-        >
-          <input
-            {...formMethods.register("phoneNumber")}
-            aria-invalid={!!formMethods.formState.errors.phoneNumber}
-            className={inputStyles}
-            placeholder={form.placeholders.phoneNumber}
-          />
-        </FormField>
-      </div>
-
-      <input
-        type="text"
-        tabIndex={-1}
-        autoComplete="off"
-        className="hidden"
-        {...formMethods.register("website")}
-      />
-
-      <Button type="submit" size="large" className="w-full">
-        {isSubmitting ? form.submitting : form.submit}
-      </Button>
-
-      {isSuccess ? (
-        <div
-          role="status"
-          className="rounded-[24px] border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-700"
-        >
-          {form.success}
-        </div>
-      ) : null}
-    </form>
   );
 }
 
@@ -858,23 +701,3 @@ function ContactCard({
   return <a href={href}>{content}</a>;
 }
 
-function FormField({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string;
-  children: ReactNode;
-}) {
-  return (
-    <label className="block space-y-2">
-      <span className="text-sm font-medium text-white">{label}</span>
-      {children}
-      {error ? <span className="text-sm text-red-300">{error}</span> : null}
-    </label>
-  );
-}
-
-const inputStyles =
-  "h-12 w-full rounded-2xl border border-white/12 bg-white/8 px-4 text-white outline-none placeholder:text-slate-400 transition focus:border-blue-200/60 focus:bg-white/12";

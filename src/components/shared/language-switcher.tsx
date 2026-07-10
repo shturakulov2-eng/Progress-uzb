@@ -48,7 +48,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         <ul
           role="listbox"
           aria-label={content.common.selectLanguage}
-          className="absolute right-0 z-50 mt-2 min-w-[160px] overflow-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10"
+          className="absolute right-0 z-[100] mt-2 min-w-[160px] overflow-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10"
         >
           {locales.map((item) => {
             const isActive = item === locale;

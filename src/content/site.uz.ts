@@ -22,16 +22,18 @@ export const contentUz: SiteContent = {
     { value: "6+", label: "Yillik tajriba" },
   ],
   hero: {
-    navTagline: "Samarqanddagi premium marketing agentligi",
-    badge: "Ambitsiyali brendlar uchun konversiyaga yo'naltirilgan o'sish hamkori",
-    title: "Professional Raqamli Marketing Bilan Biznesingizni O'stiring",
+    navTagline: "Brenddan sotuvgacha\nkompleks yechimlar",
+    badge: "Mahsulotiga ishonadigan brendlar uchun savdoni oshiradigan strategik hamkor",
+    title: "Raqamli marketing bilan savdoingizni oshiramiz!",
     subtitle:
-      "Progress.uzb Samarqand va undan tashqaridagi bizneslarga premium strategiya, veb-saytlar, ijtimoiy tarmoq kampaniyalari, kontent, avtomatlashtirish va AI yechimlari orqali sifatli lidlar olishga yordam beradi.",
-    ctaPrimary: "Bepul maslahat olish",
+      "Progress Marketing Agentligi 2019-yildan beri O`zbekistondagi mashhur ishlab brendlar bilan savdoni oshirishga qaratilgan marketing yechimlar bilan hamkorlik qilib kelmoqda.",
+    ctaPrimary: "Konsultatsiyaga yozilish",
     ctaSecondary: "Xizmatlarimizni ko'rish",
     strategyLabel: "Strategiya birinchi",
     strategyTitle: "Premium O'sish Tizimlari",
     locatedIn: "Manzil",
+    videoQuote:
+      "Marketing ga sarflagan pulingiz xarajat emas. uzoq muddatli foydali investitsiya!",
     showcaseCards: [
       {
         title: "Premium strategiya tizimlari",
@@ -101,12 +103,12 @@ export const contentUz: SiteContent = {
       eyebrow: "O'sishga tayyormisiz?",
       title: "Kuchliroq brend mavjudligi va barqaror lid oqimini yarating.",
       description:
-        "Progress.uzb bilan bepul maslahat oling va biznesingiz uchun eng to'g'ri keyingi qadamni aniqlaymiz.",
-      cta: "Bepul maslahat olish",
+        "Progress.uzb bilan konsultatsiyaga yoziling va biznesingiz uchun eng to'g'ri keyingi qadamni aniqlaymiz.",
+      cta: "Konsultatsiyaga yozilish",
     },
     contact: {
       badge: "Progress.uzb bilan bog'lanish",
-      title: "Bepul maslahat so'rang va keyingi o'sish qadamini muhokama qilaylik.",
+      title: "Konsultatsiyaga yoziling va keyingi o'sish qadamini muhokama qilaylik.",
       description:
         "Biznesingiz haqida qisqacha ma'lumot qoldiring — jamoamiz tez orada siz bilan bog'lanadi.",
       phoneLabel: "Telefon",
@@ -238,7 +240,7 @@ export const contentUz: SiteContent = {
     },
   ],
   processSteps: [
-    "Bepul Maslahat",
+    "Konsultatsiyaga yozilish",
     "Biznes Tahlili",
     "Strategiya",
     "Ijro",
@@ -317,7 +319,7 @@ export const contentUz: SiteContent = {
     {
       question: "Yangi loyihani qanday boshlaysiz?",
       answer:
-        "Bepul maslahatdan boshlaymiz, hozirgi holatni tahlil qilamiz, ustuvorliklarni belgilaymiz va strategiya rejasini tuzamiz.",
+        "Konsultatsiyaga yozilishdan boshlaymiz, hozirgi holatni tahlil qilamiz, ustuvorliklarni belgilaymiz va strategiya rejasini tuzamiz.",
     },
     {
       question: "Biznesimiz uchun lidlar olishga yordam bera olasizmi?",
@@ -366,14 +368,21 @@ export const contentUz: SiteContent = {
       businessType: "masalan: E-commerce, Klinika, Startap",
       phoneNumber: "+998 90 123 45 67",
     },
-    submit: "Bepul Maslahat So'rash",
+    submit: "Konsultatsiyaga yozilish",
     submitting: "Yuborilmoqda...",
     success: "Rahmat! Tez orada siz bilan bog'lanamiz.",
     errorGeneric: "Xatolik yuz berdi.",
     errorNetwork: "Hozir so'rov yuborib bo'lmadi. Qayta urinib ko'ring.",
   },
+  popup: {
+    eyebrow: "Cheklangan taklif",
+    title: "Biznesingizni keyingi bosqichga olib chiqamiz",
+    description:
+      "Ma'lumotlaringizni qoldiring — jamoamiz siz bilan bog'lanib, savdongizni oshirish bo'yicha strategiya taqdim etadi.",
+    close: "Yopish",
+  },
   common: {
-    freeConsultation: "Bepul Maslahat",
+    freeConsultation: "Konsultatsiyaga yozilish",
     backToTop: "Yuqoriga",
     previousTestimonial: "Oldingi fikr",
     nextTestimonial: "Keyingi fikr",

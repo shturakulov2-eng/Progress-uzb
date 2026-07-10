@@ -24,6 +24,7 @@ export type SiteContent = {
     strategyLabel: string;
     strategyTitle: string;
     locatedIn: string;
+    videoQuote: string;
     showcaseCards: { title: string; description: string }[];
   };
   sections: {
@@ -72,6 +73,12 @@ export type SiteContent = {
     success: string;
     errorGeneric: string;
     errorNetwork: string;
+  };
+  popup: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    close: string;
   };
   common: {
     freeConsultation: string;
