@@ -184,7 +184,7 @@ export const contentRu: SiteContent = {
       items: [
         "Рекламные Видео",
         "Видео о Продукте",
-        "Reels",
+        "Instagram reels",
         "Короткий Контент",
         "Профессиональный Монтаж",
       ],

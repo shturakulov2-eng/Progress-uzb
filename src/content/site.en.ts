@@ -184,7 +184,7 @@ export const contentEn: SiteContent = {
       items: [
         "Commercial Videos",
         "Product Videos",
-        "Reels",
+        "Instagram reels",
         "Short Form Content",
         "Professional Editing",
       ],

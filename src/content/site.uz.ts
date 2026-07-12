@@ -184,7 +184,7 @@ export const contentUz: SiteContent = {
       items: [
         "Reklama Videolari",
         "Mahsulot Videolari",
-        "Reels",
+        "Instagram reels",
         "Qisqa Format Kontent",
         "Professional Montaj",
       ],
