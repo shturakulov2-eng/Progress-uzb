@@ -17,20 +17,34 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
       title={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
       className={cn(
-        "flex size-12 items-center justify-center rounded-full border border-white/15 bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all hover:-translate-y-0.5 hover:bg-[#0f3f91] dark:border-white/10 dark:bg-slate-800 dark:hover:bg-slate-700",
+        "group relative flex size-14 items-center justify-center overflow-hidden rounded-full",
+        "border border-white/25 bg-[#0C3272]/95 text-white shadow-[0_18px_50px_rgba(12,50,114,0.35)]",
+        "backdrop-blur-xl transition-all duration-300",
+        "hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(12,50,114,0.45)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2",
+        "dark:border-white/15 dark:bg-slate-900/90 dark:shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
+        "dark:hover:bg-slate-800 dark:focus-visible:ring-offset-slate-950",
         className,
       )}
     >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.28),transparent_55%)] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+      />
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
-          key={isDark ? "moon" : "sun"}
-          initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
-          animate={{ opacity: 1, rotate: 0, scale: 1 }}
-          exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-center justify-center"
+          key={isDark ? "sun" : "moon"}
+          initial={{ opacity: 0, rotate: -90, scale: 0.55, y: 8 }}
+          animate={{ opacity: 1, rotate: 0, scale: 1, y: 0 }}
+          exit={{ opacity: 0, rotate: 90, scale: 0.55, y: -8 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="relative z-10 flex items-center justify-center"
         >
-          {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
+          {isDark ? (
+            <Sun className="size-5 text-amber-300" strokeWidth={2.2} />
+          ) : (
+            <Moon className="size-5 text-blue-100" strokeWidth={2.2} />
+          )}
         </motion.span>
       </AnimatePresence>
     </button>

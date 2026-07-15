@@ -89,7 +89,15 @@ export default function Home() {
       <div className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow" />
       <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
 
-      <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/20 bg-[#0C3272]/88 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-xl">
+      <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/30 bg-[#0C3272]/45 shadow-[0_12px_40px_rgba(12,50,114,0.22)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/35 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-[28px] bg-[linear-gradient(135deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_40%,rgba(255,255,255,0)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-4 top-0 h-px rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent"
+        />
         <div className="relative px-5 sm:px-7 lg:px-8">
           <div className="flex flex-col gap-4 py-3.5 md:flex-row md:items-center md:gap-6 lg:gap-8">
             <div className="flex shrink-0 items-center">
@@ -110,7 +118,7 @@ export default function Home() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white transition hover:bg-white/15 hover:text-white lg:px-3.5"
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white/95 transition hover:bg-white/20 hover:text-white lg:px-3.5"
                 >
                   {item.label}
                 </a>
@@ -118,11 +126,11 @@ export default function Home() {
             </nav>
 
             <div className="relative z-10 flex shrink-0 items-center gap-3 md:ml-auto">
-              <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:hover:border-white/60 [&>button]:hover:text-white" />
+              <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white" />
               <a href="#contact" className="hidden md:block">
                 <Button
                   variant="ghost"
-                  className="border border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  className="border border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white/25 hover:text-white"
                 >
                   {common.freeConsultation}
                 </Button>
@@ -599,21 +607,23 @@ export default function Home() {
         </div>
       </footer>
 
-      <button
-        type="button"
-        aria-label={common.backToTop}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={cn(
-          "fixed bottom-[5.5rem] right-6 z-50 flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all dark:bg-slate-800",
-          showBackToTop
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-4 opacity-0",
-        )}
-      >
-        <ChevronUp className="size-5" />
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <button
+          type="button"
+          aria-label={common.backToTop}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className={cn(
+            "flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all dark:bg-slate-800",
+            showBackToTop
+              ? "translate-y-0 opacity-100"
+              : "pointer-events-none translate-y-4 opacity-0",
+          )}
+        >
+          <ChevronUp className="size-5" />
+        </button>
 
-      <ThemeToggle className="fixed bottom-6 right-6 z-50" />
+        <ThemeToggle />
+      </div>
 
       <LeadPopup content={content} />
     </div>
