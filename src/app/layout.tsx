@@ -30,9 +30,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${manrope.variable} h-full scroll-smooth`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('progress-theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;var r=document.documentElement;if(d){r.classList.add('dark');r.style.colorScheme='dark';}else{r.style.colorScheme='light';}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body
         suppressHydrationWarning
-        className="min-h-full bg-[--color-background] font-sans text-slate-950 antialiased"
+        className="min-h-full bg-[--color-background] font-sans text-slate-950 antialiased dark:text-slate-100"
       >
         <AppProviders>
           {children}

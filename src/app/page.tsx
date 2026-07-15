@@ -31,6 +31,7 @@ import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup } from "@/components/shared/lead-popup";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { baseSiteConfig } from "@/content/base";
 import { useLanguage } from "@/context/language-context";
@@ -84,14 +85,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative overflow-x-hidden bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)]">
+    <div className="relative overflow-x-hidden bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_38%,#0b1220_100%)]">
       <div className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow" />
       <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
 
       <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/20 bg-[#0C3272]/88 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-xl">
         <div className="relative px-5 sm:px-7 lg:px-8">
-          <div className="flex flex-col gap-4 py-3.5 md:flex-row md:items-center md:justify-between md:gap-5">
-            <div className="flex shrink-0 items-center gap-3">
+          <div className="flex flex-col gap-4 py-3.5 md:flex-row md:items-center md:gap-6 lg:gap-8">
+            <div className="flex shrink-0 items-center">
               <Image
                 src={logoImage}
                 alt="Progress.uzb logo"
@@ -99,27 +100,24 @@ export default function Home() {
                 className="h-auto w-[110px] brightness-0 invert sm:w-[120px]"
                 priority
               />
-              <div className="hidden whitespace-pre-line text-sm leading-snug text-white/80 xl:block">
-                {hero.navTagline}
-              </div>
             </div>
 
             <nav
               aria-label={common.primaryNav}
-              className="hide-scrollbar flex gap-1 overflow-x-auto md:items-center md:justify-center"
+              className="hide-scrollbar flex min-w-0 flex-1 gap-1 overflow-x-auto md:items-center md:justify-center lg:gap-2"
             >
               {navigation.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white transition hover:bg-white/15 hover:text-white"
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white transition hover:bg-white/15 hover:text-white lg:px-3.5"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <div className="relative z-10 flex shrink-0 items-center gap-3">
+            <div className="relative z-10 flex shrink-0 items-center gap-3 md:ml-auto">
               <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:hover:border-white/60 [&>button]:hover:text-white" />
               <a href="#contact" className="hidden md:block">
                 <Button
@@ -139,15 +137,15 @@ export default function Home() {
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <Reveal>
               <div className="space-y-8">
-                <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-4 py-2 text-sm text-[#0C3272] shadow-sm backdrop-blur-sm">
+                <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-4 py-2 text-sm text-[#0C3272] shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-blue-200">
                   <ShieldCheck className="size-4" />
                   {hero.badge}
                 </div>
                 <div className="space-y-5">
-                  <h1 className="max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+                  <h1 className="max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl dark:text-white">
                     {hero.title}
                   </h1>
-                  <p className="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+                  <p className="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
                     {hero.subtitle}
                   </p>
                 </div>
@@ -170,12 +168,12 @@ export default function Home() {
                   {heroMetrics.map((metric) => (
                     <div
                       key={metric.label}
-                      className="glass-card rounded-[24px] border border-white/50 px-5 py-4"
+                      className="glass-card rounded-[24px] border border-white/50 px-5 py-4 dark:border-white/10"
                     >
-                      <p className="text-2xl font-semibold text-slate-950">
+                      <p className="text-2xl font-semibold text-slate-950 dark:text-white">
                         {metric.value}
                       </p>
-                      <p className="mt-1 text-sm text-slate-500">{metric.label}</p>
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{metric.label}</p>
                     </div>
                   ))}
                 </div>
@@ -185,7 +183,7 @@ export default function Home() {
             <Reveal delay={0.1}>
               <div className="relative mx-auto w-full max-w-[420px] lg:ml-auto lg:mr-0">
                 <div className="pointer-events-none absolute -inset-4 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(12,50,114,0.22),transparent_55%)] blur-2xl" />
-                <div className="glass-card relative aspect-[3/4] overflow-hidden rounded-[36px] border border-white/60 shadow-[0_24px_80px_rgba(12,50,114,0.18)]">
+                <div className="glass-card relative aspect-[3/4] overflow-hidden rounded-[36px] border border-white/60 shadow-[0_24px_80px_rgba(12,50,114,0.18)] dark:border-white/10">
                   <video
                     src="/videos/hero-businessman.mp4"
                     className="absolute inset-0 h-full w-full object-cover"
@@ -220,12 +218,12 @@ export default function Home() {
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {differentiators.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.06}>
-                <div className="glass-card h-full rounded-[30px] border border-white/50 p-6">
-                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272]">
+                <div className="glass-card h-full rounded-[30px] border border-white/50 p-6 dark:border-white/10">
+                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
                     <ShieldCheck className="size-5" />
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                  <h3 className="text-xl font-semibold text-slate-950 dark:text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
                     {item.description}
                   </p>
                 </div>
@@ -247,17 +245,17 @@ export default function Home() {
               const Icon = serviceIcons[index];
               return (
                 <Reveal key={service.title} delay={index * 0.05}>
-                  <div className="glass-card h-full rounded-[32px] border border-white/60 p-7">
+                  <div className="glass-card h-full rounded-[32px] border border-white/60 p-7 dark:border-white/10">
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                       <div className="space-y-4">
-                        <div className="flex size-14 items-center justify-center rounded-[20px] bg-[#0C3272] text-white shadow-[0_16px_40px_rgba(12,50,114,0.22)]">
+                        <div className="flex size-14 items-center justify-center rounded-[20px] bg-[#0C3272] text-white shadow-[0_16px_40px_rgba(12,50,114,0.22)] dark:bg-blue-600">
                           <Icon className="size-6" />
                         </div>
                         <div>
-                          <h3 className="text-2xl font-semibold text-slate-950">
+                          <h3 className="text-2xl font-semibold text-slate-950 dark:text-white">
                             {service.title}
                           </h3>
-                          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+                          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
                             {service.description}
                           </p>
                         </div>
@@ -267,7 +265,7 @@ export default function Home() {
                       {service.items.map((item) => (
                         <span
                           key={item}
-                          className="rounded-full border border-[#0C3272]/12 bg-[#0C3272]/5 px-4 py-2 text-sm font-medium text-slate-700"
+                          className="rounded-full border border-[#0C3272]/12 bg-[#0C3272]/5 px-4 py-2 text-sm font-medium text-slate-700 dark:border-blue-300/20 dark:bg-blue-300/10 dark:text-slate-200"
                         >
                           {item}
                         </span>
@@ -292,11 +290,11 @@ export default function Home() {
           <div className="mt-12 grid gap-5 lg:grid-cols-6">
             {processSteps.map((step, index) => (
               <Reveal key={step} delay={index * 0.06}>
-                <div className="relative h-full rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-sm">
-                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-sm font-semibold text-white">
+                <div className="relative h-full rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-sm font-semibold text-white dark:bg-blue-600">
                     {index + 1}
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-950">{step}</h3>
+                  <h3 className="text-lg font-semibold text-slate-950 dark:text-white">{step}</h3>
                   {index < processSteps.length - 1 ? (
                     <div className="pointer-events-none absolute right-[-16px] top-1/2 hidden -translate-y-1/2 lg:block">
                       <ArrowUpRight className="size-8 rotate-45 text-[#0C3272]/30" />
@@ -319,7 +317,7 @@ export default function Home() {
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {portfolioItems.map((item, index) => (
               <Reveal key={item.name} delay={index * 0.05}>
-                <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
+                <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
                   <div className="relative aspect-[16/11] overflow-hidden bg-[linear-gradient(135deg,#0C3272,#1a56c6)] p-6 text-white">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.18),_transparent_25%)]" />
                     <div className="relative flex h-full flex-col justify-between">
@@ -336,13 +334,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0C3272]">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0C3272] dark:text-blue-300">
                       {item.category}
                     </p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">
                       {item.name}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                    <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
                       {item.description}
                     </p>
                   </div>
@@ -386,14 +384,14 @@ export default function Home() {
           </Reveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-[0.45fr_0.55fr]">
             <Reveal>
-              <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-sm">
-                <div className="flex items-center gap-3 text-[#0C3272]">
+              <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+                <div className="flex items-center gap-3 text-[#0C3272] dark:text-blue-300">
                   <MessageSquareQuote className="size-6" />
                   <span className="text-sm font-semibold uppercase tracking-[0.2em]">
                     {sections.testimonials.whatClientsSay}
                   </span>
                 </div>
-                <p className="mt-6 text-3xl font-semibold leading-tight text-slate-950">
+                <p className="mt-6 text-3xl font-semibold leading-tight text-slate-950 dark:text-white">
                   {sections.testimonials.sideQuote}
                 </p>
                 <div className="mt-8 flex gap-3">
@@ -405,7 +403,7 @@ export default function Home() {
                         current === 0 ? testimonials.length - 1 : current - 1,
                       )
                     }
-                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272]"
+                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-blue-400 dark:hover:text-blue-300"
                   >
                     <ChevronLeft className="size-5" />
                   </button>
@@ -415,7 +413,7 @@ export default function Home() {
                     onClick={() =>
                       setActiveTestimonial((current) => (current + 1) % testimonials.length)
                     }
-                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272]"
+                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-blue-400 dark:hover:text-blue-300"
                   >
                     <ChevronRight className="size-5" />
                   </button>
@@ -424,7 +422,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <div className="glass-card rounded-[36px] border border-white/60 p-8">
+              <div className="glass-card rounded-[36px] border border-white/60 p-8 dark:border-white/10">
                 <motion.div
                   key={activeTestimonial}
                   initial={{ opacity: 0, y: 20 }}
@@ -433,14 +431,14 @@ export default function Home() {
                   className="space-y-6"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex size-16 items-center justify-center rounded-full bg-[#0C3272]/10 text-[#0C3272]">
+                    <div className="flex size-16 items-center justify-center rounded-full bg-[#0C3272]/10 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
                       <Star className="size-6 fill-current" />
                     </div>
                     <div>
-                      <p className="text-lg font-semibold text-slate-950">
+                      <p className="text-lg font-semibold text-slate-950 dark:text-white">
                         {testimonials[activeTestimonial]?.name}
                       </p>
-                      <p className="text-sm text-slate-500">
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
                         {testimonials[activeTestimonial]?.company}
                       </p>
                     </div>
@@ -450,7 +448,7 @@ export default function Home() {
                       <Star key={index} className="size-5 fill-current" />
                     ))}
                   </div>
-                  <p className="text-xl leading-9 text-slate-700">
+                  <p className="text-xl leading-9 text-slate-700 dark:text-slate-200">
                     “{testimonials[activeTestimonial]?.review}”
                   </p>
                   <div className="flex gap-2">
@@ -462,8 +460,8 @@ export default function Home() {
                         className={cn(
                           "h-2.5 rounded-full transition-all",
                           activeTestimonial === index
-                            ? "w-10 bg-[#0C3272]"
-                            : "w-2.5 bg-slate-300",
+                            ? "w-10 bg-[#0C3272] dark:bg-blue-400"
+                            : "w-2.5 bg-slate-300 dark:bg-slate-600",
                         )}
                         aria-label={`${common.showTestimonial} ${index + 1}`}
                       />
@@ -490,7 +488,7 @@ export default function Home() {
 
               return (
                 <Reveal key={faq.question} delay={index * 0.03}>
-                  <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
+                  <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
                     <button
                       type="button"
                       aria-expanded={isOpen}
@@ -498,19 +496,19 @@ export default function Home() {
                       className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                     >
                       <div className="flex items-start gap-4">
-                        <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272]/8 text-[#0C3272]">
+                        <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272]/8 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
                           <CircleHelp className="size-5" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-slate-950">
+                          <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
                             {faq.question}
                           </h3>
                         </div>
                       </div>
                       <ChevronRight
                         className={cn(
-                          "size-5 shrink-0 text-slate-400 transition-transform",
-                          isOpen && "rotate-90 text-[#0C3272]",
+                          "size-5 shrink-0 text-slate-400 transition-transform dark:text-slate-500",
+                          isOpen && "rotate-90 text-[#0C3272] dark:text-blue-300",
                         )}
                       />
                     </button>
@@ -522,7 +520,7 @@ export default function Home() {
                       }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pl-20 text-sm leading-7 text-slate-600">
+                      <div className="px-6 pb-6 pl-20 text-sm leading-7 text-slate-600 dark:text-slate-300">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -606,7 +604,7 @@ export default function Home() {
         aria-label={common.backToTop}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all",
+          "fixed bottom-[5.5rem] right-6 z-50 flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all dark:bg-slate-800",
           showBackToTop
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-4 opacity-0",
@@ -614,6 +612,8 @@ export default function Home() {
       >
         <ChevronUp className="size-5" />
       </button>
+
+      <ThemeToggle className="fixed bottom-6 right-6 z-50" />
 
       <LeadPopup content={content} />
     </div>
