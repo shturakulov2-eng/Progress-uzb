@@ -21,7 +21,13 @@ import {
   Star,
   Workflow,
 } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentType, ReactNode } from "react";
@@ -30,6 +36,7 @@ import logoImage from "../../logo progress ver.png";
 import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup } from "@/components/shared/lead-popup";
+import { Magnetic } from "@/components/shared/magnetic";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -69,6 +76,35 @@ export default function Home() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
+  const heroRef = useRef<HTMLElement>(null);
+  const processRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroGlowY = useTransform(
+    heroProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [0, -60],
+  );
+  const heroVideoY = useTransform(
+    heroProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [0, 40],
+  );
+  const heroVideoScale = useTransform(
+    heroProgress,
+    [0, 1],
+    prefersReducedMotion ? [1, 1] : [1, 1.05],
+  );
+
+  const { scrollYProgress: processProgress } = useScroll({
+    target: processRef,
+    offset: ["start end", "end start"],
+  });
+
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveTestimonial((current) => (current + 1) % testimonials.length);
@@ -86,7 +122,10 @@ export default function Home() {
 
   return (
     <div className="relative overflow-x-hidden bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_38%,#0b1220_100%)]">
-      <div className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow" />
+      <motion.div
+        className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow"
+        style={{ y: heroGlowY }}
+      />
       <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
 
       <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/30 bg-[#0C3272]/45 shadow-[0_12px_40px_rgba(12,50,114,0.22)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/35 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
@@ -128,12 +167,14 @@ export default function Home() {
             <div className="relative z-10 flex shrink-0 items-center gap-3 md:ml-auto">
               <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white" />
               <a href="#contact" className="hidden md:block">
-                <Button
-                  variant="ghost"
-                  className="border border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white/25 hover:text-white"
-                >
-                  {common.freeConsultation}
-                </Button>
+                <Magnetic>
+                  <Button
+                    variant="ghost"
+                    className="border border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white/25 hover:text-white"
+                  >
+                    {common.freeConsultation}
+                  </Button>
+                </Magnetic>
               </a>
             </div>
           </div>
@@ -141,7 +182,11 @@ export default function Home() {
       </header>
 
       <main className="pt-32">
-        <section id="home" className="section-shell pt-10 pb-20 sm:pt-14 sm:pb-24">
+        <section
+          id="home"
+          ref={heroRef}
+          className="section-shell pt-10 pb-20 sm:pt-14 sm:pb-24"
+        >
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <Reveal>
               <div className="space-y-8">
@@ -160,10 +205,12 @@ export default function Home() {
 
                 <div className="flex flex-col gap-4 sm:flex-row">
                   <a href="#contact">
-                    <Button size="large" className="w-full sm:w-auto">
-                      {hero.ctaPrimary}
-                      <ArrowUpRight className="ml-2 size-4" />
-                    </Button>
+                    <Magnetic>
+                      <Button size="large" className="w-full sm:w-auto">
+                        {hero.ctaPrimary}
+                        <ArrowUpRight className="ml-2 size-4" />
+                      </Button>
+                    </Magnetic>
                   </a>
                   <a href="#services">
                     <Button variant="secondary" size="large" className="w-full sm:w-auto">
@@ -191,7 +238,10 @@ export default function Home() {
             <Reveal delay={0.1}>
               <div className="relative mx-auto w-full max-w-[420px] lg:ml-auto lg:mr-0">
                 <div className="pointer-events-none absolute -inset-4 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(12,50,114,0.22),transparent_55%)] blur-2xl" />
-                <div className="glass-card relative aspect-[3/4] overflow-hidden rounded-[36px] border border-white/60 shadow-[0_24px_80px_rgba(12,50,114,0.18)] dark:border-white/10">
+                <motion.div
+                  className="glass-card relative aspect-[3/4] overflow-hidden rounded-[36px] border border-white/60 shadow-[0_24px_80px_rgba(12,50,114,0.18)] dark:border-white/10"
+                  style={{ y: heroVideoY, scale: heroVideoScale }}
+                >
                   <video
                     src="/videos/hero-businessman.mp4"
                     className="absolute inset-0 h-full w-full object-cover"
@@ -208,7 +258,7 @@ export default function Home() {
                       {hero.videoQuote}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </Reveal>
           </div>
@@ -225,7 +275,7 @@ export default function Home() {
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {differentiators.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.06}>
+              <Reveal key={item.title} delay={index * 0.06} variant="card">
                 <div className="glass-card h-full rounded-[30px] border border-white/50 p-6 dark:border-white/10">
                   <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
                     <ShieldCheck className="size-5" />
@@ -252,7 +302,7 @@ export default function Home() {
             {services.map((service, index) => {
               const Icon = serviceIcons[index];
               return (
-                <Reveal key={service.title} delay={index * 0.05}>
+                <Reveal key={service.title} delay={index * 0.05} variant="card">
                   <div className="glass-card h-full rounded-[32px] border border-white/60 p-7 dark:border-white/10">
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                       <div className="space-y-4">
@@ -295,22 +345,38 @@ export default function Home() {
               align="center"
             />
           </Reveal>
-          <div className="mt-12 grid gap-5 lg:grid-cols-6">
-            {processSteps.map((step, index) => (
-              <Reveal key={step} delay={index * 0.06}>
-                <div className="relative h-full rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
-                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-sm font-semibold text-white dark:bg-blue-600">
-                    {index + 1}
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-950 dark:text-white">{step}</h3>
-                  {index < processSteps.length - 1 ? (
-                    <div className="pointer-events-none absolute right-[-16px] top-1/2 hidden -translate-y-1/2 lg:block">
-                      <ArrowUpRight className="size-8 rotate-45 text-[#0C3272]/30" />
+          <div className="relative mt-12">
+            <div className="absolute top-2 bottom-2 left-2 w-0.5 overflow-hidden rounded-full bg-slate-200 lg:hidden dark:bg-slate-700">
+              <motion.div
+                className="w-full origin-top rounded-full bg-[#0C3272] dark:bg-blue-400"
+                style={{ scaleY: processProgress, height: "100%" }}
+              />
+            </div>
+            <div className="mb-6 hidden h-1 overflow-hidden rounded-full bg-slate-200 lg:block dark:bg-slate-700">
+              <motion.div
+                className="h-full origin-left rounded-full bg-[#0C3272] dark:bg-blue-400"
+                style={{ scaleX: processProgress }}
+              />
+            </div>
+            <div ref={processRef} className="grid gap-5 pl-6 lg:grid-cols-6 lg:pl-0">
+              {processSteps.map((step, index) => (
+                <Reveal key={step} delay={index * 0.06}>
+                  <div className="relative h-full rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+                    <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-sm font-semibold text-white dark:bg-blue-600">
+                      {index + 1}
                     </div>
-                  ) : null}
-                </div>
-              </Reveal>
-            ))}
+                    <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
+                      {step}
+                    </h3>
+                    {index < processSteps.length - 1 ? (
+                      <div className="pointer-events-none absolute right-[-16px] top-1/2 hidden -translate-y-1/2 lg:block">
+                        <ArrowUpRight className="size-8 rotate-45 text-[#0C3272]/30" />
+                      </div>
+                    ) : null}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -324,7 +390,7 @@ export default function Home() {
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {portfolioItems.map((item, index) => (
-              <Reveal key={item.name} delay={index * 0.05}>
+              <Reveal key={item.name} delay={index * 0.05} variant="card">
                 <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
                   <div className="relative aspect-[16/11] overflow-hidden bg-[linear-gradient(135deg,#0C3272,#1a56c6)] p-6 text-white">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.18),_transparent_25%)]" />
@@ -556,12 +622,14 @@ export default function Home() {
                   </p>
                 </div>
                 <a href="#contact" className="w-full lg:w-auto">
-                  <Button
-                    size="large"
-                    className="w-full bg-white text-slate-950 hover:bg-slate-100"
-                  >
-                    {sections.finalCta.cta}
-                  </Button>
+                  <Magnetic>
+                    <Button
+                      size="large"
+                      className="w-full bg-white text-slate-950 hover:bg-slate-100"
+                    >
+                      {sections.finalCta.cta}
+                    </Button>
+                  </Magnetic>
                 </a>
               </div>
             </div>
@@ -633,14 +701,21 @@ export default function Home() {
 function Reveal({
   children,
   delay = 0,
+  variant = "rise",
 }: {
   children: ReactNode;
   delay?: number;
+  variant?: "rise" | "card";
 }) {
+  const initial =
+    variant === "card" ? { opacity: 0, y: 24, scale: 0.94 } : { opacity: 0, y: 24 };
+  const whileInView =
+    variant === "card" ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0 };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={initial}
+      whileInView={whileInView}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, delay, ease: "easeOut" }}
     >

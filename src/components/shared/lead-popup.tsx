@@ -2,21 +2,40 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ContactForm } from "@/components/shared/contact-form";
 import type { SiteContent } from "@/content/types";
 
-const THREE_MINUTES = 3 * 60 * 1000;
+const ONE_AND_HALF_MINUTES = 1.5 * 60 * 1000;
+const EXIT_INTENT_EVERY = 5;
 
 export function LeadPopup({ content }: { content: SiteContent }) {
   const { popup } = content;
   const [open, setOpen] = useState(false);
+  const exitLeaveCountRef = useRef(0);
 
   useEffect(() => {
     if (open) return;
-    const timer = window.setTimeout(() => setOpen(true), THREE_MINUTES);
+    const timer = window.setTimeout(() => setOpen(true), ONE_AND_HALF_MINUTES);
     return () => window.clearTimeout(timer);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) return;
+
+    const onMouseOut = (event: MouseEvent) => {
+      const toElement = event.relatedTarget as Node | null;
+      if (toElement) return;
+
+      exitLeaveCountRef.current += 1;
+      if (exitLeaveCountRef.current % EXIT_INTENT_EVERY === 0) {
+        setOpen(true);
+      }
+    };
+
+    document.addEventListener("mouseout", onMouseOut);
+    return () => document.removeEventListener("mouseout", onMouseOut);
   }, [open]);
 
   useEffect(() => {
