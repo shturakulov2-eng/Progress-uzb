@@ -179,34 +179,37 @@ export default function Home() {
 
       <aside
         className={cn(
-          "fixed top-3 bottom-3 left-3 z-[58] flex w-[14.25rem] flex-col overflow-hidden rounded-[28px] border border-white/40 bg-[#0C3272]/82 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-300 dark:border-white/15 dark:bg-[#0C3272]/55 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
+          "fixed top-0 bottom-0 left-0 z-[58] flex w-[13rem] flex-col overflow-hidden rounded-r-[28px] border-r border-white/40 bg-[#0C3272]/85 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-300 dark:border-white/15 dark:bg-[#0C3272]/60 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
           "lg:translate-x-0",
           mobileNavOpen ? "translate-x-0" : "-translate-x-[120%] lg:translate-x-0",
         )}
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[28px] bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,rgba(255,255,255,0)_70%)]"
+          className="pointer-events-none absolute inset-0 rounded-r-[28px] bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,rgba(255,255,255,0)_70%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-4 left-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/45 to-transparent"
+          className="pointer-events-none absolute inset-y-6 right-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/40 to-transparent"
         />
 
-        <div className="relative flex h-full flex-col px-3.5 py-5">
-          <div className="shrink-0 px-1">
+        <div className="relative flex h-full flex-col px-4 py-5">
+          <div className="flex shrink-0 flex-col items-center text-center">
             <Image
               src={logoImage}
               alt="Progress.uzb logo"
               width={100}
-              className="h-auto w-[100px] brightness-0 invert"
+              className="h-auto w-[96px] brightness-0 invert"
               priority
             />
+            <p className="mt-2 max-w-[10.5rem] text-[11px] font-medium leading-4 text-blue-100/80">
+              Brenddan sotuvgacha kompleks yechimlar
+            </p>
           </div>
 
           <nav
             aria-label={common.primaryNav}
-            className="mt-6 flex flex-1 flex-col justify-center gap-0.5"
+            className="mt-5 flex flex-1 flex-col justify-center gap-2"
           >
             {navigation.map((item) => {
               const isActive = activeSection === item.href;
@@ -218,37 +221,29 @@ export default function Home() {
                   onClick={() => setMobileNavOpen(false)}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "rounded-xl px-3 py-2.5 text-base font-semibold transition",
-                    isActive
-                      ? "bg-white/12 text-white"
-                      : "text-white/85 hover:bg-white/10 hover:text-white",
+                    "origin-left rounded-xl px-3 py-1 text-base font-semibold text-white/70 transition-all duration-500 ease-out will-change-transform hover:text-white",
+                    isActive && "translate-x-1 scale-[1.4] font-bold text-white",
                   )}
                 >
-                  <span
-                    className={cn(
-                      "relative inline-block pb-0.5",
-                      isActive &&
-                        "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-white after:content-['']",
-                    )}
-                  >
-                    {item.label}
-                  </span>
+                  {item.label}
                 </a>
               );
             })}
           </nav>
 
-          <div className="relative z-10 mt-4 flex shrink-0 flex-col gap-2.5 border-t border-white/15 pt-4">
-            <LanguageSwitcher
-              dropUp
-              className="w-full [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white"
-            />
-            <ThemeToggle className="w-full !rounded-full" />
+          <div className="relative z-10 mt-3 flex shrink-0 flex-col gap-3 border-t border-white/15 pt-4">
+            <div className="flex items-center gap-2.5">
+              <LanguageSwitcher
+                dropUp
+                className="min-w-0 flex-1 [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white"
+              />
+              <ThemeToggle className="!size-11 shrink-0" />
+            </div>
             <a href="#contact" className="w-full" onClick={() => setMobileNavOpen(false)}>
               <Magnetic className="w-full">
                 <Button
                   variant="ghost"
-                  className="w-full whitespace-normal border border-white/30 bg-white/10 px-3 text-center text-xs leading-snug text-white backdrop-blur-md hover:bg-white/25 hover:text-white"
+                  className="min-h-12 w-full whitespace-normal border border-white/35 bg-white/15 px-3 py-3 text-center text-sm leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white"
                 >
                   {common.freeConsultation}
                 </Button>
@@ -258,7 +253,7 @@ export default function Home() {
         </div>
       </aside>
 
-      <main className="pt-20 lg:pt-8 lg:pl-[16.25rem]">
+      <main className="pt-20 lg:pt-8 lg:pl-[14.5rem]">
         <section
           id="home"
           ref={heroRef}
