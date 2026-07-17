@@ -13,6 +13,7 @@ import {
   Landmark,
   LayoutTemplate,
   Megaphone,
+  Menu,
   MessageSquareQuote,
   Palette,
   PhoneCall,
@@ -20,6 +21,7 @@ import {
   Sparkles,
   Star,
   Workflow,
+  X,
 } from "lucide-react";
 import {
   motion,
@@ -75,6 +77,8 @@ export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#home");
 
   const heroRef = useRef<HTMLElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
@@ -88,16 +92,6 @@ export default function Home() {
     heroProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [0, -60],
-  );
-  const heroVideoY = useTransform(
-    heroProgress,
-    [0, 1],
-    prefersReducedMotion ? [0, 0] : [0, 40],
-  );
-  const heroVideoScale = useTransform(
-    heroProgress,
-    [0, 1],
-    prefersReducedMotion ? [1, 1] : [1, 1.05],
   );
 
   const { scrollYProgress: processProgress } = useScroll({
@@ -120,6 +114,42 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileNavOpen]);
+
+  useEffect(() => {
+    const sectionIds = navigation.map((item) => item.href.replace("#", ""));
+
+    const updateActiveSection = () => {
+      const marker = window.innerHeight * 0.28;
+      let current = sectionIds[0] ?? "home";
+
+      for (const id of sectionIds) {
+        const element = document.getElementById(id);
+        if (!element) continue;
+        if (element.getBoundingClientRect().top <= marker) {
+          current = id;
+        }
+      }
+
+      setActiveSection(`#${current}`);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, [navigation]);
+
   return (
     <div className="relative overflow-x-hidden bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_38%,#0b1220_100%)]">
       <motion.div
@@ -128,67 +158,113 @@ export default function Home() {
       />
       <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
 
-      <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/40 bg-[#0C3272]/82 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/55 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[28px] bg-[linear-gradient(135deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_40%,rgba(255,255,255,0)_100%)]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-4 top-0 h-px rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent"
-        />
-        <div className="relative px-5 sm:px-7 lg:px-8">
-          <div className="flex flex-col gap-4 py-3.5 md:flex-row md:items-center md:gap-6 lg:gap-8">
-            <div className="flex shrink-0 items-center">
-              <Image
-                src={logoImage}
-                alt="Progress.uzb logo"
-                width={120}
-                className="h-auto w-[110px] brightness-0 invert sm:w-[120px]"
-                priority
-              />
-            </div>
+      <button
+        type="button"
+        aria-label={mobileNavOpen ? "Menyuni yopish" : "Menyuni ochish"}
+        aria-expanded={mobileNavOpen}
+        onClick={() => setMobileNavOpen((open) => !open)}
+        className="fixed top-4 left-4 z-[60] flex size-12 items-center justify-center rounded-2xl border border-white/40 bg-[#0C3272]/90 text-white shadow-lg backdrop-blur-xl lg:hidden"
+      >
+        {mobileNavOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+      </button>
 
-            <nav
-              aria-label={common.primaryNav}
-              className="hide-scrollbar flex min-w-0 flex-1 gap-1 overflow-x-auto md:items-center md:justify-center lg:gap-2"
-            >
-              {navigation.map((item) => (
+      {mobileNavOpen ? (
+        <button
+          type="button"
+          aria-label="Menyuni yopish"
+          className="fixed inset-0 z-[55] bg-slate-950/50 backdrop-blur-sm lg:hidden"
+          onClick={() => setMobileNavOpen(false)}
+        />
+      ) : null}
+
+      <aside
+        className={cn(
+          "fixed top-3 bottom-3 left-3 z-[58] flex w-[14.25rem] flex-col overflow-hidden rounded-[28px] border border-white/40 bg-[#0C3272]/82 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-300 dark:border-white/15 dark:bg-[#0C3272]/55 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
+          "lg:translate-x-0",
+          mobileNavOpen ? "translate-x-0" : "-translate-x-[120%] lg:translate-x-0",
+        )}
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-[28px] bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,rgba(255,255,255,0)_70%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-4 left-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/45 to-transparent"
+        />
+
+        <div className="relative flex h-full flex-col px-3.5 py-5">
+          <div className="shrink-0 px-1">
+            <Image
+              src={logoImage}
+              alt="Progress.uzb logo"
+              width={100}
+              className="h-auto w-[100px] brightness-0 invert"
+              priority
+            />
+          </div>
+
+          <nav
+            aria-label={common.primaryNav}
+            className="mt-6 flex flex-1 flex-col justify-center gap-0.5"
+          >
+            {navigation.map((item) => {
+              const isActive = activeSection === item.href;
+
+              return (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white/95 transition hover:bg-white/20 hover:text-white lg:px-3.5"
+                  onClick={() => setMobileNavOpen(false)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={cn(
+                    "rounded-xl px-3 py-2.5 text-base font-semibold transition",
+                    isActive
+                      ? "bg-white/12 text-white"
+                      : "text-white/85 hover:bg-white/10 hover:text-white",
+                  )}
                 >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="relative z-10 flex shrink-0 items-center gap-3 md:ml-auto">
-              <ThemeToggle />
-              <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white" />
-              <a href="#contact" className="hidden md:block">
-                <Magnetic>
-                  <Button
-                    variant="ghost"
-                    className="border border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white/25 hover:text-white"
+                  <span
+                    className={cn(
+                      "relative inline-block pb-0.5",
+                      isActive &&
+                        "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-white after:content-['']",
+                    )}
                   >
-                    {common.freeConsultation}
-                  </Button>
-                </Magnetic>
-              </a>
-            </div>
+                    {item.label}
+                  </span>
+                </a>
+              );
+            })}
+          </nav>
+
+          <div className="relative z-10 mt-4 flex shrink-0 flex-col gap-2.5 border-t border-white/15 pt-4">
+            <LanguageSwitcher
+              dropUp
+              className="w-full [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white"
+            />
+            <ThemeToggle className="w-full !rounded-full" />
+            <a href="#contact" className="w-full" onClick={() => setMobileNavOpen(false)}>
+              <Magnetic className="w-full">
+                <Button
+                  variant="ghost"
+                  className="w-full whitespace-normal border border-white/30 bg-white/10 px-3 text-center text-xs leading-snug text-white backdrop-blur-md hover:bg-white/25 hover:text-white"
+                >
+                  {common.freeConsultation}
+                </Button>
+              </Magnetic>
+            </a>
           </div>
         </div>
-      </header>
+      </aside>
 
-      <main className="pt-32">
+      <main className="pt-20 lg:pt-8 lg:pl-[16.25rem]">
         <section
           id="home"
           ref={heroRef}
           className="section-shell pt-10 pb-20 sm:pt-14 sm:pb-24"
         >
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div className="max-w-3xl">
             <Reveal>
               <div className="space-y-8">
                 <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-4 py-2 text-sm text-[#0C3272] shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-blue-200">
@@ -233,33 +309,6 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="relative mx-auto w-full max-w-[420px] lg:ml-auto lg:mr-0">
-                <div className="pointer-events-none absolute -inset-4 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(12,50,114,0.22),transparent_55%)] blur-2xl" />
-                <motion.div
-                  className="glass-card relative aspect-[3/4] overflow-hidden rounded-[36px] border border-white/60 shadow-[0_24px_80px_rgba(12,50,114,0.18)] dark:border-white/10"
-                  style={{ y: heroVideoY, scale: heroVideoScale }}
-                >
-                  <video
-                    src="/videos/hero-businessman.mp4"
-                    className="absolute inset-0 h-full w-full object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label="Progress.uzb"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,50,114,0.12)_0%,transparent_28%,transparent_62%,rgba(12,50,114,0.45)_100%)]" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                    <p className="text-lg font-semibold leading-snug text-white sm:text-xl">
-                      {hero.videoQuote}
-                    </p>
-                  </div>
-                </motion.div>
               </div>
             </Reveal>
           </div>

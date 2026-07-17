@@ -8,7 +8,13 @@ import type { Locale } from "@/content/types";
 import { useLanguage } from "@/context/language-context";
 import { cn } from "@/lib/utils";
 
-export function LanguageSwitcher({ className }: { className?: string }) {
+export function LanguageSwitcher({
+  className,
+  dropUp = false,
+}: {
+  className?: string;
+  dropUp?: boolean;
+}) {
   const { locale, setLocale, content } = useLanguage();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,10 +41,12 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         aria-expanded={open}
         aria-label={content.common.selectLanguage}
         onClick={() => setOpen((current) => !current)}
-        className="inline-flex h-11 items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 text-sm font-medium text-slate-700 shadow-sm transition hover:border-[#0C3272] hover:text-[#0C3272]"
+        className="inline-flex h-11 w-full items-center justify-between gap-2 rounded-full border border-slate-200 bg-white/90 px-4 text-sm font-medium text-slate-700 shadow-sm transition hover:border-[#0C3272] hover:text-[#0C3272]"
       >
-        <Globe className="size-4" />
-        <span>{localeLabels[locale]}</span>
+        <span className="inline-flex items-center gap-2">
+          <Globe className="size-4" />
+          <span>{localeLabels[locale]}</span>
+        </span>
         <ChevronDown
           className={cn("size-4 transition-transform", open && "rotate-180")}
         />
@@ -48,7 +56,10 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         <ul
           role="listbox"
           aria-label={content.common.selectLanguage}
-          className="absolute right-0 z-[100] mt-2 min-w-[160px] overflow-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/40"
+          className={cn(
+            "absolute left-0 z-[100] min-w-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/40",
+            dropUp ? "bottom-full mb-2" : "top-full mt-2",
+          )}
         >
           {locales.map((item) => {
             const isActive = item === locale;
