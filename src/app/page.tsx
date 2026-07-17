@@ -128,7 +128,7 @@ export default function Home() {
       />
       <div className="absolute inset-0 -z-20 grid-pattern opacity-70" />
 
-      <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/30 bg-[#0C3272]/45 shadow-[0_12px_40px_rgba(12,50,114,0.22)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/35 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+      <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[84rem] -translate-x-1/2 rounded-[28px] border border-white/40 bg-[#0C3272]/82 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/55 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 rounded-[28px] bg-[linear-gradient(135deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_40%,rgba(255,255,255,0)_100%)]"
