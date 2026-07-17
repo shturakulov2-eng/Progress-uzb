@@ -17,13 +17,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
       title={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
       className={cn(
-        "group relative flex size-14 items-center justify-center overflow-hidden rounded-full",
-        "border border-white/25 bg-[#0C3272]/95 text-white shadow-[0_18px_50px_rgba(12,50,114,0.35)]",
-        "backdrop-blur-xl transition-all duration-300",
-        "hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(12,50,114,0.45)]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2",
-        "dark:border-white/15 dark:bg-slate-900/90 dark:shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
-        "dark:hover:bg-slate-800 dark:focus-visible:ring-offset-slate-950",
+        "group relative flex size-11 items-center justify-center overflow-hidden rounded-full",
+        "border border-white/30 bg-white/10 text-white backdrop-blur-md",
+        "transition-all duration-300 hover:border-white/60 hover:bg-white/20",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300",
         className,
       )}
     >

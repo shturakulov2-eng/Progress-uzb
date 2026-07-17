@@ -165,6 +165,7 @@ export default function Home() {
             </nav>
 
             <div className="relative z-10 flex shrink-0 items-center gap-3 md:ml-auto">
+              <ThemeToggle />
               <LanguageSwitcher className="[&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white" />
               <a href="#contact" className="hidden md:block">
                 <Magnetic>
@@ -675,23 +676,19 @@ export default function Home() {
         </div>
       </footer>
 
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-        <button
-          type="button"
-          aria-label={common.backToTop}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className={cn(
-            "flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all dark:bg-slate-800",
-            showBackToTop
-              ? "translate-y-0 opacity-100"
-              : "pointer-events-none translate-y-4 opacity-0",
-          )}
-        >
-          <ChevronUp className="size-5" />
-        </button>
-
-        <ThemeToggle />
-      </div>
+      <button
+        type="button"
+        aria-label={common.backToTop}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className={cn(
+          "fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all dark:bg-slate-800",
+          showBackToTop
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-4 opacity-0",
+        )}
+      >
+        <ChevronUp className="size-5" />
+      </button>
 
       <LeadPopup content={content} />
     </div>
