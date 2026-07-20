@@ -12,9 +12,11 @@ import { cn, formatDate } from "@/lib/utils";
 type Lead = {
   id: string;
   fullName: string;
-  companyName: string;
-  businessType: string;
+  companyName: string | null;
+  businessType: string | null;
   phoneNumber: string;
+  problem: string | null;
+  source: string;
   createdAt: string;
 };
 
@@ -42,7 +44,15 @@ export function AdminDashboard({
     if (!normalized) return leads;
 
     return leads.filter((lead) =>
-      [lead.fullName, lead.companyName, lead.businessType, lead.phoneNumber]
+      [
+        lead.fullName,
+        lead.companyName,
+        lead.businessType,
+        lead.phoneNumber,
+        lead.problem,
+        lead.source,
+      ]
+        .filter(Boolean)
         .join(" ")
         .toLowerCase()
         .includes(normalized),
@@ -102,12 +112,22 @@ export function AdminDashboard({
 
   function exportCsv() {
     const rows = [
-      ["Full Name", "Company Name", "Business Type", "Phone Number", "Date & Time"],
+      [
+        "Full Name",
+        "Company Name",
+        "Business Type",
+        "Phone Number",
+        "Problem",
+        "Source",
+        "Date & Time",
+      ],
       ...filteredLeads.map((lead) => [
         lead.fullName,
-        lead.companyName,
-        lead.businessType,
+        lead.companyName ?? "",
+        lead.businessType ?? "",
         lead.phoneNumber,
+        lead.problem ?? "",
+        lead.source,
         formatDate(lead.createdAt),
       ]),
     ];
@@ -127,9 +147,11 @@ export function AdminDashboard({
     const worksheet = XLSX.utils.json_to_sheet(
       filteredLeads.map((lead) => ({
         "Full Name": lead.fullName,
-        "Company Name": lead.companyName,
-        "Business Type": lead.businessType,
+        "Company Name": lead.companyName ?? "",
+        "Business Type": lead.businessType ?? "",
         "Phone Number": lead.phoneNumber,
+        Problem: lead.problem ?? "",
+        Source: lead.source,
         "Date & Time": formatDate(lead.createdAt),
       })),
     );
@@ -237,7 +259,9 @@ export function AdminDashboard({
                             {lead.fullName}
                           </p>
                           <p className="text-sm text-slate-600">
-                            {lead.companyName} · {lead.businessType}
+                            {lead.source === "service-inquiry"
+                              ? "Service inquiry"
+                              : `${lead.companyName ?? "—"} · ${lead.businessType ?? "—"}`}
                           </p>
                         </div>
                         <div className="flex items-center justify-between gap-3 md:justify-end">
@@ -279,9 +303,24 @@ export function AdminDashboard({
                     </p>
                   </div>
                 </div>
-                <DetailItem label="Company Name" value={selectedLead.companyName} />
-                <DetailItem label="Business Type" value={selectedLead.businessType} />
+                <DetailItem
+                  label="Source"
+                  value={
+                    selectedLead.source === "service-inquiry"
+                      ? "Service inquiry"
+                      : "Contact form"
+                  }
+                />
+                {selectedLead.companyName ? (
+                  <DetailItem label="Company Name" value={selectedLead.companyName} />
+                ) : null}
+                {selectedLead.businessType ? (
+                  <DetailItem label="Business Type" value={selectedLead.businessType} />
+                ) : null}
                 <DetailItem label="Phone Number" value={selectedLead.phoneNumber} />
+                {selectedLead.problem ? (
+                  <DetailItem label="Problem / Request" value={selectedLead.problem} />
+                ) : null}
               </div>
             ) : (
               <div className="mt-6 rounded-[24px] border border-dashed border-white/15 px-6 py-10 text-sm text-slate-300">

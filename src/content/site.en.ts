@@ -10,8 +10,8 @@ export const contentEn: SiteContent = {
   navigation: [
     { label: "Home", href: "#home" },
     { label: "Services", href: "#services" },
-    { label: "Portfolio", href: "#portfolio" },
     { label: "Process", href: "#process" },
+    { label: "Portfolio", href: "#portfolio" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
@@ -60,10 +60,10 @@ export const contentEn: SiteContent = {
         "We combine strategic thinking, premium presentation, and execution speed so your brand looks stronger and grows faster.",
     },
     services: {
-      eyebrow: "Services",
-      title: "Integrated services for businesses that want premium execution across every touchpoint.",
+      eyebrow: "Our Services",
+      title: "Services that develop marketing and sales as one connected system.",
       description:
-        "From strategy to short-form content, from websites to automation, every service is designed to support measurable growth.",
+        "From defining your market direction to building the sales department, choose the solution your business needs.",
     },
     process: {
       eyebrow: "Work Process",
@@ -72,11 +72,14 @@ export const contentEn: SiteContent = {
         "Each phase is structured to remove uncertainty, improve alignment, and keep execution focused on outcomes.",
     },
     portfolio: {
-      eyebrow: "Portfolio",
-      title: "Presentation-ready portfolio placeholders that showcase breadth and premium positioning.",
+      eyebrow: "Completed Projects",
+      title: "Measurable results delivered with real businesses.",
       description:
-        "These cards are structured for real project case studies and can be replaced with production assets later.",
-      projectPreview: "Project Preview",
+        "Case studies from marketing, performance, and sales-system work that helped partners grow.",
+      projectPreview: "Case",
+      durationLabel: "Duration",
+      resultLabel: "Result",
+      processLabel: "Process",
     },
     results: {
       eyebrow: "Results",
@@ -85,13 +88,12 @@ export const contentEn: SiteContent = {
         "A premium agency story should be supported by strong measurable proof points.",
     },
     testimonials: {
-      eyebrow: "Testimonials",
-      title: "Social proof designed to feel premium, credible, and conversion-ready.",
-      description:
-        "These testimonial cards and slider controls are ready for real client reviews as they become available.",
-      whatClientsSay: "What clients say",
-      sideQuote:
-        "Premium presentation matters, but so does the business impact behind it.",
+      eyebrow: "Client feedback",
+      title: "Want to be among successful projects like the ones above?",
+      description: "Then get a professional analysis of your business right now!",
+      cta: "Analyze my project",
+      videoNote:
+        "If you're not fully convinced by the results above, watch the videos yourself and see the proof!",
     },
     faq: {
       eyebrow: "FAQ",
@@ -107,13 +109,17 @@ export const contentEn: SiteContent = {
       cta: "Book a Consultation",
     },
     contact: {
-      badge: "Contact Progress.uzb",
+      badge: "Contact",
       title: "Book a consultation and let's discuss your next growth move.",
       description:
         "Share a few details about your business and our team will contact you shortly with the best next step.",
-      phoneLabel: "Phone",
-      servicesLabel: "Services",
-      servicesValue: "Strategy, websites, SMM, AI, automation",
+      phoneLabel: "Our phone numbers",
+      socialLabel: "Marketing blog",
+      socialDescription:
+        "Follow us on social media and get free insider ideas for your business.",
+      addressLabel: "Address",
+      addressValue: "Map / Geolocation",
+      mapCta: "Open on map",
     },
   },
   differentiators: [
@@ -160,85 +166,74 @@ export const contentEn: SiteContent = {
   ],
   services: [
     {
-      title: "Professional Full Marketing",
-      description:
-        "Strategic marketing systems that align growth goals with messaging, channels, and measurable performance.",
-      items: ["Marketing Strategy", "Campaign Management", "Performance Marketing", "Analytics"],
-    },
-    {
-      title: "Social Media Marketing (SMM)",
-      description:
-        "Platform-specific content and paid social campaigns that build trust, reach, and lead flow.",
+      title: "Marketing Services",
       items: [
-        "Instagram Marketing",
-        "Facebook Marketing",
-        "TikTok Marketing",
-        "Content Planning",
-        "Advertising",
+        {
+          title: "Marketing Strategy",
+          description: "A clear market direction and a practical growth roadmap for your business.",
+        },
+        {
+          title: "Performance Marketing",
+          description:
+            "Advertising and lead generation focused on real sales, not vanity follower counts.",
+        },
+        {
+          title: "Content Marketing & SMM",
+          description:
+            "A professional social presence and a clear communication language for your customers.",
+        },
+        {
+          title: "Branding",
+          description:
+            "A distinct visual and strategic identity that separates your company from competitors.",
+        },
+        {
+          title: "Personal Branding",
+          description:
+            "Build authority for founders and experts to create trust and attract higher-value sales.",
+        },
       ],
     },
     {
-      title: "Videography & Video Editing",
-      description:
-        "Premium video assets designed for attention, storytelling, and short-form conversion performance.",
+      title: "Sales Services",
       items: [
-        "Commercial Videos",
-        "Product Videos",
-        "Instagram reels",
-        "Short Form Content",
-        "Professional Editing",
-      ],
-    },
-    {
-      title: "Branding",
-      description:
-        "Build a memorable identity with clear positioning, premium visuals, and scalable brand systems.",
-      items: ["Brand Strategy", "Brand Identity", "Logo Design", "Brand Guidelines"],
-    },
-    {
-      title: "Graphic Design",
-      description:
-        "Polished visual design for campaigns, printed collateral, and brand communications.",
-      items: [
-        "Social Media Posts",
-        "Banners",
-        "Posters",
-        "Flyers",
-        "Business Cards",
-        "Packaging Design",
-      ],
-    },
-    {
-      title: "Landing Pages & Professional Websites",
-      description:
-        "Fast, responsive websites engineered to convert visitors into inquiries, bookings, and sales.",
-      items: [
-        "Responsive Websites",
-        "Corporate Websites",
-        "Landing Pages",
-        "SEO Optimized Websites",
-        "High-Speed Websites",
-      ],
-    },
-    {
-      title: "Business Automation",
-      description:
-        "Connect your sales and operations workflows so leads are captured, followed up, and tracked automatically.",
-      items: ["CRM Integration", "Workflow Automation", "Lead Management", "Sales Automation"],
-    },
-    {
-      title: "AI Integration",
-      description:
-        "Apply AI in practical ways that reduce manual work and improve speed, service, and consistency.",
-      items: [
-        "AI Chatbots",
-        "AI Customer Support",
-        "AI Automation",
-        "AI Business Solutions",
-        "AI Content Systems",
+        {
+          title: "Build a Sales Department",
+          description:
+            "Build a sales department from zero or systematize and strengthen the existing team.",
+        },
+        {
+          title: "CRM & Systems",
+          description:
+            "Implement a CRM and install IP telephony and call-center infrastructure.",
+        },
+        {
+          title: "Sales Team Enablement",
+          description:
+            "Train sales managers and create custom sales scripts tailored to your business.",
+        },
       ],
     },
   ],
+  serviceInquiry: {
+    eyebrow: "How can we help?",
+    title: "Which service does your business need?",
+    description:
+      "Describe your challenge. For example: low sales, Instagram brings no results, or customer acquisition is expensive.",
+    problemLabel: "What challenge are you facing?",
+    problemPlaceholder: "Briefly describe the main challenge in your business...",
+    fullNameLabel: "Full name",
+    fullNamePlaceholder: "Your name",
+    phoneLabel: "Phone number",
+    phonePlaceholder: "+998 90 123 45 67",
+    submit: "Send my challenge",
+    submitting: "Sending...",
+    success: "Your request has been received. We will contact you shortly.",
+    errorGeneric: "We could not submit your request. Please check the information.",
+    errorNetwork: "Network error. Please try again.",
+    problemMin: "Please describe the challenge using at least 10 characters.",
+    problemMax: "The challenge description cannot exceed 1000 characters.",
+  },
   processSteps: [
     "Consultation",
     "Business Analysis",
@@ -249,40 +244,84 @@ export const contentEn: SiteContent = {
   ],
   portfolioItems: [
     {
-      name: "Nexora Retail Launch",
-      category: "Performance Marketing",
-      description:
-        "Lead-generation campaign system for a fast-growing retail brand entering a new market.",
+      name: "Kolizey",
+      category: "Full marketing and sales department management",
+      duration: "Since 2019 to present (from the start of the project)",
+      result: "In 2025, sales volume grew 127% year over year.",
+      process: "The sales department is currently being further systematized.",
     },
     {
-      name: "Silk Road Hospitality",
-      category: "Branding & Website",
-      description:
-        "Premium hospitality identity and conversion-focused website experience for bookings and inquiries.",
+      name: "Ishonch Mebel",
+      category: "Digital, content, and performance marketing",
+      duration: "January 2024 to present",
+      result:
+        "In just 3 years the brand went from zero to 500 million UZS in monthly online sales. A new 400 sq.m store was opened.",
+      process: "Direct online sales channels without a showroom store are now being built.",
     },
     {
-      name: "Urban Med Clinic",
-      category: "SMM & Video Content",
-      description:
-        "Short-form content strategy and paid social system that increased appointment demand.",
+      name: "Tropik Palma",
+      category: "Artificial palm manufacturing and installation (Performance marketing)",
+      duration: "January 2026 to present",
+      result:
+        "Systematic nationwide sales across Uzbekistan were established. Thousands of new leads were delivered.",
+      process: "A sales department is currently being built.",
     },
     {
-      name: "Vertex Build Systems",
-      category: "Automation",
-      description:
-        "Internal workflow automation and CRM alignment for faster lead response and cleaner reporting.",
+      name: "Milliy Brend",
+      category: "3D letter manufacturing and installation (Strategy, SMM, Performance)",
+      duration: "Since 2025",
+      result: "A steady monthly flow of new customers was established.",
+      process: "A sales department and wholesale sales system are being launched.",
     },
     {
-      name: "Aurum Academy",
-      category: "Landing Page",
-      description:
-        "High-converting admissions landing page with optimized messaging and smoother inquiry flow.",
+      name: "Mirankul Ceiling",
+      category: "Suspended ceiling manufacturing plant (Performance and SMM)",
+      duration: "2023–2024 (1-year contract)",
+      result: "The business was provided with a stable 150 to 600 leads per month.",
+      process: "A CRM system and sales department automation were delivered.",
     },
     {
-      name: "Nova Personal Brand",
-      category: "Brand Strategy",
-      description:
-        "Positioning, visual identity, and content direction for a premium personal brand launch.",
+      name: "Fox Pipes",
+      category: "Water pipe manufacturing and nationwide distribution in Uzbekistan",
+      duration: "February 2023 to August 2025 (2-year contract)",
+      result: "350–500 quality leads were delivered every month.",
+      process: "A sales department was built and the project was completed during systematization.",
+    },
+    {
+      name: "Saturn Stainless / Primo",
+      category:
+        "Stainless steel commercial kitchen equipment and refrigerators (SMM, Performance, Leads, Sales)",
+      duration: "January 2024 to end of 2025 (2-year contract)",
+      result:
+        "Creative content for a new direction was launched and lead generation grew from 50 to 450 per month.",
+    },
+    {
+      name: "Chagurt",
+      category: "Dairy product manufacturing",
+      duration: "3-month contract",
+      result:
+        "A full branding system was developed and a targeted content marketing strategy was launched.",
+    },
+    {
+      name: "Neo",
+      category: "Automotive cosmetics manufacturing plant",
+      duration: "February 2026 to present",
+      result:
+        "More than 15,000 pure organic social followers were gained and videos reached millions of views.",
+    },
+    {
+      name: "IELTS Center",
+      category: "English language learning center",
+      duration: "Started in 2021, refreshed in 2025",
+      result:
+        "In 2021 SMM and branding were built from zero. In 2025 a strong content marketing push ran for 3 months in a new direction.",
+    },
+    {
+      name: "Sofana Mebel",
+      category: "Furniture brand",
+      duration: "3-month contract",
+      result:
+        "A completely new brand identity was created for future patenting. Performance and content marketing opened new sales channels.",
     },
   ],
   statistics: [
@@ -291,24 +330,21 @@ export const contentEn: SiteContent = {
     { value: 6, suffix: "+", label: "Years Experience" },
     { value: 95, suffix: "%", label: "Client Satisfaction" },
   ],
-  testimonials: [
+  videoTestimonials: [
     {
-      name: "Aziza Karimova",
-      company: "Silk Nest Studio",
-      review:
-        "Progress.uzb elevated our brand image and gave us a website that finally reflects the quality of our business. Their team is fast, strategic, and very detail-oriented.",
+      title: "Client review 1",
+      src: "/videos/testimonial-1.mp4",
+      formatLabel: "Reels",
     },
     {
-      name: "Bekzod Rahimov",
-      company: "Samarkand Auto Hub",
-      review:
-        "We came for marketing support and ended up with a complete growth system. Lead quality improved, reporting became clearer, and our team saved time every week.",
+      title: "Client review 2",
+      src: "/videos/testimonial-2.mp4",
+      formatLabel: "Shorts",
     },
     {
-      name: "Madina Alimuhamedova",
-      company: "Nova Academy",
-      review:
-        "The landing page and campaign setup from Progress delivered a more premium impression and stronger inquiry volume within the first weeks.",
+      title: "Client review 3",
+      src: "/videos/testimonial-3.mp4",
+      formatLabel: "Video",
     },
   ],
   faqs: [
@@ -390,9 +426,6 @@ export const contentEn: SiteContent = {
   common: {
     freeConsultation: "Book a Consultation",
     backToTop: "Back to top",
-    previousTestimonial: "Previous testimonial",
-    nextTestimonial: "Next testimonial",
-    showTestimonial: "Show testimonial",
     primaryNav: "Primary",
     selectLanguage: "Select language",
   },

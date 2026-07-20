@@ -10,9 +10,11 @@ datasource db {
 model Lead {
   id           String   @id @default(uuid())
   fullName     String
-  companyName  String
-  businessType String
+  companyName  String?
+  businessType String?
   phoneNumber  String
+  problem      String?
+  source       String   @default("contact")
   createdAt    DateTime @default(now())
 
   @@index([createdAt(sort: Desc)])

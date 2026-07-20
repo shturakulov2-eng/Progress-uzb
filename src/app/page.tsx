@@ -2,9 +2,7 @@
 
 import {
   ArrowUpRight,
-  BarChart3,
   BrainCircuit,
-  ChevronLeft,
   ChevronRight,
   ChevronUp,
   CircleHelp,
@@ -12,14 +10,14 @@ import {
   Globe2,
   Landmark,
   LayoutTemplate,
+  MapPin,
   Megaphone,
   Menu,
-  MessageSquareQuote,
   Palette,
   PhoneCall,
+  Send,
   ShieldCheck,
   Sparkles,
-  Star,
   Workflow,
   X,
 } from "lucide-react";
@@ -32,7 +30,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { ComponentType, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import logoImage from "../../logo progress ver.png";
 import { ContactForm } from "@/components/shared/contact-form";
@@ -40,7 +38,9 @@ import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup } from "@/components/shared/lead-popup";
 import { Magnetic } from "@/components/shared/magnetic";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { ServiceInquiryForm } from "@/components/shared/service-inquiry-form";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { VideoTestimonialCard } from "@/components/shared/video-testimonial-card";
 import { Button } from "@/components/ui/button";
 import { baseSiteConfig } from "@/content/base";
 import { useLanguage } from "@/context/language-context";
@@ -69,13 +69,12 @@ export default function Home() {
     processSteps,
     portfolioItems,
     statistics,
-    testimonials,
+    videoTestimonials,
     faqs,
     common,
   } = content;
 
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
@@ -100,14 +99,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveTestimonial((current) => (current + 1) % testimonials.length);
-    }, 5000);
-
-    return () => window.clearInterval(interval);
-  }, [testimonials.length]);
-
-  useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 700);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -128,9 +119,16 @@ export default function Home() {
 
     const updateActiveSection = () => {
       const marker = window.innerHeight * 0.28;
-      let current = sectionIds[0] ?? "home";
+      // Resolve by document position so nav label order cannot override scroll order.
+      const documentOrderedIds = [...sectionIds].sort((a, b) => {
+        const elA = document.getElementById(a);
+        const elB = document.getElementById(b);
+        if (!elA || !elB) return 0;
+        return elA.offsetTop - elB.offsetTop;
+      });
+      let current = documentOrderedIds[0] ?? "home";
 
-      for (const id of sectionIds) {
+      for (const id of documentOrderedIds) {
         const element = document.getElementById(id);
         if (!element) continue;
         if (element.getBoundingClientRect().top <= marker) {
@@ -343,41 +341,69 @@ export default function Home() {
               description={sections.services.description}
             />
           </Reveal>
-          <div className="mt-12 grid gap-5 xl:grid-cols-2">
-            {services.map((service, index) => {
-              const Icon = serviceIcons[index];
-              return (
-                <Reveal key={service.title} delay={index * 0.05} variant="card">
-                  <div className="glass-card h-full rounded-[32px] border border-white/60 p-7 dark:border-white/10">
-                    <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="space-y-4">
-                        <div className="flex size-14 items-center justify-center rounded-[20px] bg-[#0C3272] text-white shadow-[0_16px_40px_rgba(12,50,114,0.22)] dark:bg-blue-600">
-                          <Icon className="size-6" />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-semibold text-slate-950 dark:text-white">
-                            {service.title}
-                          </h3>
-                          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-                            {service.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      {service.items.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-full border border-[#0C3272]/12 bg-[#0C3272]/5 px-4 py-2 text-sm font-medium text-slate-700 dark:border-blue-300/20 dark:bg-blue-300/10 dark:text-slate-200"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
+          <div className="mt-12 space-y-14">
+            {services.map((group, groupIndex) => (
+              <div key={group.title}>
+                <Reveal>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm font-semibold text-[#0C3272]/50 dark:text-blue-300/60">
+                      0{groupIndex + 1}
+                    </span>
+                    <h3 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+                      {group.title}
+                    </h3>
+                    <div className="h-px flex-1 bg-gradient-to-r from-[#0C3272]/20 to-transparent dark:from-blue-300/20" />
                   </div>
                 </Reveal>
-              );
-            })}
+
+                <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  {group.items.map((service, itemIndex) => {
+                    const iconIndex = groupIndex === 0 ? itemIndex : itemIndex + 5;
+                    const Icon = serviceIcons[iconIndex] ?? Sparkles;
+
+                    return (
+                      <Reveal
+                        key={service.title}
+                        delay={itemIndex * 0.06}
+                        variant="card"
+                      >
+                        <article className="glass-card group h-full rounded-[28px] border border-white/60 p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0C3272]/20 hover:shadow-[0_24px_70px_rgba(12,50,114,0.14)] dark:border-white/10 dark:hover:border-blue-300/25">
+                          <div className="flex size-12 items-center justify-center rounded-2xl bg-[#0C3272] text-white shadow-[0_12px_30px_rgba(12,50,114,0.2)] transition-transform duration-300 group-hover:scale-105 dark:bg-blue-600">
+                            <Icon className="size-5" />
+                          </div>
+                          <h4 className="mt-5 text-xl font-semibold text-slate-950 dark:text-white">
+                            {service.title}
+                          </h4>
+                          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                            {service.description}
+                          </p>
+                        </article>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+
+            <Reveal variant="card">
+              <div className="relative overflow-hidden rounded-[36px] bg-[#0C3272] p-6 text-white shadow-[0_28px_80px_rgba(12,50,114,0.25)] sm:p-8 lg:p-10 dark:bg-blue-950">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(96,165,250,0.2),transparent_40%)]" />
+                <div className="relative grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-100">
+                      {content.serviceInquiry.eyebrow}
+                    </p>
+                    <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                      {content.serviceInquiry.title}
+                    </h3>
+                    <p className="mt-4 max-w-xl leading-7 text-blue-100/90">
+                      {content.serviceInquiry.description}
+                    </p>
+                  </div>
+                  <ServiceInquiryForm key={content.locale} content={content} />
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
 
@@ -459,9 +485,28 @@ export default function Home() {
                     <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">
                       {item.name}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                      {item.description}
-                    </p>
+                    <div className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                      <p>
+                        <span className="font-semibold text-slate-900 dark:text-white">
+                          {sections.portfolio.durationLabel}:
+                        </span>{" "}
+                        {item.duration}
+                      </p>
+                      <p>
+                        <span className="font-semibold text-slate-900 dark:text-white">
+                          {sections.portfolio.resultLabel}:
+                        </span>{" "}
+                        {item.result}
+                      </p>
+                      {item.process ? (
+                        <p>
+                          <span className="font-semibold text-slate-900 dark:text-white">
+                            {sections.portfolio.processLabel}:
+                          </span>{" "}
+                          {item.process}
+                        </p>
+                      ) : null}
+                    </div>
                   </div>
                 </article>
               </Reveal>
@@ -495,101 +540,41 @@ export default function Home() {
 
         <section id="testimonials" className="section-shell py-20">
           <Reveal>
-            <SectionHeading
-              eyebrow={sections.testimonials.eyebrow}
-              title={sections.testimonials.title}
-              description={sections.testimonials.description}
-            />
+            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+              <SectionHeading
+                eyebrow={sections.testimonials.eyebrow}
+                title={sections.testimonials.title}
+                description={sections.testimonials.description}
+                align="center"
+              />
+              <a href="#contact" className="mt-8">
+                <Magnetic>
+                  <Button size="large">
+                    {sections.testimonials.cta}
+                    <ArrowUpRight className="ml-2 size-4" />
+                  </Button>
+                </Magnetic>
+              </a>
+            </div>
           </Reveal>
-          <div className="mt-12 grid gap-6 lg:grid-cols-[0.45fr_0.55fr]">
-            <Reveal>
-              <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-                <div className="flex items-center gap-3 text-[#0C3272] dark:text-blue-300">
-                  <MessageSquareQuote className="size-6" />
-                  <span className="text-sm font-semibold uppercase tracking-[0.2em]">
-                    {sections.testimonials.whatClientsSay}
-                  </span>
-                </div>
-                <p className="mt-6 text-3xl font-semibold leading-tight text-slate-950 dark:text-white">
-                  {sections.testimonials.sideQuote}
-                </p>
-                <div className="mt-8 flex gap-3">
-                  <button
-                    type="button"
-                    aria-label={common.previousTestimonial}
-                    onClick={() =>
-                      setActiveTestimonial((current) =>
-                        current === 0 ? testimonials.length - 1 : current - 1,
-                      )
-                    }
-                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-blue-400 dark:hover:text-blue-300"
-                  >
-                    <ChevronLeft className="size-5" />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label={common.nextTestimonial}
-                    onClick={() =>
-                      setActiveTestimonial((current) => (current + 1) % testimonials.length)
-                    }
-                    className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:border-[#0C3272] hover:text-[#0C3272] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-blue-400 dark:hover:text-blue-300"
-                  >
-                    <ChevronRight className="size-5" />
-                  </button>
-                </div>
-              </div>
-            </Reveal>
 
-            <Reveal delay={0.08}>
-              <div className="glass-card rounded-[36px] border border-white/60 p-8 dark:border-white/10">
-                <motion.div
-                  key={activeTestimonial}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, ease: "easeOut" }}
-                  className="space-y-6"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="flex size-16 items-center justify-center rounded-full bg-[#0C3272]/10 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
-                      <Star className="size-6 fill-current" />
-                    </div>
-                    <div>
-                      <p className="text-lg font-semibold text-slate-950 dark:text-white">
-                        {testimonials[activeTestimonial]?.name}
-                      </p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400">
-                        {testimonials[activeTestimonial]?.company}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-1 text-amber-400">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <Star key={index} className="size-5 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-xl leading-9 text-slate-700 dark:text-slate-200">
-                    “{testimonials[activeTestimonial]?.review}”
-                  </p>
-                  <div className="flex gap-2">
-                    {testimonials.map((item, index) => (
-                      <button
-                        key={item.name}
-                        type="button"
-                        onClick={() => setActiveTestimonial(index)}
-                        className={cn(
-                          "h-2.5 rounded-full transition-all",
-                          activeTestimonial === index
-                            ? "w-10 bg-[#0C3272] dark:bg-blue-400"
-                            : "w-2.5 bg-slate-300 dark:bg-slate-600",
-                        )}
-                        aria-label={`${common.showTestimonial} ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              </div>
-            </Reveal>
+          <div className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {videoTestimonials.map((item, index) => (
+              <Reveal key={item.src} delay={index * 0.06} variant="card">
+                <VideoTestimonialCard
+                  title={item.title}
+                  src={item.src}
+                  formatLabel={item.formatLabel}
+                />
+              </Reveal>
+            ))}
           </div>
+
+          <Reveal delay={0.1}>
+            <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-7 text-slate-500 dark:text-slate-400">
+              {sections.testimonials.videoNote}
+            </p>
+          </Reveal>
         </section>
 
         <section id="faq" className="section-shell py-20">
@@ -682,7 +667,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer id="contact" className="bg-slate-950 py-20 text-white">
+      <footer id="contact" className="bg-slate-950 py-20 text-white lg:pl-[14.5rem]">
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-6">
@@ -696,18 +681,74 @@ export default function Home() {
               <p className="max-w-xl text-lg leading-8 text-slate-300">
                 {sections.contact.description}
               </p>
+
+              <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200/80">
+                  {sections.contact.socialLabel}
+                </p>
+                <p className="mt-3 text-sm leading-7 text-slate-300">
+                  {sections.contact.socialDescription}
+                </p>
+                <div className="mt-4 flex gap-3">
+                  <a
+                    href={baseSiteConfig.social.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                    className="flex size-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/20"
+                  >
+                    <svg viewBox="0 0 24 24" className="size-5 fill-none stroke-current" strokeWidth="1.8">
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                  </a>
+                  <a
+                    href={baseSiteConfig.social.telegram}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Telegram"
+                    className="flex size-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/20"
+                  >
+                    <Send className="size-5" />
+                  </a>
+                </div>
+              </div>
+
               <div className="grid gap-4 sm:grid-cols-2">
-                <ContactCard
-                  icon={PhoneCall}
-                  label={sections.contact.phoneLabel}
-                  value={baseSiteConfig.phoneDisplay}
-                  href={baseSiteConfig.phoneHref}
-                />
-                <ContactCard
-                  icon={BarChart3}
-                  label={sections.contact.servicesLabel}
-                  value={sections.contact.servicesValue}
-                />
+                <a
+                  href={baseSiteConfig.mapHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition hover:bg-white/8"
+                >
+                  <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-white/10">
+                    <MapPin className="size-5 text-blue-100" />
+                  </div>
+                  <p className="text-sm text-slate-300">{sections.contact.addressLabel}</p>
+                  <p className="mt-2 text-base font-semibold text-white">
+                    {sections.contact.addressValue}
+                  </p>
+                  <p className="mt-2 text-sm text-blue-200">{sections.contact.mapCta}</p>
+                </a>
+
+                <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                  <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-white/10">
+                    <PhoneCall className="size-5 text-blue-100" />
+                  </div>
+                  <p className="text-sm text-slate-300">{sections.contact.phoneLabel}</p>
+                  <div className="mt-3 space-y-2">
+                    {baseSiteConfig.phones.map((phone) => (
+                      <a
+                        key={phone.href}
+                        href={phone.href}
+                        className="block text-base font-semibold text-white transition hover:text-blue-200"
+                      >
+                        {phone.display}
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -799,31 +840,5 @@ function AnimatedCounter({
       {suffix}
     </div>
   );
-}
-
-function ContactCard({
-  icon: Icon,
-  label,
-  value,
-  href,
-}: {
-  icon: ComponentType<{ className?: string }>;
-  label: string;
-  value: string;
-  href?: string;
-}) {
-  const content = (
-    <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition hover:bg-white/8">
-      <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-white/10">
-        <Icon className="size-5 text-blue-100" />
-      </div>
-      <p className="text-sm text-slate-300">{label}</p>
-      <p className="mt-2 text-base font-semibold text-white">{value}</p>
-    </div>
-  );
-
-  if (!href) return content;
-
-  return <a href={href}>{content}</a>;
 }
 

@@ -31,9 +31,17 @@ export type SiteContent = {
     whyChoose: SectionCopy;
     services: SectionCopy;
     process: SectionCopy;
-    portfolio: SectionCopy & { projectPreview: string };
+    portfolio: SectionCopy & {
+      projectPreview: string;
+      durationLabel: string;
+      resultLabel: string;
+      processLabel: string;
+    };
     results: SectionCopy;
-    testimonials: SectionCopy & { whatClientsSay: string; sideQuote: string };
+    testimonials: SectionCopy & {
+      cta: string;
+      videoNote: string;
+    };
     faq: SectionCopy;
     finalCta: {
       eyebrow: string;
@@ -46,16 +54,50 @@ export type SiteContent = {
       title: string;
       description: string;
       phoneLabel: string;
-      servicesLabel: string;
-      servicesValue: string;
+      socialLabel: string;
+      socialDescription: string;
+      addressLabel: string;
+      addressValue: string;
+      mapCta: string;
     };
   };
   differentiators: { title: string; description: string }[];
-  services: { title: string; description: string; items: string[] }[];
+  services: {
+    title: string;
+    items: { title: string; description: string }[];
+  }[];
+  serviceInquiry: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    problemLabel: string;
+    problemPlaceholder: string;
+    fullNameLabel: string;
+    fullNamePlaceholder: string;
+    phoneLabel: string;
+    phonePlaceholder: string;
+    submit: string;
+    submitting: string;
+    success: string;
+    errorGeneric: string;
+    errorNetwork: string;
+    problemMin: string;
+    problemMax: string;
+  };
   processSteps: string[];
-  portfolioItems: { name: string; category: string; description: string }[];
+  portfolioItems: {
+    name: string;
+    category: string;
+    duration: string;
+    result: string;
+    process?: string;
+  }[];
   statistics: { value: number; suffix: string; label: string }[];
-  testimonials: { name: string; company: string; review: string }[];
+  videoTestimonials: {
+    title: string;
+    src: string;
+    formatLabel: string;
+  }[];
   faqs: { question: string; answer: string }[];
   form: {
     fullName: string;
@@ -83,9 +125,6 @@ export type SiteContent = {
   common: {
     freeConsultation: string;
     backToTop: string;
-    previousTestimonial: string;
-    nextTestimonial: string;
-    showTestimonial: string;
     primaryNav: string;
     selectLanguage: string;
   };

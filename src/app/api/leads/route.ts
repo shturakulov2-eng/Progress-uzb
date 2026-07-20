@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { isAllowedAdminEmail } from "@/lib/admin-access";
-import { prisma } from "@/lib/prisma";
 import { consumeRateLimit, getClientIp } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
-import { leadSchema } from "@/lib/validators";
+import { leadSchema, serviceInquirySchema } from "@/lib/validators";
 
 export async function POST(request: NextRequest) {
   const ip = getClientIp(request.headers.get("x-forwarded-for"));
@@ -22,8 +21,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const body = await request.json();
-  const parsed = leadSchema.safeParse(body);
+  const body: unknown = await request.json();
+  const isServiceInquiry =
+    typeof body === "object" &&
+    body !== null &&
+    "source" in body &&
+    body.source === "service-inquiry";
+  const parsed = isServiceInquiry
+    ? serviceInquirySchema.safeParse(body)
+    : leadSchema.safeParse(body);
 
   if (!parsed.success) {
     return NextResponse.json(
@@ -38,14 +44,42 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
-  await prisma.lead.create({
-    data: {
-      fullName: parsed.data.fullName,
-      companyName: parsed.data.companyName,
-      businessType: parsed.data.businessType,
-      phoneNumber: parsed.data.phoneNumber,
-    },
+  if (isServiceInquiry) {
+    const inquiry = serviceInquirySchema.parse(body);
+    const supabase = await createSupabaseServerClient();
+    const { error } = await supabase.from("Lead").insert({
+        fullName: inquiry.fullName,
+        phoneNumber: inquiry.phoneNumber,
+        problem: inquiry.problem,
+        source: inquiry.source,
+    });
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Unable to save the request." },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ success: true });
+  }
+
+  const lead = leadSchema.parse(body);
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.from("Lead").insert({
+      fullName: lead.fullName,
+      companyName: lead.companyName,
+      businessType: lead.businessType,
+      phoneNumber: lead.phoneNumber,
+      source: "contact",
   });
+
+  if (error) {
+    return NextResponse.json(
+      { error: "Unable to save the request." },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({
     success: true,
@@ -63,20 +97,32 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const search = request.nextUrl.searchParams.get("q")?.trim();
-  const leads = await prisma.lead.findMany({
-    where: search
-      ? {
-          OR: [
-            { fullName: { contains: search, mode: "insensitive" } },
-            { companyName: { contains: search, mode: "insensitive" } },
-            { businessType: { contains: search, mode: "insensitive" } },
-            { phoneNumber: { contains: search, mode: "insensitive" } },
-          ],
-        }
-      : undefined,
-    orderBy: { createdAt: "desc" },
-  });
+  const { data, error } = await supabase
+    .from("Lead")
+    .select("*")
+    .order("createdAt", { ascending: false });
+
+  if (error) {
+    return NextResponse.json({ error: "Unable to load leads." }, { status: 500 });
+  }
+
+  const search = request.nextUrl.searchParams.get("q")?.trim().toLowerCase();
+  const leads = search
+    ? (data ?? []).filter((lead) =>
+        [
+          lead.fullName,
+          lead.companyName,
+          lead.businessType,
+          lead.phoneNumber,
+          lead.problem,
+          lead.source,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .includes(search),
+      )
+    : (data ?? []);
 
   return NextResponse.json({ leads });
 }

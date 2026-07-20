@@ -31,7 +31,37 @@ export function createLeadSchema(validation: SiteContent["validation"]) {
   });
 }
 
+export function createServiceInquirySchema(content: SiteContent) {
+  return z.object({
+    source: z.literal("service-inquiry"),
+    fullName: z
+      .string()
+      .min(2, content.validation.fullNameMin)
+      .max(120, content.validation.fullNameMax)
+      .transform(sanitizeText),
+    phoneNumber: z
+      .string()
+      .min(7, content.validation.phoneNumberMin)
+      .max(30, content.validation.phoneNumberMax)
+      .regex(/^[+\d\s()-]+$/, content.validation.phoneNumberInvalid)
+      .transform((value) => sanitizeText(value).replace(/\s+/g, " ")),
+    problem: z
+      .string()
+      .min(10, content.serviceInquiry.problemMin)
+      .max(1000, content.serviceInquiry.problemMax)
+      .transform(sanitizeText),
+    website: z.string().max(0).optional().default(""),
+  });
+}
+
 export type LeadFormValues = z.input<ReturnType<typeof createLeadSchema>>;
 export type LeadInput = z.output<ReturnType<typeof createLeadSchema>>;
+export type ServiceInquiryFormValues = z.input<
+  ReturnType<typeof createServiceInquirySchema>
+>;
+export type ServiceInquiryInput = z.output<
+  ReturnType<typeof createServiceInquirySchema>
+>;
 
 export const leadSchema = createLeadSchema(contentEn.validation);
+export const serviceInquirySchema = createServiceInquirySchema(contentEn);

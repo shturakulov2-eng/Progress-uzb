@@ -1,21 +1,20 @@
 import { AdminDashboard } from "@/components/admin/admin-dashboard";
-import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export default async function AdminPage() {
   const user = await requireAdmin();
-  const leads = await prisma.lead.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const supabase = await createSupabaseServerClient();
+  const { data: leads, error } = await supabase
+    .from("Lead")
+    .select("*")
+    .order("createdAt", { ascending: false });
 
-  const serializedLeads = leads.map((lead) => ({
-    ...lead,
-    createdAt: lead.createdAt.toISOString(),
-  }));
+  if (error) {
+    throw new Error("Unable to load leads.");
+  }
 
   return (
-    <AdminDashboard initialLeads={serializedLeads} adminEmail={user.email ?? ""} />
+    <AdminDashboard initialLeads={leads ?? []} adminEmail={user.email ?? ""} />
   );
 }
