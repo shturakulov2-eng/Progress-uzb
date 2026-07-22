@@ -58,6 +58,8 @@ export type SiteContent = {
       socialDescription: string;
       addressLabel: string;
       addressValue: string;
+      landmarkLabel: string;
+      landmarkValue: string;
       mapCta: string;
     };
   };

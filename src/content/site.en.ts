@@ -118,7 +118,9 @@ export const contentEn: SiteContent = {
       socialDescription:
         "Follow us on social media and get free insider ideas for your business.",
       addressLabel: "Address",
-      addressValue: "Map / Geolocation",
+      addressValue: "Spartak, Samarkand",
+      landmarkLabel: "Landmark",
+      landmarkValue: '"Chin Express" logistics services',
       mapCta: "Open on map",
     },
   },
@@ -334,17 +336,17 @@ export const contentEn: SiteContent = {
     {
       title: "Client review 1",
       src: "/videos/testimonial-1.mp4",
-      formatLabel: "Reels",
+      formatLabel: "1080 × 1920",
     },
     {
       title: "Client review 2",
       src: "/videos/testimonial-2.mp4",
-      formatLabel: "Shorts",
+      formatLabel: "1080 × 1920",
     },
     {
       title: "Client review 3",
       src: "/videos/testimonial-3.mp4",
-      formatLabel: "Video",
+      formatLabel: "1080 × 1920",
     },
   ],
   faqs: [

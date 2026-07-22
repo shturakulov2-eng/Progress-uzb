@@ -118,7 +118,9 @@ export const contentRu: SiteContent = {
       socialDescription:
         "Следите за нами в соцсетях и получайте бесплатные insider-идеи для бизнеса.",
       addressLabel: "Адрес",
-      addressValue: "Карта / Геолокация",
+      addressValue: "Самарканд, Спартак",
+      landmarkLabel: "Ориентир",
+      landmarkValue: 'Логистическая служба «Chin Express»',
       mapCta: "Открыть на карте",
     },
   },
@@ -334,17 +336,17 @@ export const contentRu: SiteContent = {
     {
       title: "Отзыв клиента 1",
       src: "/videos/testimonial-1.mp4",
-      formatLabel: "Reels",
+      formatLabel: "1080 × 1920",
     },
     {
       title: "Отзыв клиента 2",
       src: "/videos/testimonial-2.mp4",
-      formatLabel: "Shorts",
+      formatLabel: "1080 × 1920",
     },
     {
       title: "Отзыв клиента 3",
       src: "/videos/testimonial-3.mp4",
-      formatLabel: "Видео",
+      formatLabel: "1080 × 1920",
     },
   ],
   faqs: [

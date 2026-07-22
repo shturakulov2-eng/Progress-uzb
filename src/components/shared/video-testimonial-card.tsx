@@ -6,11 +6,13 @@ import { useState } from "react";
 export function VideoTestimonialCard({
   title,
   src,
-  formatLabel,
+  onPlay,
+  onPause,
 }: {
   title: string;
   src: string;
-  formatLabel: string;
+  onPlay?: () => void;
+  onPause?: () => void;
 }) {
   const [hasVideo, setHasVideo] = useState(true);
 
@@ -28,13 +30,13 @@ export function VideoTestimonialCard({
             preload="metadata"
             muted
             onError={() => setHasVideo(false)}
+            onPlay={onPlay}
+            onPause={onPause}
+            onEnded={onPause}
             aria-label={title}
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center text-white">
-            <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]">
-              {formatLabel}
-            </span>
             <button
               type="button"
               className="flex size-16 items-center justify-center rounded-full border border-white/30 bg-white/15 backdrop-blur-md transition group-hover:scale-105 group-hover:bg-white/25"
@@ -45,10 +47,6 @@ export function VideoTestimonialCard({
             <p className="text-sm font-medium text-blue-50/90">{title}</p>
           </div>
         )}
-
-        <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-white/25 bg-black/25 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-          {formatLabel}
-        </div>
       </div>
     </article>
   );

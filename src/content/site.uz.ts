@@ -24,7 +24,7 @@ export const contentUz: SiteContent = {
   hero: {
     navTagline: "Brenddan sotuvgacha\nkompleks yechimlar",
     badge: "Mahsulotiga ishonadigan brendlar uchun savdoni oshiradigan strategik hamkor",
-    title: "Biz shunchaki reklama qilmaymiz, biz savdoni muntazam oshiradigan TIZIM quramiz!",
+    title: "Biz shunchaki reklama qilmaymiz,\nbiz savdoni muntazam\noshiradigan TIZIM quramiz!",
     subtitle:
       "Progress Marketing Agentligi — 2019-yildan buyon ishlab chiqarish, savdo va xizmat koʻrsatish korxonalarining savdosini doimiy va tizimli ravishda oshirib, hamkorlik qilib kelmoqda.",
     ctaPrimary: "Konsultatsiyaga yozilish",
@@ -119,7 +119,9 @@ export const contentUz: SiteContent = {
       socialDescription:
         "Bizni ijtimoiy tarmoqlarda kuzating va biznesingiz uchun bepul insider-g'oyalarga ega bo'ling.",
       addressLabel: "Manzil",
-      addressValue: "Xarita / Geolokatsiya",
+      addressValue: "Samarqand shahar, Spartak",
+      landmarkLabel: "Mo'ljal",
+      landmarkValue: '"Chin Express" logistika xizmatlari',
       mapCta: "Xaritada ochish",
     },
   },
@@ -335,17 +337,17 @@ export const contentUz: SiteContent = {
     {
       title: "Mijoz fikri 1",
       src: "/videos/testimonial-1.mp4",
-      formatLabel: "Reels",
+      formatLabel: "1080 × 1920",
     },
     {
       title: "Mijoz fikri 2",
       src: "/videos/testimonial-2.mp4",
-      formatLabel: "Shorts",
+      formatLabel: "1080 × 1920",
     },
     {
       title: "Mijoz fikri 3",
       src: "/videos/testimonial-3.mp4",
-      formatLabel: "Video",
+      formatLabel: "1080 × 1920",
     },
   ],
   faqs: [

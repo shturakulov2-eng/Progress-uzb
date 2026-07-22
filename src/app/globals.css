@@ -184,3 +184,94 @@ h6 {
     display: none !important;
   }
 }
+
+/*
+ * Active sidebar nav pill.
+ * The fill uses the SAME page background gradient with a fixed attachment,
+ * so it samples the exact site color at its screen position and blends in.
+ * Left corners: soft inner (convex) radius. Right corners: concave scoops
+ * that "open outward" into the main content area.
+ */
+:root {
+  --site-gradient: linear-gradient(180deg, #f6f8ff 0%, #ffffff 30%, #eef4ff 100%);
+}
+
+.dark {
+  --site-gradient: linear-gradient(180deg, #0b1220 0%, #0f172a 38%, #0b1220 100%);
+}
+
+.nav-active-pill {
+  --scoop: 14px;
+  background-image: var(--site-gradient);
+  background-attachment: fixed;
+  border-radius: 22px 0 0 22px;
+}
+
+.nav-scoop {
+  position: absolute;
+  right: 0;
+  width: var(--scoop);
+  height: var(--scoop);
+  pointer-events: none;
+  background-image: var(--site-gradient);
+  background-attachment: fixed;
+}
+
+.nav-scoop-top {
+  top: calc(var(--scoop) * -1);
+  -webkit-mask: radial-gradient(circle var(--scoop) at left top, transparent var(--scoop), #000 var(--scoop));
+  mask: radial-gradient(circle var(--scoop) at left top, transparent var(--scoop), #000 var(--scoop));
+}
+
+.nav-scoop-bottom {
+  bottom: calc(var(--scoop) * -1);
+  -webkit-mask: radial-gradient(circle var(--scoop) at left bottom, transparent var(--scoop), #000 var(--scoop));
+  mask: radial-gradient(circle var(--scoop) at left bottom, transparent var(--scoop), #000 var(--scoop));
+}
+
+/* Keep the hover glow overlay from tinting the active pill's blended fill */
+a[aria-current="true"]::after {
+  opacity: 0 !important;
+}
+
+@keyframes video-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.video-marquee {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.video-marquee-track {
+  animation: video-marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+.video-marquee.is-playing .video-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .video-marquee-track {
+    animation: none;
+  }
+}

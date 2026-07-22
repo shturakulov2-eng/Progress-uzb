@@ -8,7 +8,6 @@ import {
   CircleHelp,
   Clapperboard,
   Globe2,
-  Landmark,
   LayoutTemplate,
   MapPin,
   Megaphone,
@@ -23,7 +22,6 @@ import {
 } from "lucide-react";
 import {
   motion,
-  useInView,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -37,6 +35,8 @@ import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup } from "@/components/shared/lead-popup";
 import { Magnetic } from "@/components/shared/magnetic";
+import { MountainJourney } from "@/components/shared/mountain-journey";
+import { PortfolioScrollShowcase } from "@/components/shared/portfolio-scroll-showcase";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ServiceInquiryForm } from "@/components/shared/service-inquiry-form";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -78,9 +78,15 @@ export default function Home() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
+  const [isTestimonialPlaying, setIsTestimonialPlaying] = useState(false);
 
   const heroRef = useRef<HTMLElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const [pillBox, setPillBox] = useState<{ top: number; height: number } | null>(
+    null,
+  );
   const prefersReducedMotion = useReducedMotion();
 
   const { scrollYProgress: heroProgress } = useScroll({
@@ -148,8 +154,22 @@ export default function Home() {
     };
   }, [navigation]);
 
+  useEffect(() => {
+    const measurePill = () => {
+      const el = linkRefs.current[activeSection];
+      if (!el) return;
+      setPillBox({ top: el.offsetTop, height: el.offsetHeight });
+    };
+    const raf = requestAnimationFrame(measurePill);
+    window.addEventListener("resize", measurePill);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", measurePill);
+    };
+  }, [activeSection]);
+
   return (
-    <div className="relative overflow-x-hidden bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_38%,#0b1220_100%)]">
+    <div className="relative overflow-x-clip bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_38%,#0b1220_100%)]">
       <motion.div
         className="absolute inset-x-0 top-0 -z-10 h-[720px] hero-glow"
         style={{ y: heroGlowY }}
@@ -177,22 +197,21 @@ export default function Home() {
 
       <aside
         className={cn(
-          "fixed top-0 bottom-0 left-0 z-[58] flex w-[13rem] flex-col overflow-hidden rounded-r-[28px] border-r border-white/40 bg-[#0C3272]/85 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-300 dark:border-white/15 dark:bg-[#0C3272]/60 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
+          "fixed top-0 bottom-0 left-0 z-[58] flex w-[13rem] flex-col overflow-visible transition-transform duration-300",
           "lg:translate-x-0",
           mobileNavOpen ? "translate-x-0" : "-translate-x-[120%] lg:translate-x-0",
         )}
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-r-[28px] bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,rgba(255,255,255,0)_70%)]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-6 right-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/40 to-transparent"
-        />
+          className="pointer-events-none absolute inset-0 overflow-hidden rounded-r-[28px] border-r border-white/40 bg-[#0C3272]/85 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/60 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,rgba(255,255,255,0)_70%)]" />
+          <div className="absolute inset-y-6 right-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/40 to-transparent" />
+        </div>
 
         <div className="relative flex h-full flex-col px-4 py-5">
-          <div className="flex shrink-0 flex-col items-center text-center">
+          <div className="flex shrink-0 flex-col items-center pt-4 text-center">
             <Image
               src={logoImage}
               alt="Progress.uzb logo"
@@ -200,30 +219,60 @@ export default function Home() {
               className="h-auto w-[96px] brightness-0 invert"
               priority
             />
-            <p className="mt-2 max-w-[10.5rem] text-[11px] font-medium leading-4 text-blue-100/80">
+            <p className="mt-2.5 max-w-[10.5rem] text-xs font-medium leading-5 text-blue-100/80">
               Brenddan sotuvgacha kompleks yechimlar
             </p>
           </div>
 
           <nav
+            ref={navRef}
             aria-label={common.primaryNav}
-            className="mt-5 flex flex-1 flex-col justify-center gap-2"
+            className="relative mt-5 flex flex-1 flex-col justify-center gap-2.5"
           >
+            {pillBox ? (
+              <motion.div
+                aria-hidden="true"
+                className="nav-active-pill pointer-events-none absolute left-0 -right-4 z-0 rounded-l-[22px]"
+                initial={false}
+                animate={{ top: pillBox.top, height: pillBox.height }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 380, damping: 34, mass: 0.7 }
+                }
+              >
+                <span className="nav-scoop nav-scoop-top" />
+                <span className="nav-scoop nav-scoop-bottom" />
+              </motion.div>
+            ) : null}
+
             {navigation.map((item) => {
               const isActive = activeSection === item.href;
 
               return (
                 <a
                   key={item.href}
+                  ref={(node) => {
+                    linkRefs.current[item.href] = node;
+                  }}
                   href={item.href}
                   onClick={() => setMobileNavOpen(false)}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "origin-left rounded-xl px-3 py-1 text-base font-semibold text-white/70 transition-all duration-500 ease-out will-change-transform hover:text-white",
-                    isActive && "translate-x-1 scale-[1.4] font-bold text-white",
+                    "relative z-10 px-3 py-2 text-base font-semibold transition-colors duration-300 ease-out",
+                    isActive
+                      ? "font-bold text-[#0C3272] dark:text-white"
+                      : "text-white/70 hover:text-white",
                   )}
                 >
-                  {item.label}
+                  <span
+                    className={cn(
+                      "inline-block origin-left transition-transform duration-300 ease-out",
+                      isActive && "scale-[1.18]",
+                    )}
+                  >
+                    {item.label}
+                  </span>
                 </a>
               );
             })}
@@ -251,7 +300,9 @@ export default function Home() {
         </div>
       </aside>
 
-      <main className="pt-20 lg:pt-8 lg:pl-[14.5rem]">
+      <MountainJourney />
+
+      <main className="relative z-10 pt-20 lg:pt-8 lg:pl-[14.5rem]">
         <section
           id="home"
           ref={heroRef}
@@ -265,8 +316,12 @@ export default function Home() {
                   {hero.badge}
                 </div>
                 <div className="space-y-5">
-                  <h1 className="max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl dark:text-white">
-                    {hero.title}
+                  <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white">
+                    {hero.title.split("\n").map((line) => (
+                      <span key={line} className="block whitespace-nowrap">
+                        {line}
+                      </span>
+                    ))}
                   </h1>
                   <p className="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
                     {hero.subtitle}
@@ -451,92 +506,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="portfolio" className="section-shell py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow={sections.portfolio.eyebrow}
-              title={sections.portfolio.title}
-              description={sections.portfolio.description}
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {portfolioItems.map((item, index) => (
-              <Reveal key={item.name} delay={index * 0.05} variant="card">
-                <article className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
-                  <div className="relative aspect-[16/11] overflow-hidden bg-[linear-gradient(135deg,#0C3272,#1a56c6)] p-6 text-white">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.18),_transparent_25%)]" />
-                    <div className="relative flex h-full flex-col justify-between">
-                      <div className="flex items-center justify-between">
-                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em]">
-                          {sections.portfolio.projectPreview}
-                        </span>
-                        <Landmark className="size-5 text-blue-100" />
-                      </div>
-                      <div className="rounded-[24px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
-                        <p className="text-sm text-blue-100">{item.category}</p>
-                        <p className="mt-2 text-2xl font-semibold">{item.name}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0C3272] dark:text-blue-300">
-                      {item.category}
-                    </p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">
-                      {item.name}
-                    </h3>
-                    <div className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                      <p>
-                        <span className="font-semibold text-slate-900 dark:text-white">
-                          {sections.portfolio.durationLabel}:
-                        </span>{" "}
-                        {item.duration}
-                      </p>
-                      <p>
-                        <span className="font-semibold text-slate-900 dark:text-white">
-                          {sections.portfolio.resultLabel}:
-                        </span>{" "}
-                        {item.result}
-                      </p>
-                      {item.process ? (
-                        <p>
-                          <span className="font-semibold text-slate-900 dark:text-white">
-                            {sections.portfolio.processLabel}:
-                          </span>{" "}
-                          {item.process}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        <section className="section-shell py-20">
-          <div className="rounded-[36px] bg-slate-950 px-6 py-12 text-white shadow-[0_30px_80px_rgba(15,23,42,0.18)] sm:px-10">
-            <Reveal>
-              <SectionHeading
-                eyebrow={sections.results.eyebrow}
-                title={sections.results.title}
-                description={sections.results.description}
-              />
-            </Reveal>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-              {statistics.map((item, index) => (
-                <Reveal key={item.label} delay={index * 0.06}>
-                  <div className="rounded-[30px] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                    <AnimatedCounter value={item.value} suffix={item.suffix} />
-                    <p className="mt-3 text-sm uppercase tracking-[0.2em] text-blue-100">
-                      {item.label}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PortfolioScrollShowcase
+          portfolio={sections.portfolio}
+          results={sections.results}
+          items={portfolioItems}
+          statistics={statistics}
+        />
 
         <section id="testimonials" className="section-shell py-20">
           <Reveal>
@@ -558,17 +533,38 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {videoTestimonials.map((item, index) => (
-              <Reveal key={item.src} delay={index * 0.06} variant="card">
-                <VideoTestimonialCard
-                  title={item.title}
-                  src={item.src}
-                  formatLabel={item.formatLabel}
-                />
-              </Reveal>
-            ))}
-          </div>
+          <Reveal variant="card">
+            <div
+              className={cn(
+                "video-marquee mt-12 overflow-hidden",
+                isTestimonialPlaying && "is-playing",
+              )}
+            >
+              <div className="video-marquee-track flex w-max">
+                {[0, 1].map((groupIndex) => (
+                  <div
+                    key={groupIndex}
+                    aria-hidden={groupIndex === 1 ? "true" : undefined}
+                    className="flex shrink-0 gap-5 pr-5"
+                  >
+                    {videoTestimonials.map((item) => (
+                      <div
+                        key={`${groupIndex}-${item.src}`}
+                        className="w-[min(75vw,283px)] shrink-0"
+                      >
+                        <VideoTestimonialCard
+                          title={item.title}
+                          src={item.src}
+                          onPlay={() => setIsTestimonialPlaying(true)}
+                          onPause={() => setIsTestimonialPlaying(false)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
 
           <Reveal delay={0.1}>
             <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-7 text-slate-500 dark:text-slate-400">
@@ -667,14 +663,18 @@ export default function Home() {
         </section>
       </main>
 
-      <footer id="contact" className="bg-slate-950 py-20 text-white lg:pl-[14.5rem]">
+      <footer id="contact" className="relative z-10 bg-slate-950 py-20 text-white lg:pl-[14.5rem]">
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-100">
+              <a
+                href="tel:+998939633363"
+                aria-label="Progress.uzb ga qo'ng'iroq qilish"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-100 transition hover:bg-white/10 hover:text-white"
+              >
                 <PhoneCall className="size-4" />
                 {sections.contact.badge}
-              </div>
+              </a>
               <h2 className="max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">
                 {sections.contact.title}
               </h2>
@@ -716,12 +716,7 @@ export default function Home() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <a
-                  href={baseSiteConfig.mapHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition hover:bg-white/8"
-                >
+                <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
                   <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-white/10">
                     <MapPin className="size-5 text-blue-100" />
                   </div>
@@ -729,8 +724,13 @@ export default function Home() {
                   <p className="mt-2 text-base font-semibold text-white">
                     {sections.contact.addressValue}
                   </p>
-                  <p className="mt-2 text-sm text-blue-200">{sections.contact.mapCta}</p>
-                </a>
+                  <p className="mt-4 text-sm text-slate-300">
+                    {sections.contact.landmarkLabel}
+                  </p>
+                  <p className="mt-1 text-sm font-medium leading-6 text-blue-100">
+                    {sections.contact.landmarkValue}
+                  </p>
+                </div>
 
                 <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
                   <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-white/10">
@@ -754,8 +754,38 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="rounded-[36px] border border-white/10 bg-white/6 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
-              <ContactForm key={content.locale} content={content} />
+            <div className="space-y-6">
+              <div className="rounded-[36px] border border-white/10 bg-white/6 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
+                <ContactForm key={content.locale} content={content} />
+              </div>
+
+              <div className="overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-2xl shadow-black/20 backdrop-blur-xl">
+                <div className="flex items-center justify-between gap-3 px-6 pt-5">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                    <MapPin className="size-4 text-blue-200" />
+                    {sections.contact.addressValue}
+                  </div>
+                  <a
+                    href={baseSiteConfig.mapHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-blue-100 transition hover:bg-white/20"
+                  >
+                    {sections.contact.mapCta}
+                    <ArrowUpRight className="size-3.5" />
+                  </a>
+                </div>
+                <div className="mt-4 aspect-[16/10] w-full">
+                  <iframe
+                    src={baseSiteConfig.mapEmbedSrc}
+                    title={sections.contact.addressValue}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                    className="h-full w-full border-0 grayscale-[0.15]"
+                  />
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -806,39 +836,4 @@ function Reveal({
   );
 }
 
-function AnimatedCounter({
-  value,
-  suffix,
-}: {
-  value: number;
-  suffix: string;
-}) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const start = performance.now();
-    const duration = 1200;
-
-    const frame = (time: number) => {
-      const progress = Math.min((time - start) / duration, 1);
-      setDisplayValue(Math.round(value * progress));
-      if (progress < 1) {
-        window.requestAnimationFrame(frame);
-      }
-    };
-
-    window.requestAnimationFrame(frame);
-  }, [isInView, value]);
-
-  return (
-    <div ref={ref} className="text-5xl font-semibold tracking-tight">
-      {displayValue}
-      {suffix}
-    </div>
-  );
-}
 

@@ -10,7 +10,10 @@ export const baseSiteConfig = {
   ],
   email: "hello@progress.uzb",
   mapLabel: "Xarita / Geolokatsiya",
-  mapHref: "https://maps.google.com/?q=Tashkent",
+  mapHref:
+    "https://www.google.com/maps/place/39%C2%B039'35.9%22N+66%C2%B057'46.0%22E/@39.659982,66.962769,16z/data=!4m4!3m3!8m2!3d39.659982!4d66.962769",
+  mapEmbedSrc:
+    "https://www.google.com/maps?q=39.659982,66.962769&z=16&hl=uz&output=embed",
   social: {
     instagram: "https://instagram.com/",
     telegram: "https://t.me/",
