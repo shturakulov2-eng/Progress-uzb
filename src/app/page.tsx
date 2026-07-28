@@ -33,10 +33,10 @@ import type { ReactNode } from "react";
 import logoImage from "../../logo progress ver.png";
 import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { LeadPopup } from "@/components/shared/lead-popup";
+import { LeadPopup, openLeadPopup } from "@/components/shared/lead-popup";
 import { Magnetic } from "@/components/shared/magnetic";
-import { MountainJourney } from "@/components/shared/mountain-journey";
 import { PortfolioScrollShowcase } from "@/components/shared/portfolio-scroll-showcase";
+import { ProcessScrollCarousel } from "@/components/shared/process-scroll-carousel";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ServiceInquiryForm } from "@/components/shared/service-inquiry-form";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -81,7 +81,6 @@ export default function Home() {
   const [isTestimonialPlaying, setIsTestimonialPlaying] = useState(false);
 
   const heroRef = useRef<HTMLElement>(null);
-  const processRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const [pillBox, setPillBox] = useState<{ top: number; height: number } | null>(
@@ -98,11 +97,6 @@ export default function Home() {
     [0, 1],
     prefersReducedMotion ? [0, 0] : [0, -60],
   );
-
-  const { scrollYProgress: processProgress } = useScroll({
-    target: processRef,
-    offset: ["start end", "end start"],
-  });
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 700);
@@ -266,9 +260,9 @@ export default function Home() {
                   )}
                 >
                   <span
-                    className={cn(
+                      className={cn(
                       "inline-block origin-left transition-transform duration-300 ease-out",
-                      isActive && "scale-[1.18]",
+                      isActive && "scale-[1.08] sm:scale-[1.14]",
                     )}
                   >
                     {item.label}
@@ -300,43 +294,44 @@ export default function Home() {
         </div>
       </aside>
 
-      <MountainJourney />
-
       <main className="relative z-10 pt-20 lg:pt-8 lg:pl-[14.5rem]">
         <section
           id="home"
           ref={heroRef}
-          className="section-shell pt-10 pb-20 sm:pt-14 sm:pb-24"
+          className="section-shell pt-8 pb-14 sm:pt-14 sm:pb-24"
         >
           <div className="max-w-3xl">
             <Reveal>
               <div className="space-y-8">
-                <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-4 py-2 text-sm text-[#0C3272] shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-blue-200">
-                  <ShieldCheck className="size-4" />
-                  {hero.badge}
+                <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-3 py-2 text-xs text-[#0C3272] shadow-sm backdrop-blur-sm sm:px-4 sm:text-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-blue-200">
+                  <ShieldCheck className="size-4 shrink-0" />
+                  <span className="min-w-0 leading-snug">{hero.badge}</span>
                 </div>
                 <div className="space-y-5">
-                  <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white">
+                  <h1 className="max-w-3xl text-balance text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl dark:text-white">
                     {hero.title.split("\n").map((line) => (
-                      <span key={line} className="block whitespace-nowrap">
+                      <span key={line} className="block">
                         {line}
                       </span>
                     ))}
                   </h1>
-                  <p className="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
+                  <p className="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 md:text-xl dark:text-slate-300">
                     {hero.subtitle}
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-4 sm:flex-row">
-                  <a href="#contact">
-                    <Magnetic>
-                      <Button size="large" className="w-full sm:w-auto">
-                        {hero.ctaPrimary}
-                        <ArrowUpRight className="ml-2 size-4" />
-                      </Button>
-                    </Magnetic>
-                  </a>
+                  <Magnetic>
+                    <Button
+                      type="button"
+                      size="large"
+                      className="w-full sm:w-auto"
+                      onClick={openLeadPopup}
+                    >
+                      {hero.ctaPrimary}
+                      <ArrowUpRight className="ml-2 size-4" />
+                    </Button>
+                  </Magnetic>
                   <a href="#services">
                     <Button variant="secondary" size="large" className="w-full sm:w-auto">
                       {hero.ctaSecondary}
@@ -362,7 +357,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell py-20">
+        <section className="section-shell py-14 sm:py-20">
           <Reveal>
             <SectionHeading
               eyebrow={sections.whyChoose.eyebrow}
@@ -388,7 +383,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="services" className="section-shell py-20">
+        <section id="services" className="section-shell py-14 sm:py-20">
           <Reveal>
             <SectionHeading
               eyebrow={sections.services.eyebrow}
@@ -404,7 +399,7 @@ export default function Home() {
                     <span className="text-sm font-semibold text-[#0C3272]/50 dark:text-blue-300/60">
                       0{groupIndex + 1}
                     </span>
-                    <h3 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+                    <h3 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl dark:text-white">
                       {group.title}
                     </h3>
                     <div className="h-px flex-1 bg-gradient-to-r from-[#0C3272]/20 to-transparent dark:from-blue-300/20" />
@@ -448,7 +443,7 @@ export default function Home() {
                     <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-100">
                       {content.serviceInquiry.eyebrow}
                     </p>
-                    <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                    <h3 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
                       {content.serviceInquiry.title}
                     </h3>
                     <p className="mt-4 max-w-xl leading-7 text-blue-100/90">
@@ -462,49 +457,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="process" className="section-shell py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow={sections.process.eyebrow}
-              title={sections.process.title}
-              description={sections.process.description}
-              align="center"
-            />
-          </Reveal>
-          <div className="relative mt-12">
-            <div className="absolute top-2 bottom-2 left-2 w-0.5 overflow-hidden rounded-full bg-slate-200 lg:hidden dark:bg-slate-700">
-              <motion.div
-                className="w-full origin-top rounded-full bg-[#0C3272] dark:bg-blue-400"
-                style={{ scaleY: processProgress, height: "100%" }}
-              />
-            </div>
-            <div className="mb-6 hidden h-1 overflow-hidden rounded-full bg-slate-200 lg:block dark:bg-slate-700">
-              <motion.div
-                className="h-full origin-left rounded-full bg-[#0C3272] dark:bg-blue-400"
-                style={{ scaleX: processProgress }}
-              />
-            </div>
-            <div ref={processRef} className="grid gap-5 pl-6 lg:grid-cols-6 lg:pl-0">
-              {processSteps.map((step, index) => (
-                <Reveal key={step} delay={index * 0.06}>
-                  <div className="relative h-full rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
-                    <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-sm font-semibold text-white dark:bg-blue-600">
-                      {index + 1}
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
-                      {step}
-                    </h3>
-                    {index < processSteps.length - 1 ? (
-                      <div className="pointer-events-none absolute right-[-16px] top-1/2 hidden -translate-y-1/2 lg:block">
-                        <ArrowUpRight className="size-8 rotate-45 text-[#0C3272]/30" />
-                      </div>
-                    ) : null}
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ProcessScrollCarousel
+          copy={sections.process}
+          steps={processSteps}
+        />
 
         <PortfolioScrollShowcase
           portfolio={sections.portfolio}
@@ -513,7 +469,7 @@ export default function Home() {
           statistics={statistics}
         />
 
-        <section id="testimonials" className="section-shell py-20">
+        <section id="testimonials" className="section-shell py-14 sm:py-20">
           <Reveal>
             <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
               <SectionHeading
@@ -522,14 +478,14 @@ export default function Home() {
                 description={sections.testimonials.description}
                 align="center"
               />
-              <a href="#contact" className="mt-8">
+              <div className="mt-8">
                 <Magnetic>
-                  <Button size="large">
+                  <Button type="button" size="large" onClick={openLeadPopup}>
                     {sections.testimonials.cta}
                     <ArrowUpRight className="ml-2 size-4" />
                   </Button>
                 </Magnetic>
-              </a>
+              </div>
             </div>
           </Reveal>
 
@@ -550,7 +506,7 @@ export default function Home() {
                     {videoTestimonials.map((item) => (
                       <div
                         key={`${groupIndex}-${item.src}`}
-                        className="w-[min(75vw,283px)] shrink-0"
+                        className="w-[min(82vw,283px)] shrink-0 sm:w-[min(75vw,283px)]"
                       >
                         <VideoTestimonialCard
                           title={item.title}
@@ -573,7 +529,7 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <section id="faq" className="section-shell py-20">
+        <section id="faq" className="section-shell py-14 sm:py-20">
           <Reveal>
             <SectionHeading
               eyebrow={sections.faq.eyebrow}
@@ -593,14 +549,14 @@ export default function Home() {
                       type="button"
                       aria-expanded={isOpen}
                       onClick={() => setActiveFaq(isOpen ? null : index)}
-                      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                      className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left sm:gap-4 sm:px-6 sm:py-5"
                     >
                       <div className="flex items-start gap-4">
                         <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272]/8 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
                           <CircleHelp className="size-5" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
+                          <h3 className="text-base font-semibold text-slate-950 sm:text-lg dark:text-white">
                             {faq.question}
                           </h3>
                         </div>
@@ -620,7 +576,7 @@ export default function Home() {
                       }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pl-20 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                      <div className="px-4 pb-5 pl-4 text-sm leading-7 text-slate-600 sm:px-6 sm:pb-6 sm:pl-20 dark:text-slate-300">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -631,19 +587,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell py-20">
+        <section className="section-shell py-14 sm:py-20">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[40px] bg-[#0C3272] px-6 py-12 text-white shadow-[0_30px_90px_rgba(12,50,114,0.28)] sm:px-10 lg:px-14">
+            <div className="relative overflow-hidden rounded-[28px] bg-[#0C3272] px-5 py-10 text-white shadow-[0_30px_90px_rgba(12,50,114,0.28)] sm:rounded-[40px] sm:px-10 sm:py-12 lg:px-14">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.16),_transparent_20%)]" />
               <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div className="space-y-4">
                   <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100">
                     {sections.finalCta.eyebrow}
                   </p>
-                  <h2 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+                  <h2 className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
                     {sections.finalCta.title}
                   </h2>
-                  <p className="max-w-2xl text-lg leading-8 text-blue-50">
+                  <p className="max-w-2xl text-base leading-7 text-blue-50 sm:text-lg sm:leading-8">
                     {sections.finalCta.description}
                   </p>
                 </div>
@@ -663,7 +619,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer id="contact" className="relative z-10 bg-slate-950 py-20 text-white lg:pl-[14.5rem]">
+      <footer id="contact" className="relative z-10 bg-slate-950 py-14 text-white sm:py-20 lg:pl-[14.5rem]">
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-6">
@@ -675,10 +631,10 @@ export default function Home() {
                 <PhoneCall className="size-4" />
                 {sections.contact.badge}
               </a>
-              <h2 className="max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">
+              <h2 className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
                 {sections.contact.title}
               </h2>
-              <p className="max-w-xl text-lg leading-8 text-slate-300">
+              <p className="max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
                 {sections.contact.description}
               </p>
 
@@ -742,7 +698,7 @@ export default function Home() {
                       <a
                         key={phone.href}
                         href={phone.href}
-                        className="block text-base font-semibold text-white transition hover:text-blue-200"
+                        className="block break-all text-sm font-semibold text-white transition hover:text-blue-200 sm:text-base"
                       >
                         {phone.display}
                       </a>
@@ -755,27 +711,27 @@ export default function Home() {
 
           <Reveal delay={0.08}>
             <div className="space-y-6">
-              <div className="rounded-[36px] border border-white/10 bg-white/6 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
+                <div className="rounded-[28px] border border-white/10 bg-white/6 p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:rounded-[36px] sm:p-8">
                 <ContactForm key={content.locale} content={content} />
               </div>
 
               <div className="overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-2xl shadow-black/20 backdrop-blur-xl">
-                <div className="flex items-center justify-between gap-3 px-6 pt-5">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <MapPin className="size-4 text-blue-200" />
-                    {sections.contact.addressValue}
+                <div className="flex flex-col gap-3 px-4 pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
+                  <div className="flex min-w-0 items-start gap-2 text-sm font-semibold text-white">
+                    <MapPin className="mt-0.5 size-4 shrink-0 text-blue-200" />
+                    <span className="min-w-0 break-words">{sections.contact.addressValue}</span>
                   </div>
                   <a
                     href={baseSiteConfig.mapHref}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-blue-100 transition hover:bg-white/20"
+                    className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-blue-100 transition hover:bg-white/20"
                   >
                     {sections.contact.mapCta}
                     <ArrowUpRight className="size-3.5" />
                   </a>
                 </div>
-                <div className="mt-4 aspect-[16/10] w-full">
+                <div className="mt-4 aspect-[4/3] w-full sm:aspect-[16/10]">
                   <iframe
                     src={baseSiteConfig.mapEmbedSrc}
                     title={sections.contact.addressValue}
@@ -796,7 +752,7 @@ export default function Home() {
         aria-label={common.backToTop}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all dark:bg-slate-800",
+          "fixed bottom-4 right-4 z-50 flex size-11 items-center justify-center rounded-full bg-[#0C3272] text-white shadow-[0_20px_40px_rgba(12,50,114,0.28)] transition-all sm:bottom-6 sm:right-6 sm:size-12 dark:bg-slate-800",
           showBackToTop
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-4 opacity-0",
@@ -828,7 +784,7 @@ function Reveal({
     <motion.div
       initial={initial}
       whileInView={whileInView}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 0.55, delay, ease: "easeOut" }}
     >
       {children}

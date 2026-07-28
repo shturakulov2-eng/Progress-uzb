@@ -99,6 +99,12 @@ h6 {
   @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 
+@media (max-width: 639px) {
+  .section-shell {
+    @apply px-3;
+  }
+}
+
 .glass-card {
   background: var(--surface);
   backdrop-filter: blur(18px);

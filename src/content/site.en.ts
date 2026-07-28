@@ -24,7 +24,7 @@ export const contentEn: SiteContent = {
   hero: {
     navTagline: "Premium Marketing Agency in Samarkand",
     badge: "Conversion-focused growth partner for ambitious brands",
-    title: "Grow Your Business With Professional Digital Marketing",
+    title: "Grow Your Business With\nProfessional Digital\nMarketing",
     subtitle:
       "Progress.uzb helps businesses in Samarkand and beyond scale with premium strategy, websites, social campaigns, content, automation, and AI-powered solutions built to generate qualified leads.",
     ctaPrimary: "Book a Consultation",

@@ -10,10 +10,22 @@ import type { SiteContent } from "@/content/types";
 const ONE_AND_HALF_MINUTES = 1.5 * 60 * 1000;
 const EXIT_INTENT_EVERY = 5;
 
+export const OPEN_LEAD_POPUP_EVENT = "open-lead-popup";
+
+export function openLeadPopup() {
+  window.dispatchEvent(new Event(OPEN_LEAD_POPUP_EVENT));
+}
+
 export function LeadPopup({ content }: { content: SiteContent }) {
   const { popup } = content;
   const [open, setOpen] = useState(false);
   const exitLeaveCountRef = useRef(0);
+
+  useEffect(() => {
+    const onOpenRequest = () => setOpen(true);
+    window.addEventListener(OPEN_LEAD_POPUP_EVENT, onOpenRequest);
+    return () => window.removeEventListener(OPEN_LEAD_POPUP_EVENT, onOpenRequest);
+  }, []);
 
   useEffect(() => {
     if (open) return;
@@ -77,7 +89,7 @@ export function LeadPopup({ content }: { content: SiteContent }) {
           />
 
           <motion.div
-            className="relative z-10 max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-[32px] border border-white/10 bg-slate-950 p-6 shadow-2xl shadow-black/40 sm:p-8"
+            className="relative z-10 max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-[28px] border border-white/10 bg-slate-950 p-5 shadow-2xl shadow-black/40 sm:rounded-[32px] sm:p-8"
             initial={{ opacity: 0, scale: 0.94, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
