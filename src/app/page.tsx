@@ -280,16 +280,19 @@ export default function Home() {
               />
               <ThemeToggle className="!size-11 shrink-0" />
             </div>
-            <a href="#contact" className="w-full" onClick={() => setMobileNavOpen(false)}>
-              <Magnetic className="w-full">
-                <Button
-                  variant="ghost"
-                  className="min-h-12 w-full whitespace-normal border border-white/35 bg-white/15 px-3 py-3 text-center text-sm leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white"
-                >
-                  {common.freeConsultation}
-                </Button>
-              </Magnetic>
-            </a>
+            <Magnetic className="w-full">
+              <Button
+                type="button"
+                variant="ghost"
+                className="min-h-12 w-full whitespace-normal border border-white/35 bg-white/15 px-3 py-3 text-center text-sm leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white"
+                onClick={() => {
+                  setMobileNavOpen(false);
+                  openLeadPopup();
+                }}
+              >
+                {common.freeConsultation}
+              </Button>
+            </Magnetic>
           </div>
         </div>
       </aside>
@@ -417,14 +420,16 @@ export default function Home() {
                         delay={itemIndex * 0.06}
                         variant="card"
                       >
-                        <article className="glass-card group h-full rounded-[28px] border border-white/60 p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0C3272]/20 hover:shadow-[0_24px_70px_rgba(12,50,114,0.14)] dark:border-white/10 dark:hover:border-blue-300/25">
-                          <div className="flex size-12 items-center justify-center rounded-2xl bg-[#0C3272] text-white shadow-[0_12px_30px_rgba(12,50,114,0.2)] transition-transform duration-300 group-hover:scale-105 dark:bg-blue-600">
-                            <Icon className="size-5" />
+                        <article className="glass-card group h-full rounded-[28px] border border-white/60 p-5 transition duration-300 hover:-translate-y-1 hover:border-[#0C3272]/20 hover:shadow-[0_24px_70px_rgba(12,50,114,0.14)] dark:border-white/10 dark:hover:border-blue-300/25">
+                          <div className="flex items-center gap-3.5">
+                            <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272] text-white shadow-[0_12px_30px_rgba(12,50,114,0.2)] transition-transform duration-300 group-hover:scale-105 dark:bg-blue-600">
+                              <Icon className="size-5" />
+                            </div>
+                            <h4 className="text-lg font-semibold leading-snug text-slate-950 dark:text-white">
+                              {service.title}
+                            </h4>
                           </div>
-                          <h4 className="mt-5 text-xl font-semibold text-slate-950 dark:text-white">
-                            {service.title}
-                          </h4>
-                          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                          <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                             {service.description}
                           </p>
                         </article>
@@ -624,8 +629,8 @@ export default function Home() {
           <Reveal>
             <div className="space-y-6">
               <a
-                href="tel:+998939633363"
-                aria-label="Progress.uzb ga qo'ng'iroq qilish"
+                href={baseSiteConfig.phoneHref}
+                aria-label={`${baseSiteConfig.name} — ${baseSiteConfig.phoneDisplay}`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-100 transition hover:bg-white/10 hover:text-white"
               >
                 <PhoneCall className="size-4" />
@@ -704,6 +709,14 @@ export default function Home() {
                       </a>
                     ))}
                   </div>
+                  <a
+                    href={baseSiteConfig.phoneHref}
+                    aria-label={`${baseSiteConfig.name} — ${baseSiteConfig.phoneDisplay}`}
+                    className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-100 transition hover:bg-white/10 hover:text-white"
+                  >
+                    <PhoneCall className="size-4" />
+                    {sections.contact.phoneCallCta}
+                  </a>
                 </div>
               </div>
             </div>

@@ -2,10 +2,10 @@ export const baseSiteConfig = {
   name: "Progress.uzb",
   shortName: "Progress",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://progress.uzb",
-  phoneDisplay: "+998 93 963 32 63",
-  phoneHref: "tel:+998939633263",
+  phoneDisplay: "+998 93 963 33 63",
+  phoneHref: "tel:+998939633363",
   phones: [
-    { display: "+998 93 963 32 63", href: "tel:+998939633263" },
+    { display: "+998 93 963 33 63", href: "tel:+998939633363" },
     { display: "+998 97 000 64 00", href: "tel:+998970006400" },
   ],
   email: "hello@progress.uzb",
@@ -15,7 +15,7 @@ export const baseSiteConfig = {
   mapEmbedSrc:
     "https://www.google.com/maps?q=39.659982,66.962769&z=16&hl=uz&output=embed",
   social: {
-    instagram: "https://instagram.com/",
+    instagram: "https://www.instagram.com/progressuzb/",
     telegram: "https://t.me/",
   },
   socialProof: {

@@ -67,7 +67,7 @@ export const contentUz: SiteContent = {
     },
     process: {
       eyebrow: "Ish Jarayoni",
-      title: "Kashfiyotdan o'lchanadigan o'sishgacha olib boradigan olti bosqichli tizim.",
+      title: "Biznesingizni yangi bosqichga olib chiqadigan 6 ta qadam",
       description:
         "Har bir bosqich noaniqlikni kamaytirish, muvofiqlikni yaxshilash va natijaga e'tibor qaratish uchun tuzilgan.",
     },
@@ -76,16 +76,16 @@ export const contentUz: SiteContent = {
       title: "Real bizneslar bilan erishilgan o'lchanadigan natijalar.",
       description:
         "Marketing, performance va sotuv tizimlarini qurish orqali hamkorlarimizning o'sishiga hissa qo'shgan keyslar.",
-      projectPreview: "Keys",
+      projectPreview: "Batafsil",
       durationLabel: "Muddat",
       resultLabel: "Natija",
       processLabel: "Jarayon",
     },
     results: {
       eyebrow: "Natijalar",
-      title: "Dinamika, ishonch va yetkazib berish salohiyatini ko'rsatuvchi raqamlar.",
+      title: "Kompaniyaning ko‘lami, ishonchliligi va imkoniyatlarini ko‘rsatadigan asosiy raqamlar",
       description:
-        "Premium agentlik hikoyasi kuchli va o'lchanadigan isbotlar bilan qo'llab-quvvatlanishi kerak.",
+        "Ishlaydigan marketing agentlik o'z qiymatini aniq natijalar va ishonchli dalillar orqali isbotlashi kerak.",
     },
     testimonials: {
       eyebrow: "Mijozlar fikri",
@@ -115,6 +115,7 @@ export const contentUz: SiteContent = {
       description:
         "Biznesingiz haqida qisqacha ma'lumot qoldiring — jamoamiz tez orada siz bilan bog'lanadi.",
       phoneLabel: "Telefon raqamlarimiz",
+      phoneCallCta: "Bog'lanish uchun bosing",
       socialLabel: "Marketing blog",
       socialDescription:
         "Bizni ijtimoiy tarmoqlarda kuzating va biznesingiz uchun bepul insider-g'oyalarga ega bo'ling.",

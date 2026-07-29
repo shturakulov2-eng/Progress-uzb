@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { isAllowedAdminEmail } from "@/lib/admin-access";
+import { appendLeadToGoogleSheet } from "@/lib/google-sheets";
 import { consumeRateLimit, getClientIp } from "@/lib/rate-limit";
-import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { leadSchema, serviceInquirySchema } from "@/lib/validators";
 
 export async function POST(request: NextRequest) {
@@ -40,41 +39,32 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Honeypot — pretend success for bots
   if (parsed.data.website) {
     return NextResponse.json({ success: true });
   }
 
-  if (isServiceInquiry) {
-    const inquiry = serviceInquirySchema.parse(body);
-    const supabase = await createSupabaseServerClient();
-    const { error } = await supabase.from("Lead").insert({
+  try {
+    if (isServiceInquiry) {
+      const inquiry = serviceInquirySchema.parse(body);
+      await appendLeadToGoogleSheet({
         fullName: inquiry.fullName,
         phoneNumber: inquiry.phoneNumber,
         problem: inquiry.problem,
         source: inquiry.source,
-    });
-
-    if (error) {
-      return NextResponse.json(
-        { error: "Unable to save the request." },
-        { status: 500 },
-      );
+      });
+    } else {
+      const lead = leadSchema.parse(body);
+      await appendLeadToGoogleSheet({
+        fullName: lead.fullName,
+        phoneNumber: lead.phoneNumber,
+        companyName: lead.companyName,
+        businessType: lead.businessType,
+        source: "contact",
+      });
     }
-
-    return NextResponse.json({ success: true });
-  }
-
-  const lead = leadSchema.parse(body);
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.from("Lead").insert({
-      fullName: lead.fullName,
-      companyName: lead.companyName,
-      businessType: lead.businessType,
-      phoneNumber: lead.phoneNumber,
-      source: "contact",
-  });
-
-  if (error) {
+  } catch (error) {
+    console.error("[leads] Google Sheets append failed:", error);
     return NextResponse.json(
       { error: "Unable to save the request." },
       { status: 500 },
@@ -85,44 +75,4 @@ export async function POST(request: NextRequest) {
     success: true,
     message: "Thank you! We will contact you shortly.",
   });
-}
-
-export async function GET(request: NextRequest) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user || !isAllowedAdminEmail(user.email)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { data, error } = await supabase
-    .from("Lead")
-    .select("*")
-    .order("createdAt", { ascending: false });
-
-  if (error) {
-    return NextResponse.json({ error: "Unable to load leads." }, { status: 500 });
-  }
-
-  const search = request.nextUrl.searchParams.get("q")?.trim().toLowerCase();
-  const leads = search
-    ? (data ?? []).filter((lead) =>
-        [
-          lead.fullName,
-          lead.companyName,
-          lead.businessType,
-          lead.phoneNumber,
-          lead.problem,
-          lead.source,
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase()
-          .includes(search),
-      )
-    : (data ?? []);
-
-  return NextResponse.json({ leads });
 }

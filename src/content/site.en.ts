@@ -114,6 +114,7 @@ export const contentEn: SiteContent = {
       description:
         "Share a few details about your business and our team will contact you shortly with the best next step.",
       phoneLabel: "Our phone numbers",
+      phoneCallCta: "Tap to call",
       socialLabel: "Marketing blog",
       socialDescription:
         "Follow us on social media and get free insider ideas for your business.",

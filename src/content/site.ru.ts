@@ -114,6 +114,7 @@ export const contentRu: SiteContent = {
       description:
         "Оставьте несколько деталей о вашем бизнесе — наша команда свяжется с вами в ближайшее время.",
       phoneLabel: "Наши телефоны",
+      phoneCallCta: "Нажмите, чтобы позвонить",
       socialLabel: "Маркетинг-блог",
       socialDescription:
         "Следите за нами в соцсетях и получайте бесплатные insider-идеи для бизнеса.",

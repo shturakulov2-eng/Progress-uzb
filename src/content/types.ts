@@ -54,6 +54,7 @@ export type SiteContent = {
       title: string;
       description: string;
       phoneLabel: string;
+      phoneCallCta: string;
       socialLabel: string;
       socialDescription: string;
       addressLabel: string;
