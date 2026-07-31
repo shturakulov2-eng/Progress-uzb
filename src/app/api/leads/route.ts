@@ -65,28 +65,6 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     console.error("[leads] Google Sheets append failed:", error);
-    // #region agent log
-    fetch("http://127.0.0.1:7536/ingest/f1d1b59d-dd24-43d5-8599-1dfaa67eee90", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Debug-Session-Id": "091a6d",
-      },
-      body: JSON.stringify({
-        sessionId: "091a6d",
-        runId: "pre-fix",
-        hypothesisId: "E",
-        location: "api/leads/route.ts:catch",
-        message: "Lead append caught error",
-        data: {
-          errorName: error instanceof Error ? error.name : "unknown",
-          errorMessage:
-            error instanceof Error ? error.message.slice(0, 240) : String(error).slice(0, 240),
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
     return NextResponse.json(
       { error: "Unable to save the request." },
       { status: 500 },

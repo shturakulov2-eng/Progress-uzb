@@ -21,6 +21,7 @@ export type SiteContent = {
     subtitle: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    trustedBrandsLabel: string;
     strategyLabel: string;
     strategyTitle: string;
     locatedIn: string;

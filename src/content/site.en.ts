@@ -29,6 +29,7 @@ export const contentEn: SiteContent = {
       "Progress.uzb helps businesses in Samarkand and beyond scale with premium strategy, websites, social campaigns, content, automation, and AI-powered solutions built to generate qualified leads.",
     ctaPrimary: "Book a Consultation",
     ctaSecondary: "View Our Services",
+    trustedBrandsLabel: "Brands that trust us",
     strategyLabel: "Strategy-first",
     strategyTitle: "Premium Growth Systems",
     locatedIn: "Located in",

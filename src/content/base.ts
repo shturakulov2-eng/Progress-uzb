@@ -16,7 +16,7 @@ export const baseSiteConfig = {
     "https://www.google.com/maps?q=39.659982,66.962769&z=16&hl=uz&output=embed",
   social: {
     instagram: "https://www.instagram.com/progressuzb/",
-    telegram: "https://t.me/",
+    telegram: "https://t.me/shakhzed1",
   },
   socialProof: {
     projects: "120+",

@@ -29,6 +29,7 @@ export const contentUz: SiteContent = {
       "Progress Marketing Agentligi — 2019-yildan buyon ishlab chiqarish, savdo va xizmat koʻrsatish korxonalarining savdosini doimiy va tizimli ravishda oshirib, hamkorlik qilib kelmoqda.",
     ctaPrimary: "Konsultatsiyaga yozilish",
     ctaSecondary: "Xizmatlarimizni ko'rish",
+    trustedBrandsLabel: "Bizga ishongan korxonalar",
     strategyLabel: "Strategiya birinchi",
     strategyTitle: "Premium O'sish Tizimlari",
     locatedIn: "Manzil",

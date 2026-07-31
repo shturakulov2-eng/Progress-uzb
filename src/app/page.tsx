@@ -31,6 +31,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 import logoImage from "../../logo progress ver.png";
+import { BrandLogoMarquee } from "@/components/shared/brand-logo-marquee";
 import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup, openLeadPopup } from "@/components/shared/lead-popup";
@@ -64,7 +65,6 @@ export default function Home() {
     heroMetrics,
     hero,
     sections,
-    differentiators,
     services,
     processSteps,
     portfolioItems,
@@ -358,32 +358,8 @@ export default function Home() {
               </div>
             </Reveal>
           </div>
-        </section>
 
-        <section className="section-shell py-14 sm:py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow={sections.whyChoose.eyebrow}
-              title={sections.whyChoose.title}
-              description={sections.whyChoose.description}
-              align="center"
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {differentiators.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.06} variant="card">
-                <div className="glass-card h-full rounded-[30px] border border-white/50 p-6 dark:border-white/10">
-                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-[#0C3272]/10 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
-                    <ShieldCheck className="size-5" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-slate-950 dark:text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                    {item.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <BrandLogoMarquee label={hero.trustedBrandsLabel} />
         </section>
 
         <section id="services" className="section-shell py-14 sm:py-20">
