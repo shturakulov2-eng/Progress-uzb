@@ -31,6 +31,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 import logoImage from "../../logo progress ver.png";
+import { BlogSection } from "@/components/shared/blog-section";
 import { BrandLogoMarquee } from "@/components/shared/brand-logo-marquee";
 import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
@@ -448,6 +449,12 @@ export default function Home() {
           results={sections.results}
           items={portfolioItems}
           statistics={statistics}
+        />
+
+        <BlogSection
+          blog={sections.blog}
+          limit={3}
+          viewAllHref="/blog"
         />
 
         <section id="testimonials" className="section-shell py-14 sm:py-20">

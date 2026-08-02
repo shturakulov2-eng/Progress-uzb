@@ -12,6 +12,7 @@ export const contentRu: SiteContent = {
     { label: "Услуги", href: "#services" },
     { label: "Процесс", href: "#process" },
     { label: "Портфолио", href: "#portfolio" },
+    { label: "Блог", href: "#blog" },
     { label: "Отзывы", href: "#testimonials" },
     { label: "FAQ", href: "#faq" },
     { label: "Контакты", href: "#contact" },
@@ -87,6 +88,15 @@ export const contentRu: SiteContent = {
       title: "Цифры, которые говорят о динамике, доверии и способности к исполнению.",
       description:
         "История премиального агентства должна подкрепляться сильными измеримыми доказательствами.",
+    },
+    blog: {
+      eyebrow: "Блог",
+      title: "Полезные материалы о маркетинге, продажах и росте бренда.",
+      description:
+        "Практические советы, тренды и опыт, которые помогают развивать бизнес системно.",
+      readMore: "Подробнее",
+      closeLabel: "Закрыть",
+      viewAll: "Все статьи",
     },
     testimonials: {
       eyebrow: "Мнение клиентов",

@@ -39,6 +39,11 @@ export type SiteContent = {
       processLabel: string;
     };
     results: SectionCopy;
+    blog: SectionCopy & {
+      readMore: string;
+      closeLabel: string;
+      viewAll: string;
+    };
     testimonials: SectionCopy & {
       cta: string;
       videoNote: string;

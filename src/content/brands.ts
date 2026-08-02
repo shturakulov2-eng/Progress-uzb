@@ -24,7 +24,7 @@ export const brandLogos: BrandLogo[] = [
   { name: "Kolizey", src: "/brands/Kolizey.png?v=2", tone: "light" },
   {
     name: "Ishonch Mebel",
-    src: "/brands/ishonch-mebel.png?v=3",
+    src: "/brands/ishonch-mebel.png?v=4",
     tintTheme: { light: "#211f1f", dark: "#ffffff" },
   },
   {

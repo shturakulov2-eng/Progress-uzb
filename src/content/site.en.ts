@@ -12,6 +12,7 @@ export const contentEn: SiteContent = {
     { label: "Services", href: "#services" },
     { label: "Process", href: "#process" },
     { label: "Portfolio", href: "#portfolio" },
+    { label: "Blog", href: "#blog" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
@@ -87,6 +88,15 @@ export const contentEn: SiteContent = {
       title: "Numbers that signal momentum, trust, and delivery capacity.",
       description:
         "A premium agency story should be supported by strong measurable proof points.",
+    },
+    blog: {
+      eyebrow: "Blog",
+      title: "Practical notes on marketing, sales, and brand growth.",
+      description:
+        "Actionable advice, trends, and lessons that help you build a more systematic business.",
+      readMore: "Read more",
+      closeLabel: "Close",
+      viewAll: "All articles",
     },
     testimonials: {
       eyebrow: "Client feedback",

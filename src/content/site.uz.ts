@@ -12,6 +12,7 @@ export const contentUz: SiteContent = {
     { label: "Xizmatlar", href: "#services" },
     { label: "Jarayon", href: "#process" },
     { label: "Portfolio", href: "#portfolio" },
+    { label: "Blog", href: "#blog" },
     { label: "Fikrlar", href: "#testimonials" },
     { label: "Savollar", href: "#faq" },
     { label: "Aloqa", href: "#contact" },
@@ -87,6 +88,15 @@ export const contentUz: SiteContent = {
       title: "Kompaniyaning ko‘lami, ishonchliligi va imkoniyatlarini ko‘rsatadigan asosiy raqamlar",
       description:
         "Ishlaydigan marketing agentlik o'z qiymatini aniq natijalar va ishonchli dalillar orqali isbotlashi kerak.",
+    },
+    blog: {
+      eyebrow: "Blog",
+      title: "Marketing, sotuv va brend o'sishi haqida foydali materiallar.",
+      description:
+        "Biznesingizni tizimli rivojlantirishga yordam beradigan amaliy maslahatlar, tendensiyalar va tajriba.",
+      readMore: "Batafsil",
+      closeLabel: "Yopish",
+      viewAll: "Barcha maqolalar",
     },
     testimonials: {
       eyebrow: "Mijozlar fikri",
