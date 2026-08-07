@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 import { brandLogos, type BrandLogo } from "@/content/brands";
 import { cn } from "@/lib/utils";
@@ -39,13 +40,15 @@ function BrandMark({ brand }: { brand: BrandLogo }) {
       ? { transform: `scale(${brand.scale})` }
       : undefined;
 
+  let mark: ReactNode;
+
   if (brand.tintTheme) {
     const shared = {
       ...maskStyle(brand.src),
       ...scaleStyle,
     };
 
-    return (
+    mark = (
       <>
         <span
           role="img"
@@ -60,14 +63,12 @@ function BrandMark({ brand }: { brand: BrandLogo }) {
         />
       </>
     );
-  }
-
-  if (brand.tint || brand.tintGradient) {
+  } else if (brand.tint || brand.tintGradient) {
     const background = brand.tintGradient
       ? `linear-gradient(90deg, ${brand.tintGradient.from} 0%, ${brand.tintGradient.to} 100%)`
       : brand.tint;
 
-    return (
+    mark = (
       <span
         role="img"
         aria-label={brand.name}
@@ -79,22 +80,39 @@ function BrandMark({ brand }: { brand: BrandLogo }) {
         }}
       />
     );
+  } else {
+    mark = (
+      <Image
+        src={brand.src}
+        alt={brand.showName ? "" : brand.name}
+        width={280}
+        height={140}
+        unoptimized
+        className={cn(
+          brand.showName
+            ? "h-10 w-auto shrink-0 object-contain sm:h-12"
+            : "h-16 w-auto max-w-full object-contain sm:h-[4.5rem]",
+          toneClassName(brand.tone),
+          brand.whiteInDark && "dark:brightness-0 dark:invert",
+        )}
+        style={scaleStyle}
+      />
+    );
   }
 
+  if (!brand.showName) return mark;
+
   return (
-    <Image
-      src={brand.src}
-      alt={brand.name}
-      width={280}
-      height={140}
-      unoptimized
-      className={cn(
-        "h-16 w-auto max-w-full object-contain sm:h-[4.5rem]",
-        toneClassName(brand.tone),
-        brand.whiteInDark && "dark:brightness-0 dark:invert",
-      )}
-      style={scaleStyle}
-    />
+    <div
+      role="img"
+      aria-label={brand.name}
+      className="flex h-16 w-full max-w-full items-center justify-center gap-2.5 sm:h-[4.5rem] sm:gap-3"
+    >
+      {mark}
+      <span className="truncate text-lg font-semibold tracking-tight text-slate-900 sm:text-xl dark:text-white">
+        {brand.name}
+      </span>
+    </div>
   );
 }
 

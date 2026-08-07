@@ -3,9 +3,7 @@
 import {
   ArrowUpRight,
   BrainCircuit,
-  ChevronRight,
   ChevronUp,
-  CircleHelp,
   Clapperboard,
   Globe2,
   LayoutTemplate,
@@ -17,6 +15,7 @@ import {
   Send,
   ShieldCheck,
   Sparkles,
+  Video,
   Workflow,
   X,
 } from "lucide-react";
@@ -37,6 +36,7 @@ import { ContactForm } from "@/components/shared/contact-form";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup, openLeadPopup } from "@/components/shared/lead-popup";
 import { Magnetic } from "@/components/shared/magnetic";
+import { MarketerShowcase } from "@/components/shared/marketer-showcase";
 import { PortfolioScrollShowcase } from "@/components/shared/portfolio-scroll-showcase";
 import { ProcessScrollCarousel } from "@/components/shared/process-scroll-carousel";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -54,6 +54,7 @@ const serviceIcons = [
   Clapperboard,
   Sparkles,
   Palette,
+  Video,
   LayoutTemplate,
   Workflow,
   BrainCircuit,
@@ -71,11 +72,9 @@ export default function Home() {
     portfolioItems,
     statistics,
     videoTestimonials,
-    faqs,
     common,
   } = content;
 
-  const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
@@ -214,8 +213,8 @@ export default function Home() {
               className="h-auto w-[96px] brightness-0 invert"
               priority
             />
-            <p className="mt-2.5 max-w-[10.5rem] text-xs font-medium leading-5 text-blue-100/80">
-              Brenddan sotuvgacha kompleks yechimlar
+            <p className="mt-2.5 max-w-[10.5rem] whitespace-pre-line text-xs font-medium leading-5 text-blue-100/80">
+              {hero.navTagline}
             </p>
           </div>
 
@@ -366,7 +365,6 @@ export default function Home() {
         <section id="services" className="section-shell py-14 sm:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow={sections.services.eyebrow}
               title={sections.services.title}
               description={sections.services.description}
             />
@@ -388,7 +386,7 @@ export default function Home() {
 
                 <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                   {group.items.map((service, itemIndex) => {
-                    const iconIndex = groupIndex === 0 ? itemIndex : itemIndex + 5;
+                    const iconIndex = groupIndex === 0 ? itemIndex : itemIndex + 6;
                     const Icon = serviceIcons[iconIndex] ?? Sparkles;
 
                     return (
@@ -457,30 +455,22 @@ export default function Home() {
           viewAllHref="/blog"
         />
 
+        <MarketerShowcase
+          copy={sections.marketer}
+          social={baseSiteConfig.social}
+        />
+
         <section id="testimonials" className="section-shell py-14 sm:py-20">
           <Reveal>
-            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-              <SectionHeading
-                eyebrow={sections.testimonials.eyebrow}
-                title={sections.testimonials.title}
-                description={sections.testimonials.description}
-                align="center"
-              />
-              <div className="mt-8">
-                <Magnetic>
-                  <Button type="button" size="large" onClick={openLeadPopup}>
-                    {sections.testimonials.cta}
-                    <ArrowUpRight className="ml-2 size-4" />
-                  </Button>
-                </Magnetic>
-              </div>
-            </div>
+            <p className="mb-8 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0C3272] sm:text-sm sm:tracking-[0.3em] dark:text-blue-300">
+              {sections.testimonials.eyebrow}
+            </p>
           </Reveal>
 
           <Reveal variant="card">
             <div
               className={cn(
-                "video-marquee mt-12 overflow-hidden",
+                "video-marquee overflow-hidden",
                 isTestimonialPlaying && "is-playing",
               )}
             >
@@ -511,68 +501,22 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-7 text-slate-500 dark:text-slate-400">
-              {sections.testimonials.videoNote}
-            </p>
+            <div className="mx-auto mt-12 flex max-w-3xl flex-col items-center text-center">
+              <SectionHeading
+                title={sections.testimonials.title}
+                description={sections.testimonials.description}
+                align="center"
+              />
+              <div className="mt-8">
+                <Magnetic>
+                  <Button type="button" size="large" onClick={openLeadPopup}>
+                    {sections.testimonials.cta}
+                    <ArrowUpRight className="ml-2 size-4" />
+                  </Button>
+                </Magnetic>
+              </div>
+            </div>
           </Reveal>
-        </section>
-
-        <section id="faq" className="section-shell py-14 sm:py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow={sections.faq.eyebrow}
-              title={sections.faq.title}
-              description={sections.faq.description}
-              align="center"
-            />
-          </Reveal>
-          <div className="mx-auto mt-12 max-w-4xl space-y-4">
-            {faqs.map((faq, index) => {
-              const isOpen = activeFaq === index;
-
-              return (
-                <Reveal key={faq.question} delay={index * 0.03}>
-                  <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
-                    <button
-                      type="button"
-                      aria-expanded={isOpen}
-                      onClick={() => setActiveFaq(isOpen ? null : index)}
-                      className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left sm:gap-4 sm:px-6 sm:py-5"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272]/8 text-[#0C3272] dark:bg-blue-400/15 dark:text-blue-300">
-                          <CircleHelp className="size-5" />
-                        </div>
-                        <div>
-                          <h3 className="text-base font-semibold text-slate-950 sm:text-lg dark:text-white">
-                            {faq.question}
-                          </h3>
-                        </div>
-                      </div>
-                      <ChevronRight
-                        className={cn(
-                          "size-5 shrink-0 text-slate-400 transition-transform dark:text-slate-500",
-                          isOpen && "rotate-90 text-[#0C3272] dark:text-blue-300",
-                        )}
-                      />
-                    </button>
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: isOpen ? "auto" : 0,
-                        opacity: isOpen ? 1 : 0,
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-5 pl-4 text-sm leading-7 text-slate-600 sm:px-6 sm:pb-6 sm:pl-20 dark:text-slate-300">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
         </section>
 
         <section className="section-shell py-14 sm:py-20">
@@ -611,14 +555,6 @@ export default function Home() {
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-6">
-              <a
-                href={baseSiteConfig.phoneHref}
-                aria-label={`${baseSiteConfig.name} — ${baseSiteConfig.phoneDisplay}`}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-100 transition hover:bg-white/10 hover:text-white"
-              >
-                <PhoneCall className="size-4" />
-                {sections.contact.badge}
-              </a>
               <h2 className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
                 {sections.contact.title}
               </h2>

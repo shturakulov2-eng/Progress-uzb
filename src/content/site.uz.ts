@@ -4,7 +4,7 @@ export const contentUz: SiteContent = {
   locale: "uz",
   siteConfig: {
     description:
-      "Samarqanddagi premium raqamli marketing agentligi — strategiya, kontent, veb-saytlar, avtomatlashtirish va AI yechimlari orqali biznesingizni o'stiradi.",
+      "Samarqanddagi marketing agentligi: SMM, brending, website/vebsayt yasash, landing page, sotuvni oshirish, avtomatlashtirish, sun'iy intellekt integratsiyasi va IT yechimlar.",
     location: "Samarqand, O'zbekiston",
   },
   navigation: [
@@ -13,21 +13,21 @@ export const contentUz: SiteContent = {
     { label: "Jarayon", href: "#process" },
     { label: "Portfolio", href: "#portfolio" },
     { label: "Blog", href: "#blog" },
+    { label: "Bosh Marketolog", href: "#marketer" },
     { label: "Fikrlar", href: "#testimonials" },
-    { label: "Savollar", href: "#faq" },
     { label: "Aloqa", href: "#contact" },
   ],
   heroMetrics: [
-    { value: "120+", label: "Amalga oshirilgan loyihalar" },
-    { value: "95%", label: "Mijozlar qoniqishi" },
-    { value: "6+", label: "Yillik tajriba" },
+    { value: "70+", label: "Amalga oshirilgan loyihalar" },
+    { value: "93%", label: "Mijozlar qoniqishi" },
+    { value: "7+", label: "Yillik tajriba" },
   ],
   hero: {
     navTagline: "Brenddan sotuvgacha\nkompleks yechimlar",
-    badge: "Mahsulotiga ishonadigan brendlar uchun savdoni oshiradigan strategik hamkor",
-    title: "Biz shunchaki reklama qilmaymiz,\nbiz savdoni muntazam\noshiradigan TIZIM quramiz!",
+    badge: "Tizimli sotuv va marketing agentligi",
+    title: "Biz shunchaki post joylamaymiz,\nbiz savdoni oshiradigan\nTIZIM quramiz!",
     subtitle:
-      "Progress Marketing Agentligi — 2019-yildan buyon ishlab chiqarish, savdo va xizmat koʻrsatish korxonalarining savdosini doimiy va tizimli ravishda oshirib, hamkorlik qilib kelmoqda.",
+      "Progress marketing agentligi — 2019-yildan buyon ishlab chiqarish, savdo va xizmat koʻrsatish korxonalarida sotuvni tizimlashtiramiz va barqaror oʻsishni ta'minlaymiz.",
     ctaPrimary: "Konsultatsiyaga yozilish",
     ctaSecondary: "Xizmatlarimizni ko'rish",
     trustedBrandsLabel: "Bizga ishongan korxonalar",
@@ -65,11 +65,11 @@ export const contentUz: SiteContent = {
       eyebrow: "Xizmatlarimiz",
       title: "Marketing va sotuvni bir tizimda rivojlantiradigan xizmatlar.",
       description:
-        "Bozordagi aniq yo'ldan boshlab sotuv bo'limini qurishgacha — biznesingizga aynan kerakli yechimni tanlang.",
+        "Bozordagi aniq yo'ldan boshlab sotuv bo'limini qurishgacha —\nbiznesingizga aynan kerakli yechimni tanlang.",
     },
     process: {
-      eyebrow: "Ish Jarayoni",
-      title: "Biznesingizni yangi bosqichga olib chiqadigan 6 ta qadam",
+      eyebrow: "",
+      title: "Biznesingizni yangi bosqichga\nolib chiqadigan 6 ta qadam",
       description:
         "Har bir bosqich noaniqlikni kamaytirish, muvofiqlikni yaxshilash va natijaga e'tibor qaratish uchun tuzilgan.",
     },
@@ -78,13 +78,13 @@ export const contentUz: SiteContent = {
       title: "Real bizneslar bilan erishilgan o'lchanadigan natijalar.",
       description:
         "Marketing, performance va sotuv tizimlarini qurish orqali hamkorlarimizning o'sishiga hissa qo'shgan keyslar.",
-      projectPreview: "Batafsil",
+      projectPreview: "Batafsil o'qish uchun bosing",
       durationLabel: "Muddat",
       resultLabel: "Natija",
       processLabel: "Jarayon",
     },
     results: {
-      eyebrow: "Natijalar",
+      eyebrow: "",
       title: "Kompaniyaning ko‘lami, ishonchliligi va imkoniyatlarini ko‘rsatadigan asosiy raqamlar",
       description:
         "Ishlaydigan marketing agentlik o'z qiymatini aniq natijalar va ishonchli dalillar orqali isbotlashi kerak.",
@@ -98,6 +98,21 @@ export const contentUz: SiteContent = {
       closeLabel: "Yopish",
       viewAll: "Barcha maqolalar",
     },
+    marketer: {
+      nameLine: "I'M SHAKHZOD",
+      bio: "10 yillik tajribaga ega Strateg Marketolog. 100 dan ortiq loyihalar bilan ishlab, sotuvlarni oshirib, tizimli jamoa qurish, Xodimlar boshqaruvi kabi yechimlar qilib bergan",
+      aboutCta: "Batafsil men haqimda",
+      socialCta: "Ijtimoiy tarmoqlar",
+      aboutBody:
+        "Men — Shakhzod. 10 yildan ortiq strategik marketing va sotuv tizimlari bilan ishlayman. 100 dan ortiq loyihada brendlarga sotuvni oshirish, jamoa qurish va xodimlarni boshqarish bo‘yicha amaliy yechimlar berganman.\n\nMaqsadim — oddiy reklama emas, balki biznesingiz uchun barqaror ishlaydigan marketing va sotuv tizimini qurish. Progress.uzb jamoasi bilan shu yondashuvni korxonalar uchun kundalik amaliyotga aylantiramiz.",
+      videoTitle: "Video",
+      watermark: "WELCOME",
+      youtubeId: "aI1OzDw6_Ts",
+      portraitSrc: "/marketer/portrait.png",
+      closeLabel: "Yopish",
+      instagramLabel: "Instagram",
+      telegramLabel: "Telegram",
+    },
     testimonials: {
       eyebrow: "Mijozlar fikri",
       title: "Xuddi tepadagidek muvaffaqiyatli loyihalar qatorida boʻlishni istaysizmi?",
@@ -106,12 +121,6 @@ export const contentUz: SiteContent = {
       cta: "Loyihani tahlil qildirish",
       videoNote:
         "Tepadagi fikrlarga ishonchingiz komil boʻlmasa, oʻzingiz videolarni koʻrib, sinab koʻring!",
-    },
-    faq: {
-      eyebrow: "Savollar",
-      title: "Shubhalarni kamaytiradigan va lid sifatini oshiradigan javoblar.",
-      description:
-        "FAQ bo'limi forma yuborishdan oldin umumiy savollarga javob berish uchun mo'ljallangan.",
     },
     finalCta: {
       eyebrow: "O'sishga tayyormisiz?",
@@ -122,18 +131,18 @@ export const contentUz: SiteContent = {
     },
     contact: {
       badge: "Bog'lanish",
-      title: "Konsultatsiyaga yoziling va keyingi o'sish qadamini muhokama qilaylik.",
+      title: "Savdongizni oshirish bo‘yicha aniq harakatlar rejasiga ega bo‘lish uchun ma'lumotlaringizni qoldiring.",
       description:
-        "Biznesingiz haqida qisqacha ma'lumot qoldiring — jamoamiz tez orada siz bilan bog'lanadi.",
+        "Bekorchi maslahatlarga vaqt yo‘qotmang — Natijaga ishlaydigan tizimga o‘ting!",
       phoneLabel: "Telefon raqamlarimiz",
       phoneCallCta: "Bog'lanish uchun bosing",
       socialLabel: "Marketing blog",
       socialDescription:
         "Bizni ijtimoiy tarmoqlarda kuzating va biznesingiz uchun bepul insider-g'oyalarga ega bo'ling.",
       addressLabel: "Manzil",
-      addressValue: "Samarqand shahar, Spartak",
+      addressValue: "Bo'storsaroy ko'chasi, 24 uy",
       landmarkLabel: "Mo'ljal",
-      landmarkValue: '"Chin Express" logistika xizmatlari',
+      landmarkValue: "Spartak stadioni, Senior, Prive kiyim do'konlari qatorida",
       mapCta: "Xaritada ochish",
     },
   },
@@ -188,9 +197,9 @@ export const contentUz: SiteContent = {
           description: "Biznesingizning bozordagi aniq yo'li va rivojlanish xaritasi.",
         },
         {
-          title: "Performance marketing",
+          title: "Performance marketing & targeting",
           description:
-            "Shunchaki obunachi emas, aniq sotuvga aylanadigan reklamalar va lid generatsiya.",
+            "Raqobarchilar analizi, mahsulot va bozor analizi, mahsulotning bozordagi o'rni va rivojlanish xaritasi.",
         },
         {
           title: "Kontent marketing & SMM",
@@ -206,6 +215,11 @@ export const contentUz: SiteContent = {
           title: "Shaxsiy brend",
           description:
             "Biznes egalari va ekspertlar obro'sini oshirish orqali yuqori ishonch va qimmat sotuvlarni jalb qilish.",
+        },
+        {
+          title: "Reels va media production",
+          description:
+            "Biznesingiz uchun professional kamera sotuvchi reels suratga olish va montaj qilib berish xizmati",
         },
       ],
     },
@@ -340,10 +354,10 @@ export const contentUz: SiteContent = {
     },
   ],
   statistics: [
-    { value: 120, suffix: "+", label: "Loyihalar" },
+    { value: 70, suffix: "+", label: "Loyihalar" },
     { value: 50, suffix: "+", label: "Mijozlar" },
-    { value: 6, suffix: "+", label: "Yillik Tajriba" },
-    { value: 95, suffix: "%", label: "Mijozlar Qoniqishi" },
+    { value: 7, suffix: "+", label: "Yillik Tajriba" },
+    { value: 93, suffix: "%", label: "Mijozlar Qoniqishi" },
   ],
   videoTestimonials: [
     {
@@ -362,58 +376,6 @@ export const contentUz: SiteContent = {
       formatLabel: "1080 × 1920",
     },
   ],
-  faqs: [
-    {
-      question: "Qanday turdagi bizneslar bilan ishlaysiz?",
-      answer:
-        "Startaplar, mahalliy bizneslar, shaxsiy brendlar, yirik kompaniyalar va kuchli marketing tizimiga muhtoj jamoalar bilan ishlaymiz.",
-    },
-    {
-      question: "To'liq marketing yoki alohida xizmatlarni taklif qilasizmi?",
-      answer:
-        "Ikkalasini ham. To'liq marketing hamkori sifatida yoki brending, sayt, SMM, avtomatlashtirish, AI kabi alohida xizmatlarni taqdim etamiz.",
-    },
-    {
-      question: "Yangi loyihani qanday boshlaysiz?",
-      answer:
-        "Konsultatsiyaga yozilishdan boshlaymiz, hozirgi holatni tahlil qilamiz, ustuvorliklarni belgilaymiz va strategiya rejasini tuzamiz.",
-    },
-    {
-      question: "Biznesimiz uchun lidlar olishga yordam bera olasizmi?",
-      answer:
-        "Ha. Lid generatsiya va konversiyani oshirish saytlar, kampaniyalar va avtomatlashtirishning asosiy maqsadidir.",
-    },
-    {
-      question: "Faqat Samarqanddagi mijozlar bilan ishlaysizmi?",
-      answer:
-        "Yo'q. Samarqandda joylashganmiz, lekin boshqa shaharlar va xalqaro bozorlardagi bizneslarni ham qo'llab-quvvatlaymiz.",
-    },
-    {
-      question: "Sayt yoki landing page qancha vaqtda tayyor bo'ladi?",
-      answer:
-        "Muddat loyiha hajmiga bog'liq. Landing page tezroq, katta korporativ saytlar esa chuqurroq reja va ishlab chiqish talab qiladi.",
-    },
-    {
-      question: "Reklama va analitikani birga taqdim qilasizmi?",
-      answer:
-        "Ha. Kampaniya ijrosi, analitika va optimallashtirishni birlashtirib, qarorlar faqat natijalarga asoslanadi.",
-    },
-    {
-      question: "Ijtimoiy tarmoq va video kontent yaratish mumkinmi?",
-      answer:
-        "Ha. Strategiya, reja, kreativ yo'nalish, ishlab chiqish, montaj va reklama bilan shug'ullanamiz.",
-    },
-    {
-      question: "Xizmatlar qanday narxlarda?",
-      answer:
-        "Narx biznes maqsadlari, hajmi, kanallar va kontent hajmiga qarab belgilanadi. Maslahatdan keyin individual taklif beramiz.",
-    },
-    {
-      question: "Jamoa bilan qanday bog'lanish mumkin?",
-      answer:
-        "Ushbu sahifadagi maslahat formasini to'ldiring — jamoamiz tez orada siz bilan bog'lanadi.",
-    },
-  ],
   form: {
     fullName: "To'liq Ism",
     companyName: "Kompaniya Nomi",
@@ -425,17 +387,17 @@ export const contentUz: SiteContent = {
       businessType: "masalan: E-commerce, Klinika, Startap",
       phoneNumber: "+998 90 123 45 67",
     },
-    submit: "Konsultatsiyaga yozilish",
+    submit: "Biznes audit-konsultatsiyaga\nro'yxatdan o'tish",
     submitting: "Yuborilmoqda...",
     success: "Rahmat! Tez orada siz bilan bog'lanamiz.",
     errorGeneric: "Xatolik yuz berdi.",
     errorNetwork: "Hozir so'rov yuborib bo'lmadi. Qayta urinib ko'ring.",
   },
   popup: {
-    eyebrow: "Cheklangan taklif",
-    title: "Biznesingizni keyingi bosqichga olib chiqamiz",
+    eyebrow: "Konsultatsiyamiz tekin emas, lekin foydasiz ham emas",
+    title: "Biznesingizdagi real o‘sish nuqtalarini aniqlab beramiz!",
     description:
-      "Ma'lumotlaringizni qoldiring — jamoamiz siz bilan bog'lanib, savdongizni oshirish bo'yicha strategiya taqdim etadi.",
+      "Siz ramziy to‘lov evaziga shunchaki suhbat emas, balki biznesingiz uchun aniq amaliy strategiya olasiz.",
     close: "Yopish",
   },
   common: {

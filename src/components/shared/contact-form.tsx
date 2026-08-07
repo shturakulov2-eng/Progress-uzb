@@ -125,7 +125,7 @@ export function ContactForm({
         {...formMethods.register("website")}
       />
 
-      <Button type="submit" size="large" className="w-full">
+      <Button type="submit" size="large" className="w-full whitespace-pre-line leading-tight">
         {isSubmitting ? form.submitting : form.submit}
       </Button>
 

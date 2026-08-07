@@ -17,6 +17,8 @@ export type BrandLogo = {
   whiteInDark?: boolean;
   /** Slight size bump for narrow marks (default 1) */
   scale?: number;
+  /** Show brand name text beside the mark (icon + wordmark as one unit) */
+  showName?: boolean;
 };
 
 /** Cache-bust after asset normalize (?v=2 / ?v=3) */
@@ -55,5 +57,10 @@ export const brandLogos: BrandLogo[] = [
     whiteInDark: true,
   },
   { name: "Pena Max", src: "/brands/pena-max.png?v=3", tint: "#019cdc" },
-  { name: "Texnoya", src: "/brands/Texnoya.png?v=2", tone: "color" },
+  {
+    name: "Texnoya",
+    src: "/brands/Texnoya.png?v=2",
+    tone: "color",
+    showName: true,
+  },
 ];

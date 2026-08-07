@@ -19,9 +19,9 @@ export const baseSiteConfig = {
     telegram: "https://t.me/shakhzed1",
   },
   socialProof: {
-    projects: "120+",
+    projects: "70+",
     clients: "50+",
-    experience: "6+",
-    satisfaction: "95%",
+    experience: "7+",
+    satisfaction: "93%",
   },
 } as const;

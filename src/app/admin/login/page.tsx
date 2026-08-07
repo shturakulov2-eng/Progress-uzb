@@ -4,17 +4,40 @@ import { Suspense } from "react";
 
 import { AdminLoginForm } from "@/components/admin/admin-login-form";
 import { isAllowedAdminEmail } from "@/lib/admin-access";
+import { hasSupabaseConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
-export default async function AdminLoginPage() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+type AdminLoginPageProps = {
+  searchParams: Promise<{ error?: string }>;
+};
 
-  if (user && isAllowedAdminEmail(user.email)) {
-    redirect("/admin/blog");
+export default async function AdminLoginPage({
+  searchParams,
+}: AdminLoginPageProps) {
+  const params = await searchParams;
+  const supabaseReady = hasSupabaseConfig();
+
+  if (supabaseReady) {
+    try {
+      const supabase = await createSupabaseServerClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user && isAllowedAdminEmail(user.email)) {
+        redirect("/admin/blog");
+      }
+    } catch (error) {
+      console.error("admin login session check failed", error);
+    }
   }
+
+  const configError =
+    !supabaseReady || params.error === "config"
+      ? "Serverda Supabase sozlamalari yo‘q. Vercel → Settings → Environment Variables ga NEXT_PUBLIC_SUPABASE_URL va NEXT_PUBLIC_SUPABASE_ANON_KEY qo‘shing, keyin Redeploy qiling."
+      : params.error === "auth"
+        ? "Auth tekshiruvi muvaffaqiyatsiz bo‘ldi. Qayta login qilib ko‘ring."
+        : "";
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-10">
@@ -50,8 +73,13 @@ export default async function AdminLoginPage() {
               Use your Progress admin email and password.
             </p>
           </div>
+          {configError ? (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              {configError}
+            </div>
+          ) : null}
           <Suspense fallback={<div className="h-48 animate-pulse rounded-2xl bg-slate-100" />}>
-            <AdminLoginForm />
+            <AdminLoginForm disabled={!supabaseReady} />
           </Suspense>
         </section>
       </div>

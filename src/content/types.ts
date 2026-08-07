@@ -44,11 +44,25 @@ export type SiteContent = {
       closeLabel: string;
       viewAll: string;
     };
+    marketer: {
+      nameLine: string;
+      bio: string;
+      aboutCta: string;
+      socialCta: string;
+      aboutBody: string;
+      videoTitle: string;
+      watermark: string;
+      youtubeId: string;
+      /** PNG path under /public, e.g. /marketer/portrait.png */
+      portraitSrc: string;
+      closeLabel: string;
+      instagramLabel: string;
+      telegramLabel: string;
+    };
     testimonials: SectionCopy & {
       cta: string;
       videoNote: string;
     };
-    faq: SectionCopy;
     finalCta: {
       eyebrow: string;
       title: string;
@@ -107,7 +121,6 @@ export type SiteContent = {
     src: string;
     formatLabel: string;
   }[];
-  faqs: { question: string; answer: string }[];
   form: {
     fullName: string;
     companyName: string;

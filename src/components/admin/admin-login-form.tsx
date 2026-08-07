@@ -8,7 +8,11 @@ import type { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
-export function AdminLoginForm() {
+type AdminLoginFormProps = {
+  disabled?: boolean;
+};
+
+export function AdminLoginForm({ disabled = false }: AdminLoginFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
@@ -18,6 +22,13 @@ export function AdminLoginForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (disabled) {
+      setError(
+        "Supabase environment variables are missing on this deployment.",
+      );
+      return;
+    }
+
     setError("");
     setIsSubmitting(true);
 
@@ -36,6 +47,12 @@ export function AdminLoginForm() {
       const redirectTo = searchParams.get("redirectTo") || "/admin/blog";
       router.push(redirectTo);
       router.refresh();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to sign in. Check Supabase env vars on Vercel.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -52,9 +69,10 @@ export function AdminLoginForm() {
           type="email"
           required
           autoComplete="email"
+          disabled={disabled}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272]"
+          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272] disabled:opacity-60"
           placeholder="admin@progress.uzb"
         />
       </div>
@@ -67,9 +85,10 @@ export function AdminLoginForm() {
           type="password"
           required
           autoComplete="current-password"
+          disabled={disabled}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272]"
+          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272] disabled:opacity-60"
           placeholder="Enter your password"
         />
       </div>
@@ -78,7 +97,12 @@ export function AdminLoginForm() {
           {error}
         </div>
       ) : null}
-      <Button type="submit" size="large" className="w-full">
+      <Button
+        type="submit"
+        size="large"
+        className="w-full"
+        disabled={disabled || isSubmitting}
+      >
         <LockKeyhole className="mr-2 size-4" />
         {isSubmitting ? "Signing in..." : "Login to Blog Admin"}
         {!isSubmitting ? <ArrowRight className="ml-2 size-4" /> : null}

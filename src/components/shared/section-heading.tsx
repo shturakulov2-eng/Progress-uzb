@@ -25,11 +25,11 @@ export function SectionHeading({
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl md:text-4xl dark:text-white">
+      <h2 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl md:text-4xl dark:text-white">
         {title}
       </h2>
       {description ? (
-        <p className="text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
+        <p className="whitespace-pre-line text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
           {description}
         </p>
       ) : null}

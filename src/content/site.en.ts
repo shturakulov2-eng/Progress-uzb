@@ -4,7 +4,7 @@ export const contentEn: SiteContent = {
   locale: "en",
   siteConfig: {
     description:
-      "Premium digital marketing agency in Samarkand helping ambitious businesses grow through strategy, content, websites, automation, and AI-driven execution.",
+      "Marketing agency in Samarkand: SMM, branding, rebrand, website development, landing pages, sales growth, sales department setup, automation, AI integration, and IT solutions.",
     location: "Samarkand, Uzbekistan",
   },
   navigation: [
@@ -13,21 +13,21 @@ export const contentEn: SiteContent = {
     { label: "Process", href: "#process" },
     { label: "Portfolio", href: "#portfolio" },
     { label: "Blog", href: "#blog" },
+    { label: "Chief Marketer", href: "#marketer" },
     { label: "Testimonials", href: "#testimonials" },
-    { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
   ],
   heroMetrics: [
-    { value: "120+", label: "Projects launched" },
-    { value: "95%", label: "Client satisfaction" },
-    { value: "6+", label: "Years of experience" },
+    { value: "70+", label: "Projects launched" },
+    { value: "93%", label: "Client satisfaction" },
+    { value: "7+", label: "Years of experience" },
   ],
   hero: {
-    navTagline: "Premium Marketing Agency in Samarkand",
-    badge: "Conversion-focused growth partner for ambitious brands",
-    title: "Grow Your Business With\nProfessional Digital\nMarketing",
+    navTagline: "From brand to sales\ncomplete solutions",
+    badge: "Systematic sales and marketing agency",
+    title: "We don't just post content,\nwe build a SYSTEM\nthat grows your sales!",
     subtitle:
-      "Progress.uzb helps businesses in Samarkand and beyond scale with premium strategy, websites, social campaigns, content, automation, and AI-powered solutions built to generate qualified leads.",
+      "Progress marketing agency — since 2019 we systematize sales and deliver sustainable growth for manufacturing, retail, and service businesses.",
     ctaPrimary: "Book a Consultation",
     ctaSecondary: "View Our Services",
     trustedBrandsLabel: "Brands that trust us",
@@ -68,7 +68,7 @@ export const contentEn: SiteContent = {
         "From defining your market direction to building the sales department, choose the solution your business needs.",
     },
     process: {
-      eyebrow: "Work Process",
+      eyebrow: "",
       title: "A simple six-step system that moves from discovery to measurable growth.",
       description:
         "Each phase is structured to remove uncertainty, improve alignment, and keep execution focused on outcomes.",
@@ -84,7 +84,7 @@ export const contentEn: SiteContent = {
       processLabel: "Process",
     },
     results: {
-      eyebrow: "Results",
+      eyebrow: "",
       title: "Numbers that signal momentum, trust, and delivery capacity.",
       description:
         "A premium agency story should be supported by strong measurable proof points.",
@@ -98,6 +98,21 @@ export const contentEn: SiteContent = {
       closeLabel: "Close",
       viewAll: "All articles",
     },
+    marketer: {
+      nameLine: "I'M SHAKHZOD",
+      bio: "Strategic marketer with 10 years of experience. Worked on 100+ projects, growing sales, building systematic teams, and delivering people-management solutions.",
+      aboutCta: "More about me",
+      socialCta: "Social networks",
+      aboutBody:
+        "I'm Shakhzod. For over 10 years I've worked in strategic marketing and sales systems. Across 100+ projects I've helped brands grow revenue, build teams, and manage people with practical systems.\n\nMy goal is not just advertising — it's building a marketing and sales engine that works every day. With the Progress.uzb team, we turn that approach into real execution for companies.",
+      videoTitle: "Video",
+      watermark: "WELCOME",
+      youtubeId: "aI1OzDw6_Ts",
+      portraitSrc: "/marketer/portrait.png",
+      closeLabel: "Close",
+      instagramLabel: "Instagram",
+      telegramLabel: "Telegram",
+    },
     testimonials: {
       eyebrow: "Client feedback",
       title: "Want to be among successful projects like the ones above?",
@@ -105,12 +120,6 @@ export const contentEn: SiteContent = {
       cta: "Analyze my project",
       videoNote:
         "If you're not fully convinced by the results above, watch the videos yourself and see the proof!",
-    },
-    faq: {
-      eyebrow: "FAQ",
-      title: "Answers that reduce hesitation and improve lead quality.",
-      description:
-        "The FAQ section is designed to support conversion by resolving common concerns before the form submission step.",
     },
     finalCta: {
       eyebrow: "Ready to grow?",
@@ -121,7 +130,7 @@ export const contentEn: SiteContent = {
     },
     contact: {
       badge: "Contact",
-      title: "Book a consultation and let's discuss your next growth move.",
+      title: "Leave your details to get a clear action plan for growing your sales.",
       description:
         "Share a few details about your business and our team will contact you shortly with the best next step.",
       phoneLabel: "Our phone numbers",
@@ -132,7 +141,7 @@ export const contentEn: SiteContent = {
       addressLabel: "Address",
       addressValue: "Spartak, Samarkand",
       landmarkLabel: "Landmark",
-      landmarkValue: '"Chin Express" logistics services',
+      landmarkValue: "Near Spartak Stadium, Senior and Prive clothing stores",
       mapCta: "Open on map",
     },
   },
@@ -187,7 +196,7 @@ export const contentEn: SiteContent = {
           description: "A clear market direction and a practical growth roadmap for your business.",
         },
         {
-          title: "Performance Marketing",
+          title: "Performance Marketing & Targeting",
           description:
             "Advertising and lead generation focused on real sales, not vanity follower counts.",
         },
@@ -205,6 +214,11 @@ export const contentEn: SiteContent = {
           title: "Personal Branding",
           description:
             "Build authority for founders and experts to create trust and attract higher-value sales.",
+        },
+        {
+          title: "Reels & Media Production",
+          description:
+            "Professional camera filming and editing of sales-focused reels for your business.",
         },
       ],
     },
@@ -339,10 +353,10 @@ export const contentEn: SiteContent = {
     },
   ],
   statistics: [
-    { value: 120, suffix: "+", label: "Projects" },
+    { value: 70, suffix: "+", label: "Projects" },
     { value: 50, suffix: "+", label: "Clients" },
-    { value: 6, suffix: "+", label: "Years Experience" },
-    { value: 95, suffix: "%", label: "Client Satisfaction" },
+    { value: 7, suffix: "+", label: "Years Experience" },
+    { value: 93, suffix: "%", label: "Client Satisfaction" },
   ],
   videoTestimonials: [
     {
@@ -361,58 +375,6 @@ export const contentEn: SiteContent = {
       formatLabel: "1080 × 1920",
     },
   ],
-  faqs: [
-    {
-      question: "What types of businesses do you work with?",
-      answer:
-        "We work with startups, local businesses, personal brands, established companies, and growth-stage teams that need stronger marketing systems.",
-    },
-    {
-      question: "Do you offer complete marketing support or individual services?",
-      answer:
-        "Both. We can act as your full marketing partner or support specific needs such as branding, websites, SMM, automation, or AI integration.",
-    },
-    {
-      question: "How do you start a new project?",
-      answer:
-        "We begin with a consultation, review your current situation, define priorities, then create a strategy and execution roadmap.",
-    },
-    {
-      question: "Can you help generate leads for our business?",
-      answer:
-        "Yes. Lead generation and conversion improvement are core goals for our websites, campaigns, automation flows, and reporting setup.",
-    },
-    {
-      question: "Do you work only with clients in Samarkand?",
-      answer:
-        "No. We are based in Samarkand, Uzbekistan, but we can support businesses in other cities and international markets as well.",
-    },
-    {
-      question: "How long does a website or landing page project usually take?",
-      answer:
-        "Timeline depends on scope, but focused landing pages can be delivered quickly while larger corporate websites require a deeper planning and production cycle.",
-    },
-    {
-      question: "Do you provide advertising and analytics together?",
-      answer:
-        "Yes. We combine campaign execution with analytics and optimization so decisions are based on performance, not assumptions.",
-    },
-    {
-      question: "Can you create content for social media and video campaigns?",
-      answer:
-        "Yes. We handle strategy, planning, creative direction, production, editing, and paid promotion for short-form and branded content.",
-    },
-    {
-      question: "How do you price your services?",
-      answer:
-        "Pricing depends on business goals, scope, channels, content volume, and delivery pace. We provide tailored proposals after consultation.",
-    },
-    {
-      question: "How do we contact your team?",
-      answer:
-        "You can submit the consultation form on this page and our team will contact you shortly to discuss the best next step.",
-    },
-  ],
   form: {
     fullName: "Full Name",
     companyName: "Company Name",
@@ -424,15 +386,15 @@ export const contentEn: SiteContent = {
       businessType: "e.g. E-commerce, Clinic, Startup",
       phoneNumber: "+998 90 123 45 67",
     },
-    submit: "Book a Consultation",
+    submit: "Sign up for a\nbusiness audit consultation",
     submitting: "Sending...",
     success: "Thank you! We will contact you shortly.",
     errorGeneric: "Something went wrong.",
     errorNetwork: "Unable to send your request right now. Please try again.",
   },
   popup: {
-    eyebrow: "Limited offer",
-    title: "Let's take your business to the next level",
+    eyebrow: "Our consultation is not free, but it is never useless",
+    title: "We'll identify the real growth points in your business!",
     description:
       "Leave your details — our team will reach out with a strategy to grow your sales.",
     close: "Close",
