@@ -7,12 +7,16 @@ import { useEffect, useRef, useState } from "react";
 import { ContactForm } from "@/components/shared/contact-form";
 import type { SiteContent } from "@/content/types";
 
+/** Temporary kill-switch — set to `true` to re-enable popup forms */
+const LEAD_POPUP_ENABLED = false;
+
 const ONE_AND_HALF_MINUTES = 1.5 * 60 * 1000;
 const EXIT_INTENT_EVERY = 5;
 
 export const OPEN_LEAD_POPUP_EVENT = "open-lead-popup";
 
 export function openLeadPopup() {
+  if (!LEAD_POPUP_ENABLED) return;
   window.dispatchEvent(new Event(OPEN_LEAD_POPUP_EVENT));
 }
 
@@ -22,19 +26,20 @@ export function LeadPopup({ content }: { content: SiteContent }) {
   const exitLeaveCountRef = useRef(0);
 
   useEffect(() => {
+    if (!LEAD_POPUP_ENABLED) return;
     const onOpenRequest = () => setOpen(true);
     window.addEventListener(OPEN_LEAD_POPUP_EVENT, onOpenRequest);
     return () => window.removeEventListener(OPEN_LEAD_POPUP_EVENT, onOpenRequest);
   }, []);
 
   useEffect(() => {
-    if (open) return;
+    if (!LEAD_POPUP_ENABLED || open) return;
     const timer = window.setTimeout(() => setOpen(true), ONE_AND_HALF_MINUTES);
     return () => window.clearTimeout(timer);
   }, [open]);
 
   useEffect(() => {
-    if (open) return;
+    if (!LEAD_POPUP_ENABLED || open) return;
 
     const onMouseOut = (event: MouseEvent) => {
       const toElement = event.relatedTarget as Node | null;
@@ -69,6 +74,8 @@ export function LeadPopup({ content }: { content: SiteContent }) {
   function handleClose() {
     setOpen(false);
   }
+
+  if (!LEAD_POPUP_ENABLED) return null;
 
   return (
     <AnimatePresence>

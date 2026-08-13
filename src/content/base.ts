@@ -17,6 +17,7 @@ export const baseSiteConfig = {
   social: {
     instagram: "https://www.instagram.com/progressuzb/",
     telegram: "https://t.me/shakhzed1",
+    youtube: "https://youtu.be/aI1OzDw6_Ts",
   },
   socialProof: {
     projects: "70+",

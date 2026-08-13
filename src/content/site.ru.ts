@@ -108,7 +108,7 @@ export const contentRu: SiteContent = {
       videoTitle: "Видео",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png",
+      portraitSrc: "/marketer/portrait.png?v=6",
       closeLabel: "Закрыть",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",

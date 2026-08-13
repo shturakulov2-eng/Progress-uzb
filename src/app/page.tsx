@@ -278,7 +278,7 @@ export default function Home() {
                 dropUp
                 className="min-w-0 flex-1 [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white"
               />
-              <ThemeToggle className="!size-11 shrink-0" />
+              <ThemeToggle variant="onDark" className="!size-11 shrink-0" />
             </div>
             <Magnetic className="w-full">
               <Button

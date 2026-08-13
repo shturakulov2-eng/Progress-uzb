@@ -108,7 +108,7 @@ export const contentUz: SiteContent = {
       videoTitle: "Video",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png",
+      portraitSrc: "/marketer/portrait.png?v=6",
       closeLabel: "Yopish",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",
