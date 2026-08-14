@@ -15,13 +15,35 @@ export function VideoTestimonialCard({
   onPause?: () => void;
 }) {
   const [hasVideo, setHasVideo] = useState(true);
+  const youtubeId = src.match(
+    /(?:youtube\.com\/(?:shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/,
+  )?.[1];
+  const youtubeEmbedSrc = youtubeId
+    ? `https://www.youtube.com/embed/${youtubeId}?rel=0&playsinline=1`
+    : null;
 
   return (
-    <article className="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <article
+      className="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900"
+      onPointerEnter={youtubeEmbedSrc ? onPlay : undefined}
+      onPointerLeave={youtubeEmbedSrc ? onPause : undefined}
+      onFocus={youtubeEmbedSrc ? onPlay : undefined}
+      onBlur={youtubeEmbedSrc ? onPause : undefined}
+    >
       <div className="relative aspect-[9/16] overflow-hidden bg-[linear-gradient(160deg,#0C3272_0%,#1a56c6_55%,#0b1220_100%)]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.22),transparent_40%)]" />
 
-        {hasVideo ? (
+        {youtubeEmbedSrc ? (
+          <iframe
+            title={title}
+            src={youtubeEmbedSrc}
+            className="absolute inset-0 h-full w-full"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        ) : hasVideo ? (
           <video
             src={src}
             className="absolute inset-0 h-full w-full object-cover"

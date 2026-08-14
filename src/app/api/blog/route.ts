@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 import { isAllowedAdminEmail } from "@/lib/admin-access";
 import {
@@ -8,14 +7,8 @@ import {
   toPublicBlogPost,
   type BlogPostRecord,
 } from "@/lib/blog";
+import { formatZodError, publishBlogSchema } from "@/lib/blog-validation";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
-
-const publishSchema = z.object({
-  title: z.string().trim().min(3).max(160),
-  excerpt: z.string().trim().max(400).optional(),
-  body: z.string().trim().min(20).max(20000),
-  imagePath: z.string().trim().min(1).max(500),
-});
 
 export async function GET(request: Request) {
   try {
@@ -70,11 +63,11 @@ export async function POST(request: Request) {
     }
 
     const json = await request.json();
-    const parsed = publishSchema.safeParse(json);
+    const parsed = publishBlogSchema.safeParse(json);
 
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "Invalid blog post payload." },
+        { error: formatZodError(parsed.error) },
         { status: 400 },
       );
     }
@@ -102,7 +95,11 @@ export async function POST(request: Request) {
     if (error || !data) {
       console.error("blog POST error", error);
       return NextResponse.json(
-        { error: "Unable to publish blog post." },
+        {
+          error:
+            error?.message ||
+            "Unable to publish blog post. Check Supabase blog_posts table and RLS.",
+        },
         { status: 500 },
       );
     }

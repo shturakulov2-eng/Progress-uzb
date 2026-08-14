@@ -8,6 +8,7 @@ import type { FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import type { PublicBlogPost } from "@/lib/blog";
+import { validateBlogPostInput } from "@/lib/blog-validation";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 type BlogAdminProps = {
@@ -32,10 +33,17 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
   const isEditing = Boolean(editingPostId);
 
   const canSave = useMemo(() => {
-    if (!title.trim() || !body.trim() || isSaving) return false;
-    if (isEditing) return true;
-    return Boolean(imageFile);
-  }, [title, body, imageFile, isSaving, isEditing]);
+    if (isSaving) return false;
+    return (
+      validateBlogPostInput({
+        title,
+        excerpt,
+        body,
+        requireImage: !isEditing,
+        hasImage: Boolean(imageFile),
+      }) === null
+    );
+  }, [title, excerpt, body, imageFile, isSaving, isEditing]);
 
   async function handleLogout() {
     const supabase = createSupabaseBrowserClient();
@@ -104,7 +112,19 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!canSave) return;
+
+    const validationError = validateBlogPostInput({
+      title,
+      excerpt,
+      body,
+      requireImage: !isEditing,
+      hasImage: Boolean(imageFile) || isEditing,
+    });
+    if (validationError) {
+      setError(validationError);
+      setSuccess("");
+      return;
+    }
 
     setError("");
     setSuccess("");
@@ -258,9 +278,9 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
               required
               value={title}
               onChange={(event) => setTitle(event.target.value)}
-              className="h-12 w-full rounded-2xl border border-slate-200 px-4 outline-none transition focus:border-[#0C3272]"
-              placeholder="Post title"
-            />
+              className="admin-field"
+          placeholder="Post title"
+        />
           </div>
 
           <div className="space-y-2">
@@ -272,7 +292,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
               rows={3}
               value={excerpt}
               onChange={(event) => setExcerpt(event.target.value)}
-              className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-[#0C3272]"
+              className="admin-field-area"
               placeholder="Card preview text. Agar bo‘sh qoldirilsa, matndan avtomatik olinadi."
             />
           </div>
@@ -287,9 +307,12 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
               rows={12}
               value={body}
               onChange={(event) => setBody(event.target.value)}
-              className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-[#0C3272]"
+              className="admin-field-area"
               placeholder="Full article body"
             />
+            <p className="text-xs text-slate-500">
+              Kamida 20 ta belgi kerak. Hozir: {body.trim().length}
+            </p>
           </div>
         </div>
 

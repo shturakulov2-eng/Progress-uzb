@@ -278,6 +278,7 @@ export const contentUz: SiteContent = {
       duration: "2019-yildan hozirgacha (loyiha boshidan beri)",
       result: "2025-yilda savdo hajmi o'tgan yilga nisbatan 127% ga ko'tarildi.",
       process: "Hozirgi kunda sotuv bo'limini yanada mukammal tizimlashtirish ishlari ketmoqda.",
+      imageSrc: "/portfolio/kolizey-showcase.png",
     },
     {
       name: "Ishonch Mebel",
@@ -286,6 +287,7 @@ export const contentUz: SiteContent = {
       result:
         "Atigi 3 yilda brend 0 dan oyiga 500 million so'mlik onlayn savdoga olib chiqildi. 400 kv.m maydonga ega yangi do'kon ochildi.",
       process: "Hozirda showroom do'konsiz to'g'ridan-to'g'ri onlayn sotish yo'llari qo'yilmoqda.",
+      imageSrc: "/portfolio/ishonch-mebel-showcase.png",
     },
     {
       name: "Tropik Palma",
@@ -294,6 +296,7 @@ export const contentUz: SiteContent = {
       result:
         "Butun O'zbekiston bo'ylab tizimli savdo yo'lga qo'yildi. Biznesga minglab yangi lidlar olib kelindi.",
       process: "Sotuv bo'limi qurilmoqda.",
+      imageSrc: "/portfolio/tropik-palma-showcase.png",
     },
     {
       name: "Milliy Brend",
@@ -362,7 +365,7 @@ export const contentUz: SiteContent = {
   videoTestimonials: [
     {
       title: "Mijoz fikri 1",
-      src: "/videos/testimonial-1.mp4",
+      src: "https://youtube.com/shorts/GhNKQibmXdA",
       formatLabel: "1080 × 1920",
     },
     {

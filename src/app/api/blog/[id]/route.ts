@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 import { isAllowedAdminEmail } from "@/lib/admin-access";
 import {
@@ -7,14 +6,8 @@ import {
   toPublicBlogPost,
   type BlogPostRecord,
 } from "@/lib/blog";
+import { formatZodError, updateBlogSchema } from "@/lib/blog-validation";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
-
-const updateSchema = z.object({
-  title: z.string().trim().min(3).max(160),
-  excerpt: z.string().trim().max(400).optional(),
-  body: z.string().trim().min(20).max(20000),
-  imagePath: z.string().trim().min(1).max(500).optional(),
-});
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -47,11 +40,11 @@ export async function PATCH(request: Request, context: RouteContext) {
     }
 
     const json = await request.json();
-    const parsed = updateSchema.safeParse(json);
+    const parsed = updateBlogSchema.safeParse(json);
 
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "Invalid blog post payload." },
+        { error: formatZodError(parsed.error) },
         { status: 400 },
       );
     }
@@ -80,7 +73,11 @@ export async function PATCH(request: Request, context: RouteContext) {
     if (error || !data) {
       console.error("blog PATCH error", error);
       return NextResponse.json(
-        { error: "Unable to update blog post." },
+        {
+          error:
+            error?.message ||
+            "Unable to update blog post. Check Supabase blog_posts table and RLS.",
+        },
         { status: 500 },
       );
     }
@@ -133,13 +130,17 @@ export async function DELETE(_request: Request, context: RouteContext) {
     if (error) {
       console.error("blog DELETE error", error);
       return NextResponse.json(
-        { error: "Unable to delete blog post." },
+        { error: error.message || "Unable to delete blog post." },
         { status: 500 },
       );
     }
 
     const imagePath = (existing as { image_path?: string }).image_path;
-    if (imagePath && !imagePath.startsWith("http://") && !imagePath.startsWith("https://")) {
+    if (
+      imagePath &&
+      !imagePath.startsWith("http://") &&
+      !imagePath.startsWith("https://")
+    ) {
       const { error: storageError } = await supabase.storage
         .from("blog")
         .remove([imagePath]);

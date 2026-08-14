@@ -198,7 +198,7 @@ export default function Home() {
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden rounded-r-[28px] border-r border-white/40 bg-[#0C3272]/85 shadow-[0_12px_40px_rgba(12,50,114,0.28)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/60 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+          className="pointer-events-none absolute inset-0 overflow-hidden rounded-r-[28px] border-r border-white/40 bg-[#0C3272]/85 backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-[#0C3272]/60"
         >
           <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,rgba(255,255,255,0)_70%)]" />
           <div className="absolute inset-y-6 right-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/40 to-transparent" />
@@ -213,7 +213,7 @@ export default function Home() {
               className="h-auto w-[96px] brightness-0 invert"
               priority
             />
-            <p className="mt-2.5 max-w-[10.5rem] whitespace-pre-line text-xs font-medium leading-5 text-blue-100/80">
+            <p className="mt-2.5 max-w-[10.5rem] whitespace-pre-line text-xs font-medium leading-4 text-blue-100/80">
               {hero.navTagline}
             </p>
           </div>
@@ -303,7 +303,7 @@ export default function Home() {
           ref={heroRef}
           className="section-shell pt-8 pb-14 sm:pt-14 sm:pb-24"
         >
-          <div className="max-w-3xl">
+          <div className="max-w-3xl 2xl:max-w-4xl">
             <Reveal>
               <div className="space-y-8">
                 <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-3 py-2 text-xs text-[#0C3272] shadow-sm backdrop-blur-sm sm:px-4 sm:text-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-blue-200">
@@ -311,14 +311,14 @@ export default function Home() {
                   <span className="min-w-0 leading-snug">{hero.badge}</span>
                 </div>
                 <div className="space-y-5">
-                  <h1 className="max-w-3xl text-balance text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl dark:text-white">
+                  <h1 className="max-w-3xl text-balance text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl 2xl:max-w-4xl 2xl:text-6xl dark:text-white">
                     {hero.title.split("\n").map((line) => (
                       <span key={line} className="block">
                         {line}
                       </span>
                     ))}
                   </h1>
-                  <p className="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 md:text-xl dark:text-slate-300">
+                  <p className="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 md:text-xl 2xl:max-w-3xl 2xl:text-2xl 2xl:leading-10 dark:text-slate-300">
                     {hero.subtitle}
                   </p>
                 </div>
@@ -384,7 +384,7 @@ export default function Home() {
                   </div>
                 </Reveal>
 
-                <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                   {group.items.map((service, itemIndex) => {
                     const iconIndex = groupIndex === 0 ? itemIndex : itemIndex + 6;
                     const Icon = serviceIcons[iconIndex] ?? Sparkles;
@@ -528,10 +528,10 @@ export default function Home() {
                   <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100">
                     {sections.finalCta.eyebrow}
                   </p>
-                  <h2 className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+                  <h2 className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl 2xl:max-w-4xl 2xl:text-6xl">
                     {sections.finalCta.title}
                   </h2>
-                  <p className="max-w-2xl text-base leading-7 text-blue-50 sm:text-lg sm:leading-8">
+                  <p className="max-w-2xl text-base leading-7 text-blue-50 sm:text-lg sm:leading-8 2xl:max-w-3xl 2xl:text-xl">
                     {sections.finalCta.description}
                   </p>
                 </div>
@@ -555,10 +555,10 @@ export default function Home() {
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-6">
-              <h2 className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+              <h2 className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl 2xl:max-w-2xl 2xl:text-6xl">
                 {sections.contact.title}
               </h2>
-              <p className="max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+              <p className="max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8 2xl:max-w-2xl 2xl:text-xl">
                 {sections.contact.description}
               </p>
 

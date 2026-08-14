@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, LockKeyhole } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, LockKeyhole } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { FormEvent } from "react";
@@ -17,6 +17,7 @@ export function AdminLoginForm({ disabled = false }: AdminLoginFormProps) {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -72,7 +73,7 @@ export function AdminLoginForm({ disabled = false }: AdminLoginFormProps) {
           disabled={disabled}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272] disabled:opacity-60"
+          className="admin-field"
           placeholder="admin@progress.uzb"
         />
       </div>
@@ -80,17 +81,34 @@ export function AdminLoginForm({ disabled = false }: AdminLoginFormProps) {
         <label htmlFor="password" className="text-sm font-medium text-slate-700">
           Password
         </label>
-        <input
-          id="password"
-          type="password"
-          required
-          autoComplete="current-password"
-          disabled={disabled}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272] disabled:opacity-60"
-          placeholder="Enter your password"
-        />
+        <div className="grid">
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            required
+            autoComplete="current-password"
+            disabled={disabled}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className="admin-field-password col-start-1 row-start-1"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((visible) => !visible)}
+            disabled={disabled}
+            aria-label={showPassword ? "Parolni yashirish" : "Parolni ko‘rsatish"}
+            aria-pressed={showPassword}
+            title={showPassword ? "Parolni yashirish" : "Parolni ko‘rsatish"}
+            className="z-10 col-start-1 row-start-1 mr-1.5 flex size-9 self-center justify-self-end items-center justify-center rounded-xl text-slate-600 transition hover:bg-slate-100 hover:text-[#0C3272] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3272]/40 disabled:pointer-events-none disabled:opacity-40"
+          >
+            {showPassword ? (
+              <EyeOff className="size-5" aria-hidden="true" />
+            ) : (
+              <Eye className="size-5" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </div>
       {error ? (
         <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">

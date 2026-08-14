@@ -277,6 +277,7 @@ export const contentEn: SiteContent = {
       duration: "Since 2019 to present (from the start of the project)",
       result: "In 2025, sales volume grew 127% year over year.",
       process: "The sales department is currently being further systematized.",
+      imageSrc: "/portfolio/kolizey-showcase.png",
     },
     {
       name: "Ishonch Mebel",
@@ -285,6 +286,7 @@ export const contentEn: SiteContent = {
       result:
         "In just 3 years the brand went from zero to 500 million UZS in monthly online sales. A new 400 sq.m store was opened.",
       process: "Direct online sales channels without a showroom store are now being built.",
+      imageSrc: "/portfolio/ishonch-mebel-showcase.png",
     },
     {
       name: "Tropik Palma",
@@ -293,6 +295,7 @@ export const contentEn: SiteContent = {
       result:
         "Systematic nationwide sales across Uzbekistan were established. Thousands of new leads were delivered.",
       process: "A sales department is currently being built.",
+      imageSrc: "/portfolio/tropik-palma-showcase.png",
     },
     {
       name: "Milliy Brend",
@@ -361,7 +364,7 @@ export const contentEn: SiteContent = {
   videoTestimonials: [
     {
       title: "Client review 1",
-      src: "/videos/testimonial-1.mp4",
+      src: "https://youtube.com/shorts/GhNKQibmXdA",
       formatLabel: "1080 × 1920",
     },
     {

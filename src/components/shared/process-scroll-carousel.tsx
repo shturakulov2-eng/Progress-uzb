@@ -36,11 +36,11 @@ export function ProcessScrollCarousel({ copy, steps }: ProcessScrollCarouselProp
     offset: ["start start", "end end"],
   });
 
-  // Soft inertia: keep moving briefly after scroll stops, then ease to rest.
+  // Responsive inertia: follow fast scrolling closely, then settle smoothly.
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: prefersReducedMotion ? 500 : 70,
-    damping: prefersReducedMotion ? 50 : 22,
-    mass: prefersReducedMotion ? 0.2 : 0.85,
+    stiffness: prefersReducedMotion ? 500 : 160,
+    damping: prefersReducedMotion ? 50 : 28,
+    mass: prefersReducedMotion ? 0.2 : 0.45,
     restDelta: 0.0005,
   });
 
@@ -80,7 +80,7 @@ export function ProcessScrollCarousel({ copy, steps }: ProcessScrollCarouselProp
       <div
         ref={sectionRef}
         className="relative hidden lg:block"
-        style={{ height: `${stageCount * 100}svh` }}
+        style={{ height: `${stageCount * 70}svh` }}
       >
         <div className="sticky top-0 flex h-svh flex-col justify-start overflow-hidden pt-8 pb-10">
           <div className="section-shell shrink-0">

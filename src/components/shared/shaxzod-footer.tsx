@@ -10,7 +10,7 @@ import { useLanguage } from "@/context/language-context";
 import { cn } from "@/lib/utils";
 
 const profileShell =
-  "mx-auto w-full max-w-[100rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:px-16";
+  "mx-auto w-full max-w-[100rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:max-w-[112rem] 2xl:px-16 min-[1920px]:max-w-[120rem] min-[1920px]:px-20";
 
 const linkClass =
   "block text-sm text-slate-300 transition hover:text-white sm:text-[15px]";

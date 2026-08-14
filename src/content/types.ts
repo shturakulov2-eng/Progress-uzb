@@ -114,6 +114,7 @@ export type SiteContent = {
     duration: string;
     result: string;
     process?: string;
+    imageSrc?: string;
   }[];
   statistics: { value: number; suffix: string; label: string }[];
   videoTestimonials: {

@@ -277,6 +277,7 @@ export const contentRu: SiteContent = {
       duration: "С 2019 года по настоящее время (с самого начала проекта)",
       result: "В 2025 году объём продаж вырос на 127% к прошлому году.",
       process: "Сейчас продолжается более глубокая систематизация отдела продаж.",
+      imageSrc: "/portfolio/kolizey-showcase.png",
     },
     {
       name: "Ishonch Mebel",
@@ -285,6 +286,7 @@ export const contentRu: SiteContent = {
       result:
         "Всего за 3 года бренд вырос с нуля до 500 млн сум ежемесячных онлайн-продаж. Открыт новый магазин площадью 400 кв.м.",
       process: "Сейчас выстраиваются прямые онлайн-продажи без шоурума.",
+      imageSrc: "/portfolio/ishonch-mebel-showcase.png",
     },
     {
       name: "Tropik Palma",
@@ -293,6 +295,7 @@ export const contentRu: SiteContent = {
       result:
         "Налажены системные продажи по всему Узбекистану. Бизнесу приведено тысячи новых лидов.",
       process: "Строится отдел продаж.",
+      imageSrc: "/portfolio/tropik-palma-showcase.png",
     },
     {
       name: "Milliy Brend",
@@ -361,7 +364,7 @@ export const contentRu: SiteContent = {
   videoTestimonials: [
     {
       title: "Отзыв клиента 1",
-      src: "/videos/testimonial-1.mp4",
+      src: "https://youtube.com/shorts/GhNKQibmXdA",
       formatLabel: "1080 × 1920",
     },
     {

@@ -96,13 +96,67 @@ h6 {
 }
 
 .section-shell {
-  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:max-w-[90rem] xl:px-10 2xl:max-w-[100rem] 2xl:px-14;
+}
+
+@media (min-width: 1920px) {
+  .section-shell {
+    max-width: 112rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
 }
 
 @media (max-width: 639px) {
   .section-shell {
     @apply px-3;
   }
+}
+
+.admin-field {
+  @apply h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition placeholder:text-slate-400/55 focus:border-[#0C3272] disabled:opacity-60;
+  color: #0f172a;
+  -webkit-text-fill-color: #0f172a;
+  caret-color: #0c3272;
+  opacity: 1;
+}
+
+.admin-field-area {
+  @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base font-medium text-slate-950 outline-none transition placeholder:text-slate-400/55 focus:border-[#0C3272] disabled:opacity-60;
+  color: #0f172a;
+  -webkit-text-fill-color: #0f172a;
+  caret-color: #0c3272;
+  opacity: 1;
+}
+
+.admin-field-password {
+  @apply h-12 w-full rounded-2xl border border-slate-200 bg-white py-0 pl-4 pr-12 text-base font-medium text-slate-950 outline-none transition placeholder:text-slate-400/55 focus:border-[#0C3272] disabled:opacity-60;
+  color: #0f172a;
+  -webkit-text-fill-color: #0f172a;
+  caret-color: #0c3272;
+  opacity: 1;
+}
+
+.admin-field::placeholder,
+.admin-field-password::placeholder,
+.admin-field-area::placeholder {
+  color: rgb(148 163 184 / 0.55);
+  opacity: 1;
+  -webkit-text-fill-color: rgb(148 163 184 / 0.55);
+}
+
+.admin-field:-webkit-autofill,
+.admin-field:-webkit-autofill:hover,
+.admin-field:-webkit-autofill:focus,
+.admin-field-password:-webkit-autofill,
+.admin-field-password:-webkit-autofill:hover,
+.admin-field-password:-webkit-autofill:focus,
+.admin-field-area:-webkit-autofill,
+.admin-field-area:-webkit-autofill:hover,
+.admin-field-area:-webkit-autofill:focus {
+  -webkit-text-fill-color: #0f172a;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 9999s ease-in-out 0s;
 }
 
 .glass-card {

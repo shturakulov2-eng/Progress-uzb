@@ -109,7 +109,7 @@ export function UpdatePasswordForm() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           disabled={!ready}
-          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272] disabled:opacity-60"
+          className="admin-field"
         />
       </div>
       <div className="space-y-2">
@@ -125,7 +125,7 @@ export function UpdatePasswordForm() {
           value={confirm}
           onChange={(event) => setConfirm(event.target.value)}
           disabled={!ready}
-          className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0C3272] disabled:opacity-60"
+          className="admin-field"
         />
       </div>
       {error ? (

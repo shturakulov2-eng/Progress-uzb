@@ -10,6 +10,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -142,7 +143,7 @@ function PortfolioDesktopStack({
   const resultsY = useTransform(
     smoothProgress,
     [0, resultsStart, resultsMid, 1],
-    ["46vh", "46vh", "0vh", "0vh"],
+    ["46vh", "46vh", "-4vh", "-4vh"],
   );
   const resultsScale = useTransform(
     smoothProgress,
@@ -154,9 +155,9 @@ function PortfolioDesktopStack({
     <div
       ref={sectionRef}
       className="relative hidden lg:block"
-      style={{ height: `${unitCount * 78}svh` }}
+      style={{ height: `${unitCount * 64}vh` }}
     >
-      <div className="sticky top-0 h-svh overflow-hidden">
+      <div className="sticky top-0 h-screen overflow-hidden">
         {/* Center stage: header then stacked cards */}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
@@ -167,7 +168,7 @@ function PortfolioDesktopStack({
               scale: headerScale,
             }}
           >
-            <div className="max-w-4xl text-center [&_h2]:text-4xl [&_h2]:leading-tight md:[&_h2]:text-5xl [&_p.text-base]:text-lg">
+            <div className="max-w-4xl text-center 2xl:max-w-5xl [&_h2]:text-4xl [&_h2]:leading-tight md:[&_h2]:text-5xl 2xl:[&_h2]:text-6xl [&_p.text-base]:text-lg 2xl:[&_p.text-base]:text-xl">
               <SectionHeading
                 eyebrow={portfolio.eyebrow}
                 title={portfolio.title}
@@ -178,7 +179,7 @@ function PortfolioDesktopStack({
           </motion.div>
 
           <motion.div
-            className="relative z-10 mx-auto h-[min(58svh,540px)] w-full max-w-3xl px-6"
+            className="relative z-10 mx-auto h-[min(84vh,680px)] w-full max-w-4xl px-6 2xl:h-[min(86vh,760px)] 2xl:max-w-5xl"
             style={{ opacity: stackOpacity, scale: stackScale }}
           >
             {items.map((item, index) => (
@@ -369,10 +370,22 @@ function PortfolioCardBody({
         className={cn(
           "relative overflow-hidden bg-[linear-gradient(135deg,#0C3272,#1a56c6)] text-white",
           compact
-            ? "aspect-[16/9] p-5"
+            ? "h-[clamp(14rem,52vh,30rem)] p-5"
             : "aspect-[16/11] p-6 sm:aspect-[2/1]",
         )}
       >
+        {item.imageSrc ? (
+          <>
+            <Image
+              src={item.imageSrc}
+              alt={`${item.name} portfolio loyihasi`}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 56rem"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,24,0.08)_0%,rgba(3,10,24,0.18)_45%,rgba(3,10,24,0.78)_100%)]" />
+          </>
+        ) : null}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.18),_transparent_25%)]" />
         <div className="relative flex h-full flex-col justify-between">
           <div className="flex items-center justify-between">
@@ -464,13 +477,14 @@ function ResultsPanel({
       <div
         className={cn(
           "[&_h2]:text-white [&_p]:text-slate-300 [&_p:first-child]:text-blue-300",
-          stage && "[&_h2]:text-3xl md:[&_h2]:text-4xl [&_p]:leading-7",
+          stage &&
+            "[&_h2]:text-2xl md:[&_h2]:text-3xl [&_p.text-base]:text-sm [&_p]:leading-6",
         )}
       >
         <SectionHeading
           eyebrow={copy.eyebrow}
           title={copy.title}
-          description={copy.description}
+          description={stage ? undefined : copy.description}
           align="center"
         />
       </div>

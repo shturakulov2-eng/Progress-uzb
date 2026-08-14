@@ -126,7 +126,7 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
           {copy.watermark}
         </motion.p>
 
-        <div className="section-shell relative z-10 grid min-h-[34rem] items-end gap-8 py-14 sm:min-h-[40rem] sm:py-16 lg:min-h-[46rem] lg:grid-cols-[1.15fr_0.7fr_1.15fr] lg:items-center lg:gap-4 lg:py-20">
+        <div className="section-shell relative z-10 grid min-h-[34rem] items-end gap-8 py-14 sm:min-h-[40rem] sm:py-16 lg:min-h-[46rem] lg:grid-cols-[1.15fr_0.7fr_1.15fr] lg:items-center lg:gap-4 lg:py-20 2xl:min-h-[52rem] 2xl:gap-8">
           <div className="order-1 space-y-5 lg:order-none lg:pb-8">
             <motion.h2
               initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}

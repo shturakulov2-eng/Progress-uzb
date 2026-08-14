@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 
 /** Wider page shell for profile — fills more of the viewport than section-shell */
 const profileShell =
-  "mx-auto w-full max-w-[100rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:px-16";
+  "mx-auto w-full max-w-[100rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:max-w-[112rem] 2xl:px-16 min-[1920px]:max-w-[120rem] min-[1920px]:px-20";
 
 function PhotoSlot({
   slot,
@@ -104,7 +104,7 @@ function EcoCell({
 }
 
 function EcosystemChart({ items }: { items: EcoItem[] }) {
-  const marketing = ecoByName(items, "Progress Marketing");
+  const marketing = ecoByName(items, "Progress Group");
   const prodAction = ecoByName(items, "Prod-Action");
   const procode = ecoByName(items, "ProCode");
   const proaktika = ecoByName(items, "Proaktika");
@@ -120,7 +120,7 @@ function EcosystemChart({ items }: { items: EcoItem[] }) {
 
   return (
     <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="relative mx-auto min-w-[44rem] max-w-5xl">
+      <div className="relative mx-auto min-w-[44rem] w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl">
         <svg
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0 h-full w-full"
@@ -216,14 +216,27 @@ export function ShaxzodProfilePage() {
 
       <main>
         {/* Hero — centered cutout portrait */}
-        <section className={cn(profileShell, "relative pb-8 pt-0 sm:pb-12 lg:pb-14")}>
+        <section
+          className={cn(
+            profileShell,
+            "relative overflow-hidden pb-8 pt-0 sm:pb-12 lg:pb-14",
+          )}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center overflow-hidden text-center font-heading text-[clamp(4.5rem,14vw,14rem)] font-black uppercase leading-[0.84] tracking-[-0.075em] text-[#0C3272]/10 select-none dark:text-white/[0.07]"
+          >
+            <span>Shakhzod</span>
+            <span>Turakulov</span>
+          </div>
+
           <div className="relative grid w-full items-start gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.2fr)_minmax(0,1.05fr)] lg:items-end lg:gap-8 xl:gap-12">
             {/* Left: role badge + mission */}
             <motion.div
               initial={reduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
-              className="order-2 relative z-20 space-y-4 self-end lg:order-none lg:-translate-y-8 lg:pb-6 xl:-translate-y-12"
+              className="order-2 relative z-20 space-y-4 self-end lg:order-none lg:-translate-y-12 lg:pb-6 xl:-translate-y-16"
             >
               <span className="inline-flex rounded-full bg-[#0C3272] px-4 py-2.5 text-base font-semibold tracking-tight text-white shadow-[0_12px_32px_rgba(12,50,114,0.28)] dark:bg-blue-400 dark:text-slate-950">
                 {profile.role}
@@ -240,7 +253,7 @@ export function ShaxzodProfilePage() {
               transition={{ duration: 0.55, delay: 0.06 }}
               className="order-1 relative z-10 mx-auto flex w-full max-w-[26rem] justify-center sm:max-w-[32rem] lg:order-none lg:max-w-none"
             >
-              <div className="relative h-[22rem] w-full overflow-hidden bg-white sm:h-[28rem] lg:h-[36rem] xl:h-[40rem] dark:bg-[#0b1220]">
+              <div className="relative h-[22rem] w-full overflow-hidden bg-transparent sm:h-[28rem] lg:h-[36rem] xl:h-[40rem] 2xl:h-[44rem]">
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-x-[18%] bottom-2 h-10 rounded-full bg-black/10 blur-2xl"
@@ -257,9 +270,10 @@ export function ShaxzodProfilePage() {
                 {/* Fade only over the portrait cut-off — into page white */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 sm:h-40 lg:h-48"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-44 sm:h-52 lg:h-64 xl:h-72"
                 >
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.5)_45%,#ffffff_100%)] dark:bg-[linear-gradient(180deg,transparent_0%,rgba(11,18,32,0.5)_45%,#0b1220_100%)]" />
+                  <div className="absolute inset-0 backdrop-blur-[6px] [mask-image:linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.35)_35%,#000_72%)]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(246,248,255,0.35)_28%,rgba(246,248,255,0.88)_68%,#f6f8ff_100%)] dark:bg-[linear-gradient(180deg,transparent_0%,rgba(11,18,32,0.38)_28%,rgba(11,18,32,0.9)_68%,#0b1220_100%)]" />
                 </div>
               </div>
             </motion.div>
@@ -269,7 +283,7 @@ export function ShaxzodProfilePage() {
               initial={reduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.1 }}
-              className="order-3 relative z-20 space-y-5 self-end lg:order-none lg:justify-self-end lg:-translate-y-8 lg:pb-6 xl:-translate-y-12"
+              className="order-3 relative z-20 space-y-5 self-end lg:order-none lg:justify-self-end lg:-translate-y-12 lg:pb-6 xl:-translate-y-16"
             >
               <p className="max-w-md text-base leading-8 text-slate-600 sm:text-lg sm:leading-8 xl:max-w-lg dark:text-slate-300 lg:text-right">
                 {profile.intro}
@@ -298,11 +312,26 @@ export function ShaxzodProfilePage() {
 
             <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10 xl:gap-12">
               <div className="space-y-6 lg:space-y-8">
-                <div className="grid gap-4 sm:grid-cols-3 lg:gap-5">
-                  {profile.biography.facts.map((fact) => (
+                <div className="grid gap-4 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-5">
+                  <div className="grid gap-4 lg:gap-5">
+                    {profile.biography.facts.slice(0, 2).map((fact) => (
+                      <div
+                        key={fact.label}
+                        className="rounded-[20px] border border-slate-200/80 bg-white/70 px-5 py-4 dark:border-white/10 dark:bg-slate-900/50"
+                      >
+                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                          {fact.label}
+                        </p>
+                        <p className="mt-1.5 text-sm font-medium leading-6 text-slate-900 sm:text-base dark:text-slate-100">
+                          {fact.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  {profile.biography.facts.slice(2).map((fact) => (
                     <div
                       key={fact.label}
-                      className="rounded-[24px] border border-slate-200/80 bg-white/70 p-5 sm:p-6 dark:border-white/10 dark:bg-slate-900/50"
+                      className="flex flex-col justify-center rounded-[24px] border border-slate-200/80 bg-white/70 p-5 sm:p-6 dark:border-white/10 dark:bg-slate-900/50"
                     >
                       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                         {fact.label}
@@ -369,7 +398,7 @@ export function ShaxzodProfilePage() {
                 {profile.mentors.intro}
               </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-4">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:gap-4">
               {profile.mentors.names.map((name) => (
                 <div
                   key={name}
@@ -393,7 +422,7 @@ export function ShaxzodProfilePage() {
             </h2>
           </div>
 
-          <ol className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+          <ol className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 xl:gap-6">
             {profile.journey.items.map((item, index) => (
               <li
                 key={`${item.period}-${item.name}`}

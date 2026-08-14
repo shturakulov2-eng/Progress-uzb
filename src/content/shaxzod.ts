@@ -96,7 +96,7 @@ export type ShaxzodProfile = {
 /** Shared media paths — drop files into public/shaxzod/ to fill placeholders. */
 export const shaxzodMedia = {
   portrait: "/shaxzod/portrait.png?v=7",
-  biography: "/shaxzod/biography-1.jpg",
+  biography: "/shaxzod/biography-1.png?v=2",
   mentors: "/shaxzod/mentors.jpg",
   journey: "/shaxzod/journey.jpg",
   ecosystem: "/shaxzod/ecosystem.jpg",
@@ -134,7 +134,7 @@ const mentors = [
 const journeyItemsUz: ShaxzodProfile["journey"]["items"] = [
   {
     period: "2015",
-    name: "Sladkiy silindr",
+    name: "Сладкий цилиндр",
     description:
       "Ilk tadbirkorlik tajribasi — snack va shirinliklar. Biznes va bozor bilan birinchi amaliy tanishuv hamda bankrotlik sabog'i.",
   },
@@ -164,7 +164,7 @@ const journeyItemsUz: ShaxzodProfile["journey"]["items"] = [
   },
   {
     period: "2021–2022",
-    name: "Qanot Edu o'quv markazi",
+    name: "Grant Edu o'quv markazi",
     description:
       "Ta'lim sohasida ish boshlab, operatsion jarayonlarni o'rganganidan so'ng, vaqt talabi sababli sotilgan.",
   },
@@ -239,7 +239,7 @@ const journeyItemsUz: ShaxzodProfile["journey"]["items"] = [
 
 const ecosystemUz: ShaxzodProfile["ecosystem"]["items"] = [
   {
-    name: "Progress Marketing",
+    name: "Progress Group",
     description:
       "Performance marketing, content marketing va shaxsiy brendni rivojlantirish",
   },
@@ -334,7 +334,7 @@ const contentUz: ShaxzodProfile = {
   backLabel: "Progress.uzb",
   name: "Shaxzod Turakulov",
   tagline: "Biznesni tizimlashtirish va natijaviy marketing",
-  role: "Strateg, Marketolog",
+  role: "Strateg, marketolog",
   intro:
     "2019-yildan buyon loyiha boshqaruvi, marketing, biznes yo‘nalishlarida faoliyat yuritib kelaman. Kasbimni, insonlarni, tajriba va bilim ulashishni yaxshi ko‘raman.",
   heroCta: "Men bilan bog'lanish",
@@ -358,7 +358,7 @@ const contentUz: ShaxzodProfile = {
   mission: {
     eyebrow: "Oliy maqsad",
     title: "Bo'sh va'dalar emas — barqaror o'sish",
-    body: "Biznes egalariga bo'sh va'dalar va yuzaki marketing emas, balki aniq raqamlar, moliyaviy mantiq hamda avtomatlashtirilgan tizimlar orqali barqaror va xavfsiz o'sishni ta'minlash.",
+    body: "\"Biznes egalariga yuzaki marketing va bo'sh va'dalar emas, balki aniq raqamlar, moliyaviy mantiq va avtomatlashtirilgan tizimlar orqali barqaror hamda xavfsiz o'sishni ta'minlayman.\"",
   },
   biography: {
     eyebrow: "Biografiya",
@@ -527,7 +527,7 @@ const contentEn: ShaxzodProfile = {
     items: [
       {
         period: "2015",
-        name: "Sladkiy silindr",
+        name: "Сладкий цилиндр",
         description:
           "First entrepreneurship — snacks and sweets. First real market lesson, including bankruptcy.",
       },
@@ -557,7 +557,7 @@ const contentEn: ShaxzodProfile = {
       },
       {
         period: "2021–2022",
-        name: "Qanot Edu learning center",
+        name: "Grant Edu learning center",
         description:
           "Entered education, learned the operations, then sold due to heavy time demands.",
       },
@@ -635,7 +635,7 @@ const contentEn: ShaxzodProfile = {
     title: "Progress Group ecosystem",
     items: [
       {
-        name: "Progress Marketing",
+        name: "Progress Group",
         description:
           "Performance marketing, content marketing, and personal brand growth",
       },
@@ -788,7 +788,7 @@ const contentRu: ShaxzodProfile = {
     items: [
       {
         period: "2015",
-        name: "Sladkiy silindr",
+        name: "Сладкий цилиндр",
         description:
           "Первый предпринимательский опыт — снеки и сладости. Первый урок рынка и банкротства.",
       },
@@ -818,7 +818,7 @@ const contentRu: ShaxzodProfile = {
       },
       {
         period: "2021–2022",
-        name: "Учебный центр Qanot Edu",
+        name: "Учебный центр Grant Edu",
         description:
           "Вошёл в образование, изучил операционку и продал бизнес из-за высокой нагрузки по времени.",
       },
@@ -896,7 +896,7 @@ const contentRu: ShaxzodProfile = {
     title: "Экосистема Progress Group",
     items: [
       {
-        name: "Progress Marketing",
+        name: "Progress Group",
         description:
           "Performance marketing, контент-маркетинг и развитие личного бренда",
       },
