@@ -66,6 +66,7 @@ export const contentUz: SiteContent = {
       title: "Marketing va sotuvni bir tizimda rivojlantiradigan xizmatlar.",
       description:
         "Bozordagi aniq yo'ldan boshlab sotuv bo'limini qurishgacha —\nbiznesingizga aynan kerakli yechimni tanlang.",
+      selectHint: "Ustiga bosib tanlang",
     },
     process: {
       eyebrow: "",
@@ -97,9 +98,12 @@ export const contentUz: SiteContent = {
       readMore: "Batafsil",
       closeLabel: "Yopish",
       viewAll: "Barcha maqolalar",
+      featuredLabel: "Sara maqolalar",
+      backToHome: "Asosiy sahifaga qaytish",
+      authorLabel: "Muallif",
     },
     marketer: {
-      nameLine: "I'M SHAKHZOD",
+      nameLine: "Men\nShakhzod",
       bio: "10 yillik tajribaga ega Strateg Marketolog. 100 dan ortiq loyihalar bilan ishlab, sotuvlarni oshirib, tizimli jamoa qurish, Xodimlar boshqaruvi kabi yechimlar qilib bergan",
       aboutCta: "Batafsil men haqimda",
       socialCta: "Ijtimoiy tarmoqlar",
@@ -108,7 +112,7 @@ export const contentUz: SiteContent = {
       videoTitle: "Video",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png?v=6",
+      portraitSrc: "/marketer/portrait.png?v=12",
       closeLabel: "Yopish",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",
@@ -221,6 +225,11 @@ export const contentUz: SiteContent = {
           description:
             "Biznesingiz uchun professional kamera sotuvchi reels suratga olish va montaj qilib berish xizmati",
         },
+        {
+          title: "Website yasash",
+          description:
+            "Raqamli marketing orqali savdoingizni oshiring. Online savdoingizni rivojlantiring.",
+        },
       ],
     },
     {
@@ -246,9 +255,11 @@ export const contentUz: SiteContent = {
   ],
   serviceInquiry: {
     eyebrow: "Sizga qanday yordam beramiz?",
-    title: "Sizga aynan qaysi xizmatimiz kerak?",
+    title: "Sizga aynan qaysi xizmatimiz kerak?\nTepadan tanlang!",
     description:
       "Muammongizni yozing. Masalan: sotuvlar kam, Instagram'dan foyda yo'q yoki mijozlar qimmat.",
+    selectedServicesLabel: "Tanlangan xizmatlar:",
+    removeServiceAria: "Xizmatni olib tashlash",
     problemLabel: "Muammongiz qanday?",
     problemPlaceholder: "Biznesingizdagi asosiy muammoni qisqacha yozing...",
     fullNameLabel: "To'liq ism",
@@ -304,6 +315,7 @@ export const contentUz: SiteContent = {
       duration: "2025-yildan beri",
       result: "Har oylik doimiy va barqaror yangi mijozlar oqimi shakllantirildi.",
       process: "Sotuv bo'limi va ulgurji savdo tizimi yo'lga qo'yilmoqda.",
+      imageSrc: "/portfolio/milliy-brend-showcase.png",
     },
     {
       name: "Mirankul Ceiling",
@@ -318,6 +330,7 @@ export const contentUz: SiteContent = {
       duration: "2023-yil fevraldan 2025-yil avgustgacha (2 yillik shartnoma)",
       result: "Oyiga 350–500 ta sifatli lidlar olib kelindi.",
       process: "Sotuv bo'limi qurildi va tizimlashtirish jarayonida loyiha muvaffaqiyatli yakunlandi.",
+      imageSrc: "/portfolio/fox-pipes-ig-showcase.png",
     },
     {
       name: "Saturn Stainless / Primo",
@@ -326,6 +339,7 @@ export const contentUz: SiteContent = {
       duration: "2024-yil yanvardan 2025-yil oxirigacha (2 yillik shartnoma)",
       result:
         "Yangi yo'nalishda kreativ kontentlar chiqarildi va oyiga 50 tadan 450 tagacha lid generatsiya qilindi.",
+      imageSrc: "/portfolio/primo-showcase.png",
     },
     {
       name: "Chagurt",
@@ -333,6 +347,7 @@ export const contentUz: SiteContent = {
       duration: "3 oylik shartnoma",
       result:
         "Brend uchun to'liq brending ishlab chiqildi va maqsadli kontent marketing strategiyasi yo'lga qo'yildi.",
+      imageSrc: "/portfolio/chagurt-showcase.png",
     },
     {
       name: "Neo",
@@ -340,6 +355,7 @@ export const contentUz: SiteContent = {
       duration: "2026-yil fevraldan hozirgacha",
       result:
         "Ijtimoiy tarmoqlarda 15 000 dan ortiq sof organik obunachilar yig'ildi va videolar millionlab ko'rishlarga erishdi.",
+      imageSrc: "/portfolio/neo-showcase.png",
     },
     {
       name: "IELTS Center",
@@ -347,6 +363,7 @@ export const contentUz: SiteContent = {
       duration: "2021-yildan boshlangan, 2025-yilda yangilangan",
       result:
         "2021-yilda SMM noldan boshlanib brending qilindi. 2025-yilda 3 oy davomida yangi yo'nalishda kuchli kontent marketing ishga tushirildi.",
+      imageSrc: "/portfolio/ielts-center-showcase.png",
     },
     {
       name: "Sofana Mebel",
@@ -354,6 +371,7 @@ export const contentUz: SiteContent = {
       duration: "3 oylik shartnoma",
       result:
         "Kelajakda patentlanadigan mutlaqo yangi brending yaratildi. Performance va kontent marketing orqali savdo yo'llari ochildi.",
+      imageSrc: "/portfolio/sofana-showcase.png",
     },
   ],
   statistics: [

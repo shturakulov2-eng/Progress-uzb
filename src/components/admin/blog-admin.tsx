@@ -21,6 +21,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
   const [posts, setPosts] = useState(initialPosts);
   const [editingPostId, setEditingPostId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [body, setBody] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -55,6 +56,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
   function resetForm() {
     setEditingPostId(null);
     setTitle("");
+    setAuthor("");
     setExcerpt("");
     setBody("");
     setImageFile(null);
@@ -77,6 +79,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
     setSuccess("");
     setEditingPostId(post.id);
     setTitle(post.title);
+    setAuthor(post.author ?? "");
     setExcerpt(post.excerpt);
     setBody(post.body);
     setImageFile(null);
@@ -143,6 +146,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             title,
+            author: author.trim() || undefined,
             excerpt: excerpt.trim() || undefined,
             body,
             ...(imagePath ? { imagePath } : {}),
@@ -179,6 +183,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
+          author: author.trim() || undefined,
           excerpt: excerpt.trim() || undefined,
           body,
           imagePath,
@@ -281,6 +286,20 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
               className="admin-field"
           placeholder="Post title"
         />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="author" className="text-sm font-medium text-slate-700">
+              Muallif (ixtiyoriy)
+            </label>
+            <input
+              id="author"
+              value={author}
+              onChange={(event) => setAuthor(event.target.value)}
+              className="admin-field"
+              placeholder="Shahzod Turakulov"
+              maxLength={80}
+            />
           </div>
 
           <div className="space-y-2">
@@ -441,6 +460,11 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
                     <p className="truncate text-sm text-slate-500">
                       {post.excerpt}
                     </p>
+                    {post.author ? (
+                      <p className="truncate text-xs text-slate-400">
+                        Muallif: {post.author}
+                      </p>
+                    ) : null}
                   </div>
                   <div className="flex shrink-0 gap-2">
                     <Button

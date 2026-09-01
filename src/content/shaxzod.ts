@@ -36,7 +36,11 @@ export type ShaxzodProfile = {
   mission: {
     eyebrow: string;
     title: string;
-    body: string;
+    body: {
+      line1: string;
+      highlight: string;
+      line3: string;
+    };
   };
   biography: {
     eyebrow: string;
@@ -95,7 +99,7 @@ export type ShaxzodProfile = {
 
 /** Shared media paths — drop files into public/shaxzod/ to fill placeholders. */
 export const shaxzodMedia = {
-  portrait: "/shaxzod/portrait.png?v=7",
+  portrait: "/marketer/portrait.png?v=12",
   biography: "/shaxzod/biography-1.png?v=2",
   mentors: "/shaxzod/mentors.jpg",
   journey: "/shaxzod/journey.jpg",
@@ -244,30 +248,39 @@ const ecosystemUz: ShaxzodProfile["ecosystem"]["items"] = [
       "Performance marketing, content marketing va shaxsiy brendni rivojlantirish",
   },
   {
+    name: "Progress Marketing",
+    description:
+      "Production: reklama roliklari, reels-makerlik, suratga olish va kontent.",
+  },
+  {
     name: "ProCode",
     description:
       "IT yechimlar, veb-saytlar, avtomatlashtirish va integratsiyalar",
   },
   {
-    name: "Profit Finance",
-    description: "Moliyaviy hisob, foyda diagnostikasi va moliyaviy intizom",
+    name: "Prod-Action",
+    description:
+      "Production: reklama roliklari, reels-makerlik, suratga olish va kontent.",
   },
   {
-    name: "Process Sales",
-    description: "Sotuv bo'limlarini noldan qurish va KPI tizimlarini joriy etish",
+    name: "Process sales",
+    description: "Sotuv bo'limlarini noldan qurish va KPI tizimlarini joriy etish.",
+  },
+  {
+    name: "Profile Branding",
+    description: "Tez kunda ...",
+  },
+  {
+    name: "Profit Finance",
+    description: "Tez kunda ...",
+  },
+  {
+    name: "Pro-Actica",
+    description: "Amaliy va zamonaviy kasblar akademiyasi",
   },
   {
     name: "Profinder",
     description: "HR tizimlashtirish, recruiting va kadrlar tanlovi",
-  },
-  {
-    name: "Proaktika",
-    description: "Amaliy va zamonaviy kasblar akademiyasi",
-  },
-  {
-    name: "Prod-Action",
-    description:
-      "Production: reklama roliklari, reels-makerlik, suratga olish va kontent",
   },
 ];
 
@@ -358,7 +371,11 @@ const contentUz: ShaxzodProfile = {
   mission: {
     eyebrow: "Oliy maqsad",
     title: "Bo'sh va'dalar emas — barqaror o'sish",
-    body: "\"Biznes egalariga yuzaki marketing va bo'sh va'dalar emas, balki aniq raqamlar, moliyaviy mantiq va avtomatlashtirilgan tizimlar orqali barqaror hamda xavfsiz o'sishni ta'minlayman.\"",
+    body: {
+      line1: "Biznes egalariga yuzaki marketing va bo'sh va'dalar emas, balki",
+      highlight: "aniq raqamlar, moliyaviy mantiq va avtomatlashtirilgan tizimlar",
+      line3: "orqali barqaror hamda xavfsiz o'sishni ta'minlayman.",
+    },
   },
   biography: {
     eyebrow: "Biografiya",
@@ -475,7 +492,11 @@ const contentEn: ShaxzodProfile = {
   mission: {
     eyebrow: "Mission",
     title: "Not empty promises — sustainable growth",
-    body: "Helping business owners achieve stable, safe growth through clear numbers, financial logic, and automated systems — not empty promises or surface-level marketing.",
+    body: {
+      line1: "For business owners — not surface-level marketing or empty promises, but",
+      highlight: "clear numbers, financial logic, and automated systems",
+      line3: "to deliver stable, safe growth.",
+    },
   },
   biography: {
     eyebrow: "Biography",
@@ -640,29 +661,36 @@ const contentEn: ShaxzodProfile = {
           "Performance marketing, content marketing, and personal brand growth",
       },
       {
+        name: "Progress Marketing",
+        description: "Production: ad videos, reels, filming, and content.",
+      },
+      {
         name: "ProCode",
         description: "IT solutions, websites, automation, and integrations",
       },
       {
-        name: "Profit Finance",
-        description: "Financial accounting, profit diagnostics, and discipline",
+        name: "Prod-Action",
+        description: "Production: ad videos, reels, filming, and content.",
       },
       {
-        name: "Process Sales",
+        name: "Process sales",
         description: "Building sales departments from zero and KPI systems",
+      },
+      {
+        name: "Profile Branding",
+        description: "Coming soon ...",
+      },
+      {
+        name: "Profit Finance",
+        description: "Coming soon ...",
+      },
+      {
+        name: "Pro-Actica",
+        description: "Practical academy for modern professions",
       },
       {
         name: "Profinder",
         description: "HR systematization, recruiting, and talent selection",
-      },
-      {
-        name: "Proaktika",
-        description: "Practical academy for modern professions",
-      },
-      {
-        name: "Prod-Action",
-        description:
-          "Production: ads, reels, filming, and content creation",
       },
     ],
   },
@@ -736,7 +764,11 @@ const contentRu: ShaxzodProfile = {
   mission: {
     eyebrow: "Миссия",
     title: "Не пустые обещания — устойчивый рост",
-    body: "Помогаем владельцам бизнеса обеспечивать стабильный и безопасный рост через точные цифры, финансовую логику и автоматизированные системы — а не через пустые обещания и поверхностный маркетинг.",
+    body: {
+      line1: "Владельцам бизнеса — не поверхностный маркетинг и пустые обещания, а",
+      highlight: "точные цифры, финансовая логика и автоматизированные системы",
+      line3: "для стабильного и безопасного роста.",
+    },
   },
   biography: {
     eyebrow: "Биография",
@@ -901,29 +933,36 @@ const contentRu: ShaxzodProfile = {
           "Performance marketing, контент-маркетинг и развитие личного бренда",
       },
       {
+        name: "Progress Marketing",
+        description: "Production: рекламные ролики, reels, съёмка и контент.",
+      },
+      {
         name: "ProCode",
         description: "IT-решения, сайты, автоматизация и интеграции",
       },
       {
-        name: "Profit Finance",
-        description: "Фин учёт, диагностика прибыли и финансовая дисциплина",
+        name: "Prod-Action",
+        description: "Production: рекламные ролики, reels, съёмка и контент.",
       },
       {
-        name: "Process Sales",
+        name: "Process sales",
         description: "Построение отдела продаж с нуля и KPI-системы",
+      },
+      {
+        name: "Profile Branding",
+        description: "Скоро ...",
+      },
+      {
+        name: "Profit Finance",
+        description: "Скоро ...",
+      },
+      {
+        name: "Pro-Actica",
+        description: "Практическая академия современных профессий",
       },
       {
         name: "Profinder",
         description: "HR-систематизация, recruiting и подбор кадров",
-      },
-      {
-        name: "Proaktika",
-        description: "Практическая академия современных профессий",
-      },
-      {
-        name: "Prod-Action",
-        description:
-          "Production: рекламные ролики, reels, съёмка и контент",
       },
     ],
   },

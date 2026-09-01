@@ -66,6 +66,7 @@ export const contentEn: SiteContent = {
       title: "Services that develop marketing and sales as one connected system.",
       description:
         "From defining your market direction to building the sales department, choose the solution your business needs.",
+      selectHint: "Click to select",
     },
     process: {
       eyebrow: "",
@@ -97,6 +98,9 @@ export const contentEn: SiteContent = {
       readMore: "Read more",
       closeLabel: "Close",
       viewAll: "All articles",
+      featuredLabel: "Featured articles",
+      backToHome: "Back to home page",
+      authorLabel: "Author",
     },
     marketer: {
       nameLine: "I'M SHAKHZOD",
@@ -108,7 +112,7 @@ export const contentEn: SiteContent = {
       videoTitle: "Video",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png?v=6",
+      portraitSrc: "/marketer/portrait.png?v=12",
       closeLabel: "Close",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",
@@ -220,6 +224,11 @@ export const contentEn: SiteContent = {
           description:
             "Professional camera filming and editing of sales-focused reels for your business.",
         },
+        {
+          title: "Website Development",
+          description:
+            "Grow your sales through digital marketing. Develop and scale your online sales.",
+        },
       ],
     },
     {
@@ -245,9 +254,11 @@ export const contentEn: SiteContent = {
   ],
   serviceInquiry: {
     eyebrow: "How can we help?",
-    title: "Which service does your business need?",
+    title: "Which service does your business need?\nChoose from above!",
     description:
       "Describe your challenge. For example: low sales, Instagram brings no results, or customer acquisition is expensive.",
+    selectedServicesLabel: "Selected services:",
+    removeServiceAria: "Remove service",
     problemLabel: "What challenge are you facing?",
     problemPlaceholder: "Briefly describe the main challenge in your business...",
     fullNameLabel: "Full name",
@@ -303,6 +314,7 @@ export const contentEn: SiteContent = {
       duration: "Since 2025",
       result: "A steady monthly flow of new customers was established.",
       process: "A sales department and wholesale sales system are being launched.",
+      imageSrc: "/portfolio/milliy-brend-showcase.png",
     },
     {
       name: "Mirankul Ceiling",
@@ -317,6 +329,7 @@ export const contentEn: SiteContent = {
       duration: "February 2023 to August 2025 (2-year contract)",
       result: "350–500 quality leads were delivered every month.",
       process: "A sales department was built and the project was completed during systematization.",
+      imageSrc: "/portfolio/fox-pipes-ig-showcase.png",
     },
     {
       name: "Saturn Stainless / Primo",
@@ -325,6 +338,7 @@ export const contentEn: SiteContent = {
       duration: "January 2024 to end of 2025 (2-year contract)",
       result:
         "Creative content for a new direction was launched and lead generation grew from 50 to 450 per month.",
+      imageSrc: "/portfolio/primo-showcase.png",
     },
     {
       name: "Chagurt",
@@ -332,6 +346,7 @@ export const contentEn: SiteContent = {
       duration: "3-month contract",
       result:
         "A full branding system was developed and a targeted content marketing strategy was launched.",
+      imageSrc: "/portfolio/chagurt-showcase.png",
     },
     {
       name: "Neo",
@@ -339,6 +354,7 @@ export const contentEn: SiteContent = {
       duration: "February 2026 to present",
       result:
         "More than 15,000 pure organic social followers were gained and videos reached millions of views.",
+      imageSrc: "/portfolio/neo-showcase.png",
     },
     {
       name: "IELTS Center",
@@ -346,6 +362,7 @@ export const contentEn: SiteContent = {
       duration: "Started in 2021, refreshed in 2025",
       result:
         "In 2021 SMM and branding were built from zero. In 2025 a strong content marketing push ran for 3 months in a new direction.",
+      imageSrc: "/portfolio/ielts-center-showcase.png",
     },
     {
       name: "Sofana Mebel",
@@ -353,6 +370,7 @@ export const contentEn: SiteContent = {
       duration: "3-month contract",
       result:
         "A completely new brand identity was created for future patenting. Performance and content marketing opened new sales channels.",
+      imageSrc: "/portfolio/sofana-showcase.png",
     },
   ],
   statistics: [

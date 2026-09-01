@@ -33,6 +33,7 @@ import logoImage from "../../logo progress ver.png";
 import { BlogSection } from "@/components/shared/blog-section";
 import { BrandLogoMarquee } from "@/components/shared/brand-logo-marquee";
 import { ContactForm } from "@/components/shared/contact-form";
+import { HeroBlogSpotlight } from "@/components/shared/hero-blog-spotlight";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { LeadPopup, openLeadPopup } from "@/components/shared/lead-popup";
 import { Magnetic } from "@/components/shared/magnetic";
@@ -58,7 +59,13 @@ const serviceIcons = [
   LayoutTemplate,
   Workflow,
   BrainCircuit,
+  Sparkles,
 ] as const;
+
+type SelectedService = {
+  title: string;
+  description: string;
+};
 
 export default function Home() {
   const { content } = useLanguage();
@@ -79,6 +86,7 @@ export default function Home() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
   const [isTestimonialPlaying, setIsTestimonialPlaying] = useState(false);
+  const [selectedServices, setSelectedServices] = useState<SelectedService[]>([]);
 
   const heroRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -162,6 +170,20 @@ export default function Home() {
     };
   }, [activeSection]);
 
+  useEffect(() => {
+    setSelectedServices([]);
+  }, [content.locale]);
+
+  function toggleSelectedService(service: SelectedService) {
+    setSelectedServices((current) => {
+      const exists = current.some((item) => item.title === service.title);
+      if (exists) {
+        return current.filter((item) => item.title !== service.title);
+      }
+      return [...current, service];
+    });
+  }
+
   return (
     <div className="relative overflow-x-clip bg-[linear-gradient(180deg,#f6f8ff_0%,#ffffff_30%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_38%,#0b1220_100%)]">
       <motion.div
@@ -192,6 +214,7 @@ export default function Home() {
       <aside
         className={cn(
           "fixed top-0 bottom-0 left-0 z-[58] flex w-[13rem] flex-col overflow-visible transition-transform duration-300",
+          "lg:w-[11.25rem] xl:w-[12rem] 2xl:w-[13rem]",
           "lg:translate-x-0",
           mobileNavOpen ? "translate-x-0" : "-translate-x-[120%] lg:translate-x-0",
         )}
@@ -204,29 +227,30 @@ export default function Home() {
           <div className="absolute inset-y-6 right-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/40 to-transparent" />
         </div>
 
-        <div className="relative flex h-full flex-col px-4 py-5">
-          <div className="flex shrink-0 flex-col items-center pt-4 text-center">
+        <div className="relative flex h-full max-h-[100dvh] flex-col overflow-hidden px-4 py-5 lg:px-3 lg:py-3 xl:px-3.5 xl:py-4 2xl:px-4 2xl:py-5">
+          <div className="flex shrink-0 flex-col items-center pt-4 text-center lg:pt-1 xl:pt-2 2xl:pt-4">
             <Image
               src={logoImage}
               alt="Progress.uzb logo"
               width={100}
-              className="h-auto w-[96px] brightness-0 invert"
+              className="h-auto w-[96px] brightness-0 invert lg:w-[68px] xl:w-[80px] 2xl:w-[96px]"
               priority
             />
-            <p className="mt-2.5 max-w-[10.5rem] whitespace-pre-line text-xs font-medium leading-4 text-blue-100/80">
+            <p className="mt-2.5 max-w-[10.5rem] whitespace-pre-line text-xs font-medium leading-4 text-blue-100/80 lg:mt-1.5 lg:max-w-[9.5rem] lg:text-[11px] lg:leading-3.5 xl:mt-2 xl:text-xs xl:leading-4 2xl:mt-2.5 2xl:max-w-[10.5rem]">
               {hero.navTagline}
             </p>
           </div>
 
-          <nav
-            ref={navRef}
-            aria-label={common.primaryNav}
-            className="relative mt-5 flex flex-1 flex-col justify-center gap-2.5"
-          >
+          <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <nav
+              ref={navRef}
+              aria-label={common.primaryNav}
+              className="relative mt-4 flex flex-col justify-start gap-1.5 lg:mt-2 lg:gap-0.5 xl:mt-3 xl:gap-1 2xl:mt-5 2xl:gap-1.5"
+            >
             {pillBox ? (
               <motion.div
                 aria-hidden="true"
-                className="nav-active-pill pointer-events-none absolute left-0 -right-4 z-0 rounded-l-[22px]"
+                className="nav-active-pill pointer-events-none absolute left-0 -right-4 z-0 rounded-l-[22px] lg:-right-3 lg:rounded-l-[18px] 2xl:-right-4 2xl:rounded-l-[22px]"
                 initial={false}
                 animate={{ top: pillBox.top, height: pillBox.height }}
                 transition={
@@ -253,7 +277,8 @@ export default function Home() {
                   onClick={() => setMobileNavOpen(false)}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "relative z-10 px-3 py-2 text-base font-semibold transition-colors duration-300 ease-out",
+                    "relative z-10 px-3 py-1.5 text-base font-semibold leading-tight transition-colors duration-300 ease-out",
+                    "lg:px-2 lg:py-0.5 lg:text-[13px] xl:px-2.5 xl:py-1 xl:text-sm 2xl:px-3 2xl:py-1.5 2xl:text-base",
                     isActive
                       ? "font-bold text-[#0C3272] dark:text-white"
                       : "text-white/70 hover:text-white",
@@ -262,7 +287,7 @@ export default function Home() {
                   <span
                       className={cn(
                       "inline-block origin-left transition-transform duration-300 ease-out",
-                      isActive && "scale-[1.08] sm:scale-[1.14]",
+                      isActive && "scale-[1.08] sm:scale-[1.14] lg:scale-[1.05] xl:scale-[1.08] 2xl:scale-[1.14]",
                     )}
                   >
                     {item.label}
@@ -270,21 +295,60 @@ export default function Home() {
                 </a>
               );
             })}
-          </nav>
+            </nav>
+          </div>
 
-          <div className="relative z-10 mt-3 flex shrink-0 flex-col gap-3 border-t border-white/15 pt-4">
-            <div className="flex items-center gap-2.5">
+          <div className="relative z-10 mt-auto shrink-0 px-1 pt-3 lg:pt-2 xl:pt-2.5 2xl:pt-3">
+            <div className="flex flex-col gap-2 lg:gap-0.5 xl:gap-1">
+              {baseSiteConfig.phones.map((phone) => (
+                <a
+                  key={phone.href}
+                  href={phone.href}
+                  className="text-sm font-semibold text-white/85 transition hover:text-white lg:text-[11px] xl:text-xs 2xl:text-sm"
+                >
+                  {phone.display}
+                </a>
+              ))}
+            </div>
+            <div className="mt-3 flex gap-2.5 lg:mt-1.5 lg:gap-2 xl:mt-2 2xl:mt-3">
+              <a
+                href={baseSiteConfig.social.instagram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="flex size-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:border-white/50 hover:bg-white/20 lg:size-8 xl:size-9 2xl:size-10"
+              >
+                <svg viewBox="0 0 24 24" className="size-4 fill-none stroke-current lg:size-3.5 xl:size-3.5 2xl:size-4" strokeWidth="1.8">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href={baseSiteConfig.social.telegram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Telegram"
+                className="flex size-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:border-white/50 hover:bg-white/20 lg:size-8 xl:size-9 2xl:size-10"
+              >
+                <Send className="size-4 lg:size-3.5 xl:size-3.5 2xl:size-4" />
+              </a>
+            </div>
+          </div>
+
+          <div className="relative z-10 mt-2 flex shrink-0 flex-col gap-2 border-t border-white/15 pt-3 lg:mt-1.5 lg:gap-1.5 lg:pt-2 xl:gap-2 xl:pt-2.5 2xl:mt-2 2xl:gap-3 2xl:pt-4">
+            <div className="flex items-center gap-2.5 lg:gap-2">
               <LanguageSwitcher
                 dropUp
-                className="min-w-0 flex-1 [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white"
+                className="min-w-0 flex-1 [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white lg:[&>button]:px-2 lg:[&>button]:py-1.5 lg:[&>button]:text-xs xl:[&>button]:px-2.5 xl:[&>button]:text-sm 2xl:[&>button]:px-3"
               />
-              <ThemeToggle variant="onDark" className="!size-11 shrink-0" />
+              <ThemeToggle variant="onDark" className="!size-11 shrink-0 lg:!size-9 xl:!size-10 2xl:!size-11" />
             </div>
             <Magnetic className="w-full">
               <Button
                 type="button"
                 variant="ghost"
-                className="min-h-12 w-full whitespace-normal border border-white/35 bg-white/15 px-3 py-3 text-center text-sm leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white"
+                className="min-h-12 w-full whitespace-normal border border-white/35 bg-white/15 px-3 py-3 text-center text-sm leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white lg:min-h-8 lg:px-2 lg:py-1.5 lg:text-[11px] lg:leading-tight xl:min-h-9 xl:text-xs 2xl:min-h-12 2xl:px-3 2xl:py-3 2xl:text-sm"
                 onClick={() => {
                   setMobileNavOpen(false);
                   openLeadPopup();
@@ -297,30 +361,39 @@ export default function Home() {
         </div>
       </aside>
 
-      <main className="relative z-10 pt-20 lg:pt-8 lg:pl-[14.5rem]">
+      <main className="relative z-10 pt-20 lg:pt-8 lg:pl-[12rem] xl:pl-[13.25rem] 2xl:pl-[14.5rem]">
         <section
           id="home"
           ref={heroRef}
           className="section-shell pt-8 pb-14 sm:pt-14 sm:pb-24"
         >
-          <div className="max-w-3xl 2xl:max-w-4xl">
+          <div>
             <Reveal>
               <div className="space-y-8">
                 <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#0C3272]/10 bg-white/80 px-3 py-2 text-xs text-[#0C3272] shadow-sm backdrop-blur-sm sm:px-4 sm:text-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-blue-200">
                   <ShieldCheck className="size-4 shrink-0" />
                   <span className="min-w-0 leading-snug">{hero.badge}</span>
                 </div>
-                <div className="space-y-5">
-                  <h1 className="max-w-3xl text-balance text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl 2xl:max-w-4xl 2xl:text-6xl dark:text-white">
-                    {hero.title.split("\n").map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </h1>
-                  <p className="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 md:text-xl 2xl:max-w-3xl 2xl:text-2xl 2xl:leading-10 dark:text-slate-300">
-                    {hero.subtitle}
-                  </p>
+
+                <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-10 xl:gap-14">
+                  <div className="min-w-0 flex-1 space-y-5 max-w-3xl 2xl:max-w-4xl">
+                    <h1 className="text-balance text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl 2xl:text-6xl dark:text-white">
+                      {hero.title.split("\n").map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </h1>
+                    <p className="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 md:text-xl 2xl:max-w-3xl 2xl:text-2xl 2xl:leading-10 dark:text-slate-300">
+                      {hero.subtitle}
+                    </p>
+                  </div>
+
+                  <HeroBlogSpotlight
+                    blog={sections.blog}
+                    limit={6}
+                    className="w-full shrink-0 pb-6 lg:mt-8 xl:mt-10 lg:w-[min(100%,300px)] xl:w-[320px] 2xl:w-[360px]"
+                  />
                 </div>
 
                 <div className="flex flex-col gap-4 sm:flex-row">
@@ -342,7 +415,7 @@ export default function Home() {
                   </a>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-3 max-w-3xl 2xl:max-w-4xl">
                   {heroMetrics.map((metric) => (
                     <div
                       key={metric.label}
@@ -373,21 +446,30 @@ export default function Home() {
             {services.map((group, groupIndex) => (
               <div key={group.title}>
                 <Reveal>
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm font-semibold text-[#0C3272]/50 dark:text-blue-300/60">
+                  <div className="flex items-start gap-4 sm:items-center">
+                    <span className="mt-1.5 text-sm font-semibold text-[#0C3272]/50 sm:mt-0 dark:text-blue-300/60">
                       0{groupIndex + 1}
                     </span>
-                    <h3 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl dark:text-white">
-                      {group.title}
-                    </h3>
-                    <div className="h-px flex-1 bg-gradient-to-r from-[#0C3272]/20 to-transparent dark:from-blue-300/20" />
+                    <div className="min-w-0 shrink-0">
+                      <h3 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl dark:text-white">
+                        {group.title}
+                      </h3>
+                      <p className="mt-0.5 text-xs text-slate-500 sm:text-sm dark:text-slate-400">
+                        {sections.services.selectHint}
+                      </p>
+                    </div>
+                    <div className="mt-3 h-px flex-1 self-center bg-gradient-to-r from-[#0C3272]/20 to-transparent dark:from-blue-300/20" />
                   </div>
                 </Reveal>
 
                 <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                   {group.items.map((service, itemIndex) => {
-                    const iconIndex = groupIndex === 0 ? itemIndex : itemIndex + 6;
+                    const iconIndex =
+                      groupIndex === 0 ? itemIndex : itemIndex + 7;
                     const Icon = serviceIcons[iconIndex] ?? Sparkles;
+                    const isSelected = selectedServices.some(
+                      (item) => item.title === service.title,
+                    );
 
                     return (
                       <Reveal
@@ -395,7 +477,15 @@ export default function Home() {
                         delay={itemIndex * 0.06}
                         variant="card"
                       >
-                        <article className="glass-card group h-full rounded-[28px] border border-white/60 p-5 transition duration-300 hover:-translate-y-1 hover:border-[#0C3272]/20 hover:shadow-[0_24px_70px_rgba(12,50,114,0.14)] dark:border-white/10 dark:hover:border-blue-300/25">
+                        <button
+                          type="button"
+                          aria-pressed={isSelected}
+                          onClick={() => toggleSelectedService(service)}
+                          className={cn(
+                            "glass-card group h-full w-full rounded-[28px] border border-white/60 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-[#0C3272]/20 hover:shadow-[0_24px_70px_rgba(12,50,114,0.14)] dark:border-white/10 dark:hover:border-blue-300/25",
+                            isSelected && "service-card--selected relative z-10",
+                          )}
+                        >
                           <div className="flex items-center gap-3.5">
                             <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#0C3272] text-white shadow-[0_12px_30px_rgba(12,50,114,0.2)] transition-transform duration-300 group-hover:scale-105 dark:bg-blue-600">
                               <Icon className="size-5" />
@@ -407,7 +497,7 @@ export default function Home() {
                           <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                             {service.description}
                           </p>
-                        </article>
+                        </button>
                       </Reveal>
                     );
                   })}
@@ -423,14 +513,44 @@ export default function Home() {
                     <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-100">
                       {content.serviceInquiry.eyebrow}
                     </p>
-                    <h3 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
+                    <h3 className="mt-4 whitespace-pre-line text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
                       {content.serviceInquiry.title}
                     </h3>
                     <p className="mt-4 max-w-xl leading-7 text-blue-100/90">
                       {content.serviceInquiry.description}
                     </p>
+                    {selectedServices.length > 0 ? (
+                      <div className="mt-4">
+                        <p className="text-sm font-medium text-blue-100/90">
+                          {content.serviceInquiry.selectedServicesLabel}
+                        </p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {selectedServices.map((service) => (
+                            <span
+                              key={service.title}
+                              className="group/chip inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 py-1.5 pr-1.5 pl-3 text-sm text-white"
+                            >
+                              <span>{service.title}</span>
+                              <button
+                                type="button"
+                                aria-label={`${content.serviceInquiry.removeServiceAria}: ${service.title}`}
+                                onClick={() => toggleSelectedService(service)}
+                                className="flex size-5 shrink-0 items-center justify-center rounded-full text-white/80 opacity-0 transition-all duration-200 group-hover/chip:opacity-100 hover:scale-125 hover:text-white focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                              >
+                                <X className="size-3.5" />
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
-                  <ServiceInquiryForm key={content.locale} content={content} />
+                  <ServiceInquiryForm
+                    key={content.locale}
+                    content={content}
+                    selectedServices={selectedServices}
+                    onClearSelectedServices={() => setSelectedServices([])}
+                  />
                 </div>
               </div>
             </Reveal>
@@ -474,7 +594,12 @@ export default function Home() {
                 isTestimonialPlaying && "is-playing",
               )}
             >
-              <div className="video-marquee-track flex w-max">
+              <div
+                className="video-marquee-track flex w-max"
+                style={{
+                  animationPlayState: isTestimonialPlaying ? "paused" : "running",
+                }}
+              >
                 {[0, 1].map((groupIndex) => (
                   <div
                     key={groupIndex}
@@ -551,7 +676,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer id="contact" className="relative z-10 bg-slate-950 py-14 text-white sm:py-20 lg:pl-[14.5rem]">
+      <footer id="contact" className="relative z-10 bg-slate-950 py-14 text-white sm:py-20 lg:pl-[12rem] xl:pl-[13.25rem] 2xl:pl-[14.5rem]">
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-6">

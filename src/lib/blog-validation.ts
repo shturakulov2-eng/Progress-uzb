@@ -22,6 +22,11 @@ export const blogPostFieldsSchema = z.object({
     .min(1, "Cover image is required.")
     .max(500, "Image path is too long.")
     .optional(),
+  author: z
+    .string()
+    .trim()
+    .max(80, "Muallif nomi 80 belgidan oshmasligi kerak.")
+    .optional(),
 });
 
 export const publishBlogSchema = blogPostFieldsSchema.extend({

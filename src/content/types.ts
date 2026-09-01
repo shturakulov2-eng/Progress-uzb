@@ -30,7 +30,7 @@ export type SiteContent = {
   };
   sections: {
     whyChoose: SectionCopy;
-    services: SectionCopy;
+    services: SectionCopy & { selectHint: string };
     process: SectionCopy;
     portfolio: SectionCopy & {
       projectPreview: string;
@@ -43,6 +43,9 @@ export type SiteContent = {
       readMore: string;
       closeLabel: string;
       viewAll: string;
+      featuredLabel: string;
+      backToHome: string;
+      authorLabel: string;
     };
     marketer: {
       nameLine: string;
@@ -93,6 +96,8 @@ export type SiteContent = {
     eyebrow: string;
     title: string;
     description: string;
+    selectedServicesLabel: string;
+    removeServiceAria: string;
     problemLabel: string;
     problemPlaceholder: string;
     fullNameLabel: string;

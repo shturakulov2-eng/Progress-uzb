@@ -74,6 +74,7 @@ export async function POST(request: Request) {
 
     const { title, body, imagePath } = parsed.data;
     const excerpt = parsed.data.excerpt?.trim() || makeExcerpt(body);
+    const author = parsed.data.author?.trim() || null;
     const baseSlug = slugifyTitle(title);
     const slug = `${baseSlug}-${Date.now().toString(36)}`;
     const now = new Date().toISOString();
@@ -86,6 +87,7 @@ export async function POST(request: Request) {
         excerpt,
         body,
         image_path: imagePath,
+        author,
         status: "published",
         published_at: now,
       })

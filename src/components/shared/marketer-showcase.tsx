@@ -69,22 +69,19 @@ function MarketerPortrait({
   return (
     <div
       className={cn(
-        "relative z-20 h-[26rem] w-[21rem] sm:h-[33rem] sm:w-[26rem] lg:h-[42rem] lg:w-[32rem]",
+        "relative z-20 [mask-image:linear-gradient(180deg,#000_0%,#000_48%,transparent_92%)] [-webkit-mask-image:linear-gradient(180deg,#000_0%,#000_48%,transparent_92%)]",
         className,
       )}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-[10%] bottom-0 h-10 rounded-full bg-[#0C3272]/20 blur-2xl sm:h-12 dark:bg-black/40"
-      />
       <Image
-        src={src.includes("?") ? src : `${src}?v=6`}
+        src={src.includes("?") ? src : `${src}?v=12`}
         alt={alt}
-        fill
+        width={547}
+        height={1024}
         unoptimized
         priority
-        className="object-contain object-bottom drop-shadow-[0_28px_50px_rgba(12,50,114,0.22)] dark:drop-shadow-[0_24px_40px_rgba(0,0,0,0.55)]"
-        sizes="(max-width: 640px) 21rem, (max-width: 1024px) 26rem, 32rem"
+        className="h-auto w-[min(100%,14rem)] sm:w-[18rem] lg:w-[22rem] xl:w-[26rem]"
+        sizes="(max-width: 640px) 14rem, (max-width: 1024px) 18rem, 26rem"
         onError={() => setUsePhoto(false)}
       />
     </div>
@@ -127,13 +124,13 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
         </motion.p>
 
         <div className="section-shell relative z-10 grid min-h-[34rem] items-end gap-8 py-14 sm:min-h-[40rem] sm:py-16 lg:min-h-[46rem] lg:grid-cols-[1.15fr_0.7fr_1.15fr] lg:items-center lg:gap-4 lg:py-20 2xl:min-h-[52rem] 2xl:gap-8">
-          <div className="order-1 space-y-5 lg:order-none lg:pb-8">
+          <div className="order-1 relative z-30 space-y-5 lg:order-none lg:pb-8">
             <motion.h2
               initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.45 }}
-              className="text-4xl font-black uppercase tracking-tight text-[#0C3272] sm:text-5xl lg:text-6xl dark:text-blue-200"
+              className="whitespace-pre-line text-4xl font-black uppercase tracking-tight text-[#0C3272] sm:text-5xl lg:text-6xl dark:text-blue-200"
             >
               {copy.nameLine}
             </motion.h2>
@@ -218,7 +215,7 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="order-3 min-w-0 lg:order-none lg:justify-self-stretch"
+            className="order-3 relative z-30 min-w-0 lg:order-none lg:justify-self-stretch"
           >
             <div className="relative w-full min-w-[16rem] sm:min-w-[20rem] lg:max-w-none">
               <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0C3272]/70 dark:text-blue-300/80">
@@ -241,10 +238,10 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
           </motion.div>
         </div>
 
-        {/* Bottom fade: soft edge only — no backdrop-blur (breaks the portrait) */}
+        {/* Soft page-edge fade — below side content */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-24 sm:h-28 lg:h-32"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-24 sm:h-28 lg:h-32"
         >
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(246,248,255,0.5)_55%,#eef4ff_100%)] dark:bg-[linear-gradient(180deg,transparent_0%,rgba(11,18,32,0.5)_55%,#0b1220_100%)]" />
         </div>

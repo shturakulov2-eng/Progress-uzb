@@ -179,7 +179,7 @@ function PortfolioDesktopStack({
           </motion.div>
 
           <motion.div
-            className="relative z-10 mx-auto h-[min(84vh,680px)] w-full max-w-4xl px-6 2xl:h-[min(86vh,760px)] 2xl:max-w-5xl"
+            className="relative z-10 mx-auto h-[min(98vh,820px)] w-[min(100%,95vh)] max-w-4xl px-6 2xl:h-[min(98vh,900px)] 2xl:max-w-5xl"
             style={{ opacity: stackOpacity, scale: stackScale }}
           >
             {items.map((item, index) => (
@@ -369,9 +369,7 @@ function PortfolioCardBody({
       <div
         className={cn(
           "relative overflow-hidden bg-[linear-gradient(135deg,#0C3272,#1a56c6)] text-white",
-          compact
-            ? "h-[clamp(14rem,52vh,30rem)] p-5"
-            : "aspect-[16/11] p-6 sm:aspect-[2/1]",
+          compact ? "aspect-[3/2] p-5" : "aspect-[3/2] p-6",
         )}
       >
         {item.imageSrc ? (
@@ -393,17 +391,6 @@ function PortfolioCardBody({
               {copy.projectPreview}
             </span>
             <Landmark className="size-5 text-blue-100" />
-          </div>
-          <div className="rounded-[24px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
-            <p className="text-sm text-blue-100">{item.category}</p>
-            <p
-              className={cn(
-                "mt-2 font-semibold",
-                compact ? "text-xl" : "text-xl sm:text-2xl",
-              )}
-            >
-              {item.name}
-            </p>
           </div>
         </div>
       </div>

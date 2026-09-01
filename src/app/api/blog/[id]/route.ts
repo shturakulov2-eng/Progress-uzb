@@ -51,11 +51,13 @@ export async function PATCH(request: Request, context: RouteContext) {
 
     const { title, body, imagePath } = parsed.data;
     const excerpt = parsed.data.excerpt?.trim() || makeExcerpt(body);
+    const author = parsed.data.author?.trim() || null;
 
-    const updates: Record<string, string> = {
+    const updates: Record<string, string | null> = {
       title,
       excerpt,
       body,
+      author,
       updated_at: new Date().toISOString(),
     };
 

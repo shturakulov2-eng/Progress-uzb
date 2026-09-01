@@ -13,7 +13,15 @@ import {
   type ServiceInquiryFormValues,
 } from "@/lib/validators";
 
-export function ServiceInquiryForm({ content }: { content: SiteContent }) {
+export function ServiceInquiryForm({
+  content,
+  selectedServices = [],
+  onClearSelectedServices,
+}: {
+  content: SiteContent;
+  selectedServices?: { title: string; description: string }[];
+  onClearSelectedServices?: () => void;
+}) {
   const { serviceInquiry } = content;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -33,11 +41,24 @@ export function ServiceInquiryForm({ content }: { content: SiteContent }) {
     setIsSubmitting(true);
     setIsSuccess(false);
 
+    const selectedServicesLine =
+      selectedServices.length > 0
+        ? `${content.serviceInquiry.selectedServicesLabel} ${selectedServices
+            .map((service) => service.title)
+            .join(", ")}`
+        : "";
+    const problem = [selectedServicesLine, values.problem.trim()]
+      .filter(Boolean)
+      .join("\n\n");
+
     try {
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          problem,
+        }),
       });
       const payload = (await response.json()) as { error?: string; message?: string };
 
@@ -48,6 +69,7 @@ export function ServiceInquiryForm({ content }: { content: SiteContent }) {
 
       form.reset();
       setIsSuccess(true);
+      onClearSelectedServices?.();
       toast.success(payload.message || serviceInquiry.success);
     } catch {
       toast.error(serviceInquiry.errorNetwork);

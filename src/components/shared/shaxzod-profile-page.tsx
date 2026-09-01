@@ -4,18 +4,20 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 
 import { BiographyPhotoRibbon } from "@/components/shared/biography-photo-ribbon";
+import { EcosystemChart } from "@/components/shared/ecosystem-chart";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ShaxzodFooter } from "@/components/shared/shaxzod-footer";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   getShaxzodProfile,
   type ShaxzodPhotoSlot,
   type ShaxzodProfile,
 } from "@/content/shaxzod";
+import { baseSiteConfig } from "@/content/base";
 import { useLanguage } from "@/context/language-context";
 import { cn } from "@/lib/utils";
 
@@ -74,93 +76,6 @@ function PhotoSlot({
   );
 }
 
-type EcoItem = ShaxzodProfile["ecosystem"]["items"][number];
-
-function ecoByName(items: EcoItem[], name: string) {
-  return items.find((item) => item.name.toLowerCase() === name.toLowerCase());
-}
-
-function EcoCard({ item }: { item: EcoItem }) {
-  return (
-    <article className="relative z-10 flex h-full min-h-[8.75rem] flex-col justify-center rounded-2xl border border-white/20 bg-[#151d30] px-5 py-5 text-center">
-      <h3 className="text-base font-semibold text-white sm:text-lg">{item.name}</h3>
-      <p className="mt-2 text-sm leading-6 text-white/65">{item.description}</p>
-    </article>
-  );
-}
-
-function EcoCell({
-  children,
-  className,
-}: {
-  children?: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cn("px-2 py-6 sm:px-3 sm:py-8 lg:px-4", className)}>
-      {children ?? <div className="min-h-[8.75rem]" />}
-    </div>
-  );
-}
-
-function EcosystemChart({ items }: { items: EcoItem[] }) {
-  const marketing = ecoByName(items, "Progress Group");
-  const prodAction = ecoByName(items, "Prod-Action");
-  const procode = ecoByName(items, "ProCode");
-  const proaktika = ecoByName(items, "Proaktika");
-  const processSales = ecoByName(items, "Process Sales");
-  const profinder = ecoByName(items, "Profinder");
-  const profit = ecoByName(items, "Profit Finance");
-
-  const stroke = {
-    stroke: "rgba(255,255,255,0.58)",
-    strokeWidth: 1.5,
-    vectorEffect: "non-scaling-stroke" as const,
-  };
-
-  return (
-    <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="relative mx-auto min-w-[44rem] w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl">
-        <svg
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 h-full w-full"
-          preserveAspectRatio="none"
-        >
-          {/* Central spine through all four rows */}
-          <line x1="50%" y1="12.5%" x2="50%" y2="87.5%" {...stroke} />
-          {/* Branch to Prod-Action / ProCode */}
-          <line x1="16.666%" y1="25%" x2="83.334%" y2="25%" {...stroke} />
-          {/* Left & right verticals down through Proaktika / Profinder */}
-          <line x1="16.666%" y1="25%" x2="16.666%" y2="75%" {...stroke} />
-          <line x1="83.334%" y1="25%" x2="83.334%" y2="75%" {...stroke} />
-          {/* Branch to Proaktika / Process Sales / Profinder */}
-          <line x1="16.666%" y1="50%" x2="83.334%" y2="50%" {...stroke} />
-          {/* Branch from Proaktika + Profinder into Profit Finance */}
-          <line x1="16.666%" y1="75%" x2="83.334%" y2="75%" {...stroke} />
-        </svg>
-
-        <div className="relative z-10 grid grid-cols-3">
-          <EcoCell />
-          <EcoCell>{marketing ? <EcoCard item={marketing} /> : null}</EcoCell>
-          <EcoCell />
-
-          <EcoCell>{prodAction ? <EcoCard item={prodAction} /> : null}</EcoCell>
-          <EcoCell />
-          <EcoCell>{procode ? <EcoCard item={procode} /> : null}</EcoCell>
-
-          <EcoCell>{proaktika ? <EcoCard item={proaktika} /> : null}</EcoCell>
-          <EcoCell>{processSales ? <EcoCard item={processSales} /> : null}</EcoCell>
-          <EcoCell>{profinder ? <EcoCard item={profinder} /> : null}</EcoCell>
-
-          <EcoCell />
-          <EcoCell>{profit ? <EcoCard item={profit} /> : null}</EcoCell>
-          <EcoCell />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function ShaxzodProfilePage() {
   const { locale } = useLanguage();
   const profile = getShaxzodProfile(locale);
@@ -182,12 +97,26 @@ export function ShaxzodProfilePage() {
     >
       <header className="sticky top-0 z-40 border-b border-[#0C3272]/8 bg-white/75 backdrop-blur-md dark:border-white/10 dark:bg-slate-950/70">
         <div className={cn(profileShell, "flex items-center gap-2 py-3.5 sm:gap-3 lg:gap-4")}>
-          <Link
-            href="#top"
-            className="shrink-0 text-sm font-semibold tracking-tight text-[#0C3272] sm:text-base dark:text-blue-300"
-          >
-            {profile.name}
-          </Link>
+          <div className="flex shrink-0 items-center sm:min-w-[19.5rem] md:min-w-[21rem]">
+            <Link
+              href="#top"
+              className="shrink-0 text-sm font-semibold tracking-tight text-[#0C3272] sm:text-base dark:text-blue-300"
+            >
+              {profile.name}
+            </Link>
+            <div className="hidden flex-1 justify-center sm:flex">
+              <Link href="#top" aria-label="Progress" className="shrink-0">
+                <Image
+                  src="/shaxzod/progress-horizontal.png"
+                  alt="Progress"
+                  width={521}
+                  height={107}
+                  priority
+                  className="h-[18px] w-auto dark:brightness-0 dark:invert"
+                />
+              </Link>
+            </div>
+          </div>
 
           <nav
             aria-label="Profile sections"
@@ -236,13 +165,17 @@ export function ShaxzodProfilePage() {
               initial={reduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
-              className="order-2 relative z-20 space-y-4 self-end lg:order-none lg:-translate-y-12 lg:pb-6 xl:-translate-y-16"
+              className="order-2 relative z-20 space-y-4 self-end lg:order-none lg:self-start lg:translate-y-0 lg:pb-0 lg:pt-2 xl:pt-4"
             >
               <span className="inline-flex rounded-full bg-[#0C3272] px-4 py-2.5 text-base font-semibold tracking-tight text-white shadow-[0_12px_32px_rgba(12,50,114,0.28)] dark:bg-blue-400 dark:text-slate-950">
                 {profile.role}
               </span>
               <p className="max-w-md text-base leading-8 text-slate-600 sm:text-lg sm:leading-8 xl:max-w-lg dark:text-slate-300">
-                {profile.mission.body}
+                <span className="block">&ldquo;{profile.mission.body.line1}</span>
+                <span className="block font-bold text-[#0C3272] dark:text-white">
+                  {profile.mission.body.highlight}
+                </span>
+                <span className="block">{profile.mission.body.line3}&rdquo;</span>
               </p>
             </motion.div>
 
@@ -290,7 +223,9 @@ export function ShaxzodProfilePage() {
               </p>
               <div className="lg:flex lg:justify-end">
                 <Link
-                  href="#contact"
+                  href={baseSiteConfig.social.telegram}
+                  target="_blank"
+                  rel="noreferrer"
                   className={cn(buttonVariants({ size: "large" }), "min-h-14 px-8 text-base sm:text-lg")}
                 >
                   {profile.heroCta}
@@ -448,7 +383,7 @@ export function ShaxzodProfilePage() {
         {/* Ecosystem */}
         <section id="ecosystem" className={cn(profileShell, "scroll-mt-24 py-12 sm:py-16")}>
           <div className="overflow-hidden rounded-[32px] bg-[#070d1a] px-4 py-12 sm:px-8 sm:py-16 lg:px-12">
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="text-center text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
               {profile.ecosystem.title}
             </h2>
             <div className="mt-10 sm:mt-12">
@@ -490,16 +425,15 @@ export function ShaxzodProfilePage() {
                   </p>
                 </div>
                 <div className="pt-2">
-                  <Link
-                    href={profile.vacancies.ctaHref}
-                    className={cn(
-                      buttonVariants({ size: "large" }),
-                      "bg-white text-[#0C3272] hover:bg-blue-50 hover:text-[#0C3272]",
-                    )}
+                  <Button
+                    type="button"
+                    disabled
+                    size="large"
+                    className="bg-white text-[#0C3272] hover:bg-blue-50 hover:text-[#0C3272]"
                   >
                     {profile.vacancies.cta}
                     <ArrowUpRight className="ml-2 size-4" />
-                  </Link>
+                  </Button>
                 </div>
               </div>
               <PhotoSlot

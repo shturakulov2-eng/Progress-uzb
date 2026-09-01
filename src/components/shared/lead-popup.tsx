@@ -2,16 +2,13 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ContactForm } from "@/components/shared/contact-form";
 import type { SiteContent } from "@/content/types";
 
-/** Temporary kill-switch — set to `true` to re-enable popup forms */
-const LEAD_POPUP_ENABLED = false;
-
-const ONE_AND_HALF_MINUTES = 1.5 * 60 * 1000;
-const EXIT_INTENT_EVERY = 5;
+/** Set to `false` to temporarily disable popup forms */
+const LEAD_POPUP_ENABLED = true;
 
 export const OPEN_LEAD_POPUP_EVENT = "open-lead-popup";
 
@@ -23,7 +20,6 @@ export function openLeadPopup() {
 export function LeadPopup({ content }: { content: SiteContent }) {
   const { popup } = content;
   const [open, setOpen] = useState(false);
-  const exitLeaveCountRef = useRef(0);
 
   useEffect(() => {
     if (!LEAD_POPUP_ENABLED) return;
@@ -31,29 +27,6 @@ export function LeadPopup({ content }: { content: SiteContent }) {
     window.addEventListener(OPEN_LEAD_POPUP_EVENT, onOpenRequest);
     return () => window.removeEventListener(OPEN_LEAD_POPUP_EVENT, onOpenRequest);
   }, []);
-
-  useEffect(() => {
-    if (!LEAD_POPUP_ENABLED || open) return;
-    const timer = window.setTimeout(() => setOpen(true), ONE_AND_HALF_MINUTES);
-    return () => window.clearTimeout(timer);
-  }, [open]);
-
-  useEffect(() => {
-    if (!LEAD_POPUP_ENABLED || open) return;
-
-    const onMouseOut = (event: MouseEvent) => {
-      const toElement = event.relatedTarget as Node | null;
-      if (toElement) return;
-
-      exitLeaveCountRef.current += 1;
-      if (exitLeaveCountRef.current % EXIT_INTENT_EVERY === 0) {
-        setOpen(true);
-      }
-    };
-
-    document.addEventListener("mouseout", onMouseOut);
-    return () => document.removeEventListener("mouseout", onMouseOut);
-  }, [open]);
 
   useEffect(() => {
     if (!open) return;

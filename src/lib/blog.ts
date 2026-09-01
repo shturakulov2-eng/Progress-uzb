@@ -5,6 +5,7 @@ export type BlogPostRecord = {
   excerpt: string;
   body: string;
   image_path: string;
+  author: string | null;
   status: "draft" | "published";
   published_at: string | null;
   created_at: string;
@@ -18,6 +19,7 @@ export type PublicBlogPost = {
   excerpt: string;
   body: string;
   image: string;
+  author: string | null;
   publishedAt: string | null;
 };
 
@@ -60,6 +62,7 @@ export function toPublicBlogPost(row: BlogPostRecord): PublicBlogPost {
     excerpt: row.excerpt,
     body: row.body,
     image: getPublicImageUrl(row.image_path),
+    author: row.author,
     publishedAt: row.published_at,
   };
 }

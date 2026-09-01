@@ -165,6 +165,32 @@ h6 {
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
 }
 
+.service-card--selected {
+  border: 4px solid #6ee7b7 !important;
+  background: rgb(110 231 183 / 0.12) !important;
+  box-shadow:
+    0 0 0 2px rgb(110 231 183 / 0.35),
+    0 22px 58px rgb(52 211 153 / 0.28) !important;
+  transform: scale(1.05);
+}
+
+.service-card--selected:hover {
+  border-color: #6ee7b7 !important;
+  transform: scale(1.05) translateY(0) !important;
+}
+
+.dark .service-card--selected {
+  border-color: #86efac !important;
+  background: rgb(134 239 172 / 0.12) !important;
+  box-shadow:
+    0 0 0 2px rgb(134 239 172 / 0.3),
+    0 22px 58px rgb(74 222 128 / 0.22) !important;
+}
+
+.dark .service-card--selected:hover {
+  border-color: #86efac !important;
+}
+
 .text-balance {
   text-wrap: balance;
 }
@@ -294,6 +320,14 @@ a[aria-current="true"]::after {
   opacity: 0 !important;
 }
 
+/* Slightly smaller active pill on compact laptop sidebars */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav-active-pill {
+    --scoop: 11px;
+    border-radius: 18px 0 0 18px;
+  }
+}
+
 @keyframes video-marquee-scroll {
   from {
     transform: translateX(0);
@@ -363,7 +397,7 @@ a[aria-current="true"]::after {
 }
 
 .video-marquee.is-playing .video-marquee-track {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

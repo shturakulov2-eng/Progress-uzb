@@ -28,12 +28,12 @@ export default function RootLayout({
     <html
       lang="uz"
       suppressHydrationWarning
-      className={`${inter.variable} ${manrope.variable} h-full scroll-smooth`}
+      className={`${inter.variable} ${manrope.variable} h-full scroll-smooth dark`}
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('progress-theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;var r=document.documentElement;if(d){r.classList.add('dark');r.style.colorScheme='dark';}else{r.style.colorScheme='light';}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('progress-theme');var d=t?t==='dark':true;var r=document.documentElement;if(d){r.classList.add('dark');r.style.colorScheme='dark';}else{r.classList.remove('dark');r.style.colorScheme='light';}}catch(e){}})();`,
           }}
         />
       </head>

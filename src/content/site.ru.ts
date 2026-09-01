@@ -66,6 +66,7 @@ export const contentRu: SiteContent = {
       title: "Услуги, которые развивают маркетинг и продажи как единую систему.",
       description:
         "От определения позиции на рынке до построения отдела продаж — выберите решение, необходимое вашему бизнесу.",
+      selectHint: "Нажмите, чтобы выбрать",
     },
     process: {
       eyebrow: "",
@@ -97,6 +98,9 @@ export const contentRu: SiteContent = {
       readMore: "Подробнее",
       closeLabel: "Закрыть",
       viewAll: "Все статьи",
+      featuredLabel: "Избранные статьи",
+      backToHome: "Вернуться на главную",
+      authorLabel: "Автор",
     },
     marketer: {
       nameLine: "I'M SHAKHZOD",
@@ -108,7 +112,7 @@ export const contentRu: SiteContent = {
       videoTitle: "Видео",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png?v=6",
+      portraitSrc: "/marketer/portrait.png?v=12",
       closeLabel: "Закрыть",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",
@@ -220,6 +224,11 @@ export const contentRu: SiteContent = {
           description:
             "Профессиональная съёмка и монтаж продающих reels для вашего бизнеса.",
         },
+        {
+          title: "Создание сайтов",
+          description:
+            "Увеличьте продажи через digital-маркетинг. Развивайте онлайн-продажи.",
+        },
       ],
     },
     {
@@ -245,9 +254,11 @@ export const contentRu: SiteContent = {
   ],
   serviceInquiry: {
     eyebrow: "Как мы можем помочь?",
-    title: "Какая услуга нужна вашему бизнесу?",
+    title: "Какая услуга нужна вашему бизнесу?\nВыберите сверху!",
     description:
       "Опишите проблему. Например: мало продаж, Instagram не приносит результата или клиенты обходятся дорого.",
+    selectedServicesLabel: "Выбранные услуги:",
+    removeServiceAria: "Убрать услугу",
     problemLabel: "С какой проблемой вы столкнулись?",
     problemPlaceholder: "Кратко опишите главную проблему вашего бизнеса...",
     fullNameLabel: "Полное имя",
@@ -303,6 +314,7 @@ export const contentRu: SiteContent = {
       duration: "С 2025 года",
       result: "Сформирован стабильный ежемесячный поток новых клиентов.",
       process: "Запускаются отдел продаж и система оптовых продаж.",
+      imageSrc: "/portfolio/milliy-brend-showcase.png",
     },
     {
       name: "Mirankul Ceiling",
@@ -317,6 +329,7 @@ export const contentRu: SiteContent = {
       duration: "С февраля 2023 по август 2025 (контракт на 2 года)",
       result: "Ежемесячно приводилось 350–500 качественных лидов.",
       process: "Отдел продаж был построен, и проект успешно завершён на этапе систематизации.",
+      imageSrc: "/portfolio/fox-pipes-ig-showcase.png",
     },
     {
       name: "Saturn Stainless / Primo",
@@ -325,6 +338,7 @@ export const contentRu: SiteContent = {
       duration: "С января 2024 до конца 2025 (контракт на 2 года)",
       result:
         "Запущен креативный контент для нового направления, а генерация лидов выросла с 50 до 450 в месяц.",
+      imageSrc: "/portfolio/primo-showcase.png",
     },
     {
       name: "Chagurt",
@@ -332,6 +346,7 @@ export const contentRu: SiteContent = {
       duration: "Контракт на 3 месяца",
       result:
         "Разработан полный брендинг и запущена целевая стратегия контент-маркетинга.",
+      imageSrc: "/portfolio/chagurt-showcase.png",
     },
     {
       name: "Neo",
@@ -339,6 +354,7 @@ export const contentRu: SiteContent = {
       duration: "С февраля 2026 года по настоящее время",
       result:
         "Набрано более 15 000 чистых органических подписчиков, а видео набрали миллионы просмотров.",
+      imageSrc: "/portfolio/neo-showcase.png",
     },
     {
       name: "IELTS Center",
@@ -346,6 +362,7 @@ export const contentRu: SiteContent = {
       duration: "Стартовал в 2021, обновлён в 2025",
       result:
         "В 2021 SMM и брендинг были построены с нуля. В 2025 за 3 месяца был запущен сильный контент-маркетинг в новом направлении.",
+      imageSrc: "/portfolio/ielts-center-showcase.png",
     },
     {
       name: "Sofana Mebel",
@@ -353,6 +370,7 @@ export const contentRu: SiteContent = {
       duration: "Контракт на 3 месяца",
       result:
         "Создан полностью новый брендинг для будущего патентования. Performance и контент-маркетинг открыли каналы продаж.",
+      imageSrc: "/portfolio/sofana-showcase.png",
     },
   ],
   statistics: [
