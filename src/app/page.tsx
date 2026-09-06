@@ -114,6 +114,26 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, "");
+    if (!hash) return;
+
+    const scrollToHash = () => {
+      const target = document.getElementById(hash);
+      if (!target) return false;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      return true;
+    };
+
+    if (scrollToHash()) return;
+
+    const timeout = window.setTimeout(() => {
+      scrollToHash();
+    }, 120);
+
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
     if (!mobileNavOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -158,15 +178,31 @@ export default function Home() {
 
   useEffect(() => {
     const measurePill = () => {
+      const nav = navRef.current;
       const el = linkRefs.current[activeSection];
-      if (!el) return;
-      setPillBox({ top: el.offsetTop, height: el.offsetHeight });
+      if (!nav || !el) return;
+
+      const navRect = nav.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+
+      setPillBox({
+        top: elRect.top - navRect.top,
+        height: elRect.height,
+      });
     };
+
     const raf = requestAnimationFrame(measurePill);
     window.addEventListener("resize", measurePill);
+
+    const nav = navRef.current;
+    const ro = nav ? new ResizeObserver(measurePill) : null;
+    nav?.querySelectorAll("a").forEach((link) => ro?.observe(link));
+    if (nav) ro?.observe(nav);
+
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", measurePill);
+      ro?.disconnect();
     };
   }, [activeSection]);
 
@@ -227,30 +263,29 @@ export default function Home() {
           <div className="absolute inset-y-6 right-0 w-px rounded-full bg-gradient-to-b from-transparent via-white/40 to-transparent" />
         </div>
 
-        <div className="relative flex h-full max-h-[100dvh] flex-col overflow-hidden px-4 py-5 lg:px-3 lg:py-3 xl:px-3.5 xl:py-4 2xl:px-4 2xl:py-5">
-          <div className="flex shrink-0 flex-col items-center pt-4 text-center lg:pt-1 xl:pt-2 2xl:pt-4">
+        <div className="relative flex h-full max-h-[100dvh] flex-col overflow-hidden py-2 max-lg:pb-[max(0.5rem,env(safe-area-inset-bottom))] lg:py-2.5 xl:py-4 2xl:py-5">
+          <div className="flex shrink-0 flex-col items-center px-3 pt-0 text-center lg:pt-0.5 xl:pt-2 2xl:pt-4">
             <Image
               src={logoImage}
               alt="Progress.uzb logo"
               width={100}
-              className="h-auto w-[96px] brightness-0 invert lg:w-[68px] xl:w-[80px] 2xl:w-[96px]"
+              className="h-auto w-[64px] brightness-0 invert sm:w-[72px] lg:w-[60px] xl:w-[76px] 2xl:w-[96px]"
               priority
             />
-            <p className="mt-2.5 max-w-[10.5rem] whitespace-pre-line text-xs font-medium leading-4 text-blue-100/80 lg:mt-1.5 lg:max-w-[9.5rem] lg:text-[11px] lg:leading-3.5 xl:mt-2 xl:text-xs xl:leading-4 2xl:mt-2.5 2xl:max-w-[10.5rem]">
+            <p className="mt-1 max-w-[10rem] whitespace-pre-line text-[10px] font-medium leading-3 text-blue-100/80 lg:mt-0.5 lg:max-w-[9.5rem] lg:text-[10px] lg:leading-3 xl:mt-1.5 xl:text-xs xl:leading-4 2xl:mt-2.5 2xl:max-w-[10.5rem]">
               {hero.navTagline}
             </p>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <nav
-              ref={navRef}
-              aria-label={common.primaryNav}
-              className="relative mt-4 flex flex-col justify-start gap-1.5 lg:mt-2 lg:gap-0.5 xl:mt-3 xl:gap-1 2xl:mt-5 2xl:gap-1.5"
-            >
+          <nav
+            ref={navRef}
+            aria-label={common.primaryNav}
+            className="relative mt-2 flex shrink-0 flex-col justify-start gap-1 max-lg:gap-1.5 lg:mt-1.5 lg:gap-0.5 xl:mt-2 xl:gap-1 2xl:mt-4 2xl:gap-1.5"
+          >
             {pillBox ? (
               <motion.div
                 aria-hidden="true"
-                className="nav-active-pill pointer-events-none absolute left-0 -right-4 z-0 rounded-l-[22px] lg:-right-3 lg:rounded-l-[18px] 2xl:-right-4 2xl:rounded-l-[22px]"
+                className="nav-active-pill pointer-events-none absolute inset-x-0 z-0 rounded-l-[22px] lg:rounded-l-[18px] 2xl:rounded-l-[22px]"
                 initial={false}
                 animate={{ top: pillBox.top, height: pillBox.height }}
                 transition={
@@ -277,8 +312,8 @@ export default function Home() {
                   onClick={() => setMobileNavOpen(false)}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "relative z-10 px-3 py-1.5 text-base font-semibold leading-tight transition-colors duration-300 ease-out",
-                    "lg:px-2 lg:py-0.5 lg:text-[13px] xl:px-2.5 xl:py-1 xl:text-sm 2xl:px-3 2xl:py-1.5 2xl:text-base",
+                    "relative z-10 block w-full px-3 py-1.5 text-sm font-semibold leading-tight transition-colors duration-300 ease-out max-lg:px-3 max-lg:py-2 max-lg:text-[15px]",
+                    "lg:px-3 lg:py-1 lg:text-[13px] xl:px-3.5 xl:py-1.5 xl:text-sm 2xl:px-4 2xl:py-2 2xl:text-base",
                     isActive
                       ? "font-bold text-[#0C3272] dark:text-white"
                       : "text-white/70 hover:text-white",
@@ -287,7 +322,7 @@ export default function Home() {
                   <span
                       className={cn(
                       "inline-block origin-left transition-transform duration-300 ease-out",
-                      isActive && "scale-[1.08] sm:scale-[1.14] lg:scale-[1.05] xl:scale-[1.08] 2xl:scale-[1.14]",
+                      isActive && "lg:scale-[1.05] xl:scale-[1.08] 2xl:scale-[1.14]",
                     )}
                   >
                     {item.label}
@@ -295,10 +330,49 @@ export default function Home() {
                 </a>
               );
             })}
-            </nav>
+          </nav>
+
+          <div className="relative z-10 mt-2 shrink-0 px-3 max-lg:mt-1.5 lg:hidden">
+            <div className="flex flex-col gap-0.5">
+              {baseSiteConfig.phones.map((phone) => (
+                <a
+                  key={phone.href}
+                  href={phone.href}
+                  className="text-xs font-semibold text-white/85 transition hover:text-white"
+                >
+                  {phone.display}
+                </a>
+              ))}
+            </div>
+            <div className="mt-1.5 flex gap-2">
+              <a
+                href={baseSiteConfig.social.instagram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="flex size-8 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:border-white/50 hover:bg-white/20"
+              >
+                <svg viewBox="0 0 24 24" className="size-3.5 fill-none stroke-current" strokeWidth="1.8">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href={baseSiteConfig.social.telegram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Telegram"
+                className="flex size-8 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:border-white/50 hover:bg-white/20"
+              >
+                <Send className="size-3.5" />
+              </a>
+            </div>
           </div>
 
-          <div className="relative z-10 mt-auto shrink-0 px-1 pt-3 lg:pt-2 xl:pt-2.5 2xl:pt-3">
+          <div className="min-h-0 flex-1" aria-hidden="true" />
+
+          <div className="relative z-10 hidden shrink-0 px-3 pt-2 lg:block xl:pt-2.5 2xl:pt-3">
             <div className="flex flex-col gap-2 lg:gap-0.5 xl:gap-1">
               {baseSiteConfig.phones.map((phone) => (
                 <a
@@ -310,7 +384,7 @@ export default function Home() {
                 </a>
               ))}
             </div>
-            <div className="mt-3 flex gap-2.5 lg:mt-1.5 lg:gap-2 xl:mt-2 2xl:mt-3">
+            <div className="mt-2.5 flex gap-2.5 lg:mt-1 lg:gap-2 xl:mt-1.5 2xl:mt-2.5">
               <a
                 href={baseSiteConfig.social.instagram}
                 target="_blank"
@@ -336,19 +410,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative z-10 mt-2 flex shrink-0 flex-col gap-2 border-t border-white/15 pt-3 lg:mt-1.5 lg:gap-1.5 lg:pt-2 xl:gap-2 xl:pt-2.5 2xl:mt-2 2xl:gap-3 2xl:pt-4">
-            <div className="flex items-center gap-2.5 lg:gap-2">
+          <div className="relative z-10 mt-auto flex shrink-0 flex-col gap-1.5 border-t border-white/15 px-3 pt-2 max-lg:gap-1 max-lg:pt-1.5 lg:gap-1.5 lg:pt-2 xl:gap-2 xl:pt-2.5 2xl:gap-3 2xl:pt-4">
+            <div className="flex items-center gap-2">
               <LanguageSwitcher
                 dropUp
-                className="min-w-0 flex-1 [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-3 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white lg:[&>button]:px-2 lg:[&>button]:py-1.5 lg:[&>button]:text-xs xl:[&>button]:px-2.5 xl:[&>button]:text-sm 2xl:[&>button]:px-3"
+                className="min-w-0 flex-1 [&>button]:border-white/30 [&>button]:bg-white/10 [&>button]:px-2.5 [&>button]:py-1.5 [&>button]:text-xs [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:hover:border-white/60 [&>button]:hover:bg-white/20 [&>button]:hover:text-white sm:[&>button]:px-3 sm:[&>button]:text-sm lg:[&>button]:px-2 lg:[&>button]:py-1 lg:[&>button]:text-xs xl:[&>button]:px-2.5 xl:[&>button]:text-sm 2xl:[&>button]:px-3"
               />
-              <ThemeToggle variant="onDark" className="!size-11 shrink-0 lg:!size-9 xl:!size-10 2xl:!size-11" />
+              <ThemeToggle variant="onDark" className="!size-9 shrink-0 sm:!size-10 lg:!size-9 xl:!size-10 2xl:!size-11" />
             </div>
             <Magnetic className="w-full">
               <Button
                 type="button"
                 variant="ghost"
-                className="min-h-12 w-full whitespace-normal border border-white/35 bg-white/15 px-3 py-3 text-center text-sm leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white lg:min-h-8 lg:px-2 lg:py-1.5 lg:text-[11px] lg:leading-tight xl:min-h-9 xl:text-xs 2xl:min-h-12 2xl:px-3 2xl:py-3 2xl:text-sm"
+                className="min-h-10 w-full whitespace-normal border border-white/35 bg-white/15 px-2.5 py-2 text-center text-xs leading-snug text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] backdrop-blur-md hover:bg-white/25 hover:text-white sm:min-h-11 sm:px-3 sm:py-2.5 sm:text-sm lg:min-h-8 lg:px-2 lg:py-1.5 lg:text-[11px] lg:leading-tight xl:min-h-9 xl:text-xs 2xl:min-h-12 2xl:px-3 2xl:py-3 2xl:text-sm"
                 onClick={() => {
                   setMobileNavOpen(false);
                   openLeadPopup();

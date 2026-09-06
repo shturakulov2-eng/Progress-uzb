@@ -180,7 +180,7 @@ export function BlogSection({
 
   return (
     <>
-      <section {...sectionProps} className="section-shell py-14 sm:py-20">
+      <section {...sectionProps} className="section-shell scroll-mt-24 py-14 sm:py-20 lg:scroll-mt-8">
         <SectionHeading
           eyebrow={blog.eyebrow}
           title={blog.title}

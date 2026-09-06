@@ -72,7 +72,7 @@ export const contentEn: SiteContent = {
       eyebrow: "",
       title: "A simple six-step system that moves from discovery to measurable growth.",
       description:
-        "Each phase is structured to remove uncertainty, improve alignment, and keep execution focused on outcomes.",
+        "Each phase is structured to remove uncertainty, improve alignment,\nand keep execution focused on outcomes.",
     },
     portfolio: {
       eyebrow: "Completed Projects",
@@ -322,6 +322,7 @@ export const contentEn: SiteContent = {
       duration: "2023–2024 (1-year contract)",
       result: "The business was provided with a stable 150 to 600 leads per month.",
       process: "A CRM system and sales department automation were delivered.",
+      imageSrc: "/portfolio/mirankul-ceiling-showcase.png",
     },
     {
       name: "Fox Pipes",
@@ -387,11 +388,16 @@ export const contentEn: SiteContent = {
     },
     {
       title: "Client review 2",
-      src: "/videos/testimonial-2.mp4",
+      src: "https://youtube.com/shorts/CzkN8vtf71U",
       formatLabel: "1080 × 1920",
     },
     {
       title: "Client review 3",
+      src: "/videos/testimonial-2.mp4",
+      formatLabel: "1080 × 1920",
+    },
+    {
+      title: "Client review 4",
       src: "/videos/testimonial-3.mp4",
       formatLabel: "1080 × 1920",
     },

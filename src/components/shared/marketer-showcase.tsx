@@ -80,8 +80,8 @@ function MarketerPortrait({
         height={1024}
         unoptimized
         priority
-        className="h-auto w-[min(100%,14rem)] sm:w-[18rem] lg:w-[22rem] xl:w-[26rem]"
-        sizes="(max-width: 640px) 14rem, (max-width: 1024px) 18rem, 26rem"
+        className="h-auto w-[min(100%,15.5rem)] sm:w-[19.5rem] lg:w-[24rem] xl:w-[28rem]"
+        sizes="(max-width: 640px) 15.5rem, (max-width: 1024px) 19.5rem, 28rem"
         onError={() => setUsePhoto(false)}
       />
     </div>
@@ -153,6 +153,8 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
             >
               <Link
                 href="/shaxzod-turakulov"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(buttonVariants({ variant: "primary" }), "px-6 py-3")}
               >
                 {copy.aboutCta}
@@ -217,7 +219,7 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="order-3 relative z-30 min-w-0 lg:order-none lg:justify-self-stretch"
           >
-            <div className="relative w-full min-w-[16rem] sm:min-w-[20rem] lg:max-w-none">
+            <div className="relative w-full max-w-[17rem] min-w-0 sm:max-w-[19rem] lg:max-w-[18rem] xl:max-w-[20rem] 2xl:max-w-[22rem]">
               <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0C3272]/70 dark:text-blue-300/80">
                 {copy.videoTitle}
               </span>

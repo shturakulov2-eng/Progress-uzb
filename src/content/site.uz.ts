@@ -72,7 +72,7 @@ export const contentUz: SiteContent = {
       eyebrow: "",
       title: "Biznesingizni yangi bosqichga\nolib chiqadigan 6 ta qadam",
       description:
-        "Har bir bosqich noaniqlikni kamaytirish, muvofiqlikni yaxshilash va natijaga e'tibor qaratish uchun tuzilgan.",
+        "Har bir bosqich noaniqlikni kamaytirish, muvofiqlikni yaxshilash va\nnatijaga e'tibor qaratish uchun tuzilgan.",
     },
     portfolio: {
       eyebrow: "Amalga oshirilgan loyihalarimiz",
@@ -323,6 +323,7 @@ export const contentUz: SiteContent = {
       duration: "2023–2024 yillar (1 yillik shartnoma)",
       result: "Biznes oyiga 150 tadan 600 tagacha barqaror lidlar bilan ta'minlandi.",
       process: "CRM tizimi va sotuv bo'limi avtomatizatsiya qilib topshirildi.",
+      imageSrc: "/portfolio/mirankul-ceiling-showcase.png",
     },
     {
       name: "Fox Pipes",
@@ -388,11 +389,16 @@ export const contentUz: SiteContent = {
     },
     {
       title: "Mijoz fikri 2",
-      src: "/videos/testimonial-2.mp4",
+      src: "https://youtube.com/shorts/CzkN8vtf71U",
       formatLabel: "1080 × 1920",
     },
     {
       title: "Mijoz fikri 3",
+      src: "/videos/testimonial-2.mp4",
+      formatLabel: "1080 × 1920",
+    },
+    {
+      title: "Mijoz fikri 4",
       src: "/videos/testimonial-3.mp4",
       formatLabel: "1080 × 1920",
     },

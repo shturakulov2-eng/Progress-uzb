@@ -110,7 +110,6 @@ export const shaxzodMedia = {
 
 const galleryFiles = [
   "01-classroom.png",
-  "02-portrait-car.png",
   "03-brands.png",
   "04-sales-board.png",
   "05-conference-group.png",
@@ -403,7 +402,6 @@ const contentUz: ShaxzodProfile = {
     galleryLabel: "Galereya",
     gallery: biographyGallery([
       "Shaxzod Turakulov darsda avtomatlashtirish dasturini tushuntirmoqda",
-      "Shaxzod Turakulov Progress Marketing avtomobili yonida",
       "Ofisda ish jarayoni va hamkor brendlar",
       "Sotuv va marketing tizimini doskada tushuntirish",
       "Xalqaro konferensiyada guruh surati",
@@ -524,7 +522,6 @@ const contentEn: ShaxzodProfile = {
     galleryLabel: "Gallery",
     gallery: biographyGallery([
       "Shaxzod Turakulov teaching automation software in class",
-      "Shaxzod Turakulov beside the Progress Marketing car",
       "Office work and partner brands",
       "Explaining a sales and marketing system on a whiteboard",
       "Group photo at an international conference",
@@ -796,7 +793,6 @@ const contentRu: ShaxzodProfile = {
     galleryLabel: "Галерея",
     gallery: biographyGallery([
       "Шахзод Туракулов объясняет программу автоматизации на занятии",
-      "Шахзод Туракулов у автомобиля Progress Marketing",
       "Работа в офисе и бренды-партнёры",
       "Объяснение системы продаж и маркетинга на доске",
       "Групповое фото на международной конференции",

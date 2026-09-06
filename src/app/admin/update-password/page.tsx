@@ -11,13 +11,14 @@ export default function AdminUpdatePasswordPage() {
         <div className="mb-6 space-y-2">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#0C3272]/15 bg-[#0C3272]/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0C3272]">
             <KeyRound className="size-3.5" />
-            Password reset
+            Reset password
           </div>
           <h1 className="text-2xl font-semibold text-slate-950">
-            Yangi parol o‘rnating
+            Set a new password
           </h1>
           <p className="text-sm leading-6 text-slate-600">
-            Email dagi link orqali kirdingiz. Yangi parolni kiriting va saqlang.
+            You opened a password recovery link. Choose a new password for your
+            admin account.
           </p>
         </div>
         <Suspense

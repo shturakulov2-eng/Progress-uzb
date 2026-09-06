@@ -1,14 +1,20 @@
 import { ShieldCheck } from "lucide-react";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { AdminLoginForm } from "@/components/admin/admin-login-form";
+import { ForgotPasswordForm } from "@/components/admin/forgot-password-form";
 import { isAllowedAdminEmail } from "@/lib/admin-access";
+import {
+  RECOVERY_PENDING_COOKIE,
+  RECOVERY_UPDATE_PATH,
+} from "@/lib/auth-recovery";
 import { hasSupabaseConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 type AdminLoginPageProps = {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; message?: string }>;
 };
 
 export default async function AdminLoginPage({
@@ -16,6 +22,13 @@ export default async function AdminLoginPage({
 }: AdminLoginPageProps) {
   const params = await searchParams;
   const supabaseReady = hasSupabaseConfig();
+  const cookieStore = await cookies();
+  const recoveryPending =
+    cookieStore.get(RECOVERY_PENDING_COOKIE)?.value === "1";
+
+  if (recoveryPending) {
+    redirect(RECOVERY_UPDATE_PATH);
+  }
 
   if (supabaseReady) {
     try {
@@ -38,6 +51,11 @@ export default async function AdminLoginPage({
       : params.error === "auth"
         ? "Auth tekshiruvi muvaffaqiyatsiz bo‘ldi. Qayta login qilib ko‘ring."
         : "";
+
+  const successMessage =
+    params.message === "password-updated"
+      ? "Your password was updated successfully. Sign in with your new password."
+      : "";
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-10">
@@ -73,6 +91,11 @@ export default async function AdminLoginPage({
               Use your Progress admin email and password.
             </p>
           </div>
+          {successMessage ? (
+            <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+              {successMessage}
+            </div>
+          ) : null}
           {configError ? (
             <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
               {configError}
@@ -80,6 +103,9 @@ export default async function AdminLoginPage({
           ) : null}
           <Suspense fallback={<div className="h-48 animate-pulse rounded-2xl bg-slate-100" />}>
             <AdminLoginForm disabled={!supabaseReady} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <ForgotPasswordForm disabled={!supabaseReady} />
           </Suspense>
         </section>
       </div>

@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { isAllowedAdminEmail } from "@/lib/admin-access";
+import {
+  RECOVERY_PENDING_COOKIE,
+  RECOVERY_UPDATE_PATH,
+} from "@/lib/auth-recovery";
 import { hasSupabaseConfig } from "@/lib/supabase-config";
 import { updateSession } from "@/lib/supabase-middleware";
 
@@ -29,6 +33,20 @@ export async function middleware(request: NextRequest) {
 
   try {
     const { supabase, response } = updateSession(request);
+
+    const recoveryPending =
+      request.cookies.get(RECOVERY_PENDING_COOKIE)?.value === "1";
+
+    if (
+      recoveryPending &&
+      pathname !== RECOVERY_UPDATE_PATH &&
+      !isPublicAdminPage
+    ) {
+      const updateUrl = request.nextUrl.clone();
+      updateUrl.pathname = RECOVERY_UPDATE_PATH;
+      updateUrl.search = "";
+      return NextResponse.redirect(updateUrl);
+    }
 
     if (isPublicAdminPage) {
       return response;

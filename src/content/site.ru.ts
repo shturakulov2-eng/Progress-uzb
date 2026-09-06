@@ -72,7 +72,7 @@ export const contentRu: SiteContent = {
       eyebrow: "",
       title: "Простая шестиэтапная система от исследования до измеримого роста.",
       description:
-        "Каждый этап структурирован для снижения неопределённости, улучшения согласованности и фокуса на результатах.",
+        "Каждый этап структурирован для снижения неопределённости, улучшения согласованности\nи фокуса на результатах.",
     },
     portfolio: {
       eyebrow: "Реализованные проекты",
@@ -322,6 +322,7 @@ export const contentRu: SiteContent = {
       duration: "2023–2024 годы (контракт на 1 год)",
       result: "Бизнес обеспечен стабильными 150–600 лидами в месяц.",
       process: "CRM и автоматизация отдела продаж были внедрены и переданы клиенту.",
+      imageSrc: "/portfolio/mirankul-ceiling-showcase.png",
     },
     {
       name: "Fox Pipes",
@@ -387,11 +388,16 @@ export const contentRu: SiteContent = {
     },
     {
       title: "Отзыв клиента 2",
-      src: "/videos/testimonial-2.mp4",
+      src: "https://youtube.com/shorts/CzkN8vtf71U",
       formatLabel: "1080 × 1920",
     },
     {
       title: "Отзыв клиента 3",
+      src: "/videos/testimonial-2.mp4",
+      formatLabel: "1080 × 1920",
+    },
+    {
+      title: "Отзыв клиента 4",
       src: "/videos/testimonial-3.mp4",
       formatLabel: "1080 × 1920",
     },

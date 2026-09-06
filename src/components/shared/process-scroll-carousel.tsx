@@ -82,7 +82,7 @@ export function ProcessScrollCarousel({ copy, steps }: ProcessScrollCarouselProp
         className="relative hidden lg:block"
         style={{ height: `${stageCount * 70}svh` }}
       >
-        <div className="sticky top-0 flex h-svh flex-col justify-start overflow-hidden pt-8 pb-10">
+        <div className="sticky top-0 flex h-svh flex-col justify-start overflow-x-clip pt-8 pb-10">
           <div className="section-shell shrink-0">
             <SectionHeading
               eyebrow={copy.eyebrow}

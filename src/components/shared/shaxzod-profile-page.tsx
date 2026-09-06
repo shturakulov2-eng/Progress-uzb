@@ -105,7 +105,11 @@ export function ShaxzodProfilePage() {
               {profile.name}
             </Link>
             <div className="hidden flex-1 justify-center sm:flex">
-              <Link href="#top" aria-label="Progress" className="shrink-0">
+              <a
+                href={`${baseSiteConfig.url.replace(/\/$/, "")}/#blog`}
+                aria-label="Progress.uzb — Blog"
+                className="shrink-0"
+              >
                 <Image
                   src="/shaxzod/progress-horizontal.png"
                   alt="Progress"
@@ -114,7 +118,7 @@ export function ShaxzodProfilePage() {
                   priority
                   className="h-[18px] w-auto dark:brightness-0 dark:invert"
                 />
-              </Link>
+              </a>
             </div>
           </div>
 
