@@ -24,10 +24,10 @@ export const contentUz: SiteContent = {
   ],
   hero: {
     navTagline: "Brenddan sotuvgacha\nkompleks yechimlar",
-    badge: "Tizimli sotuv va marketing agentligi",
+    badge: "Samarqanddagi SMM va marketing agentligi",
     title: "Biz shunchaki post joylamaymiz,\nbiz savdoni oshiradigan\nTIZIM quramiz!",
     subtitle:
-      "Progress marketing agentligi — 2019-yildan buyon ishlab chiqarish, savdo va xizmat koʻrsatish korxonalarida sotuvni tizimlashtiramiz va barqaror oʻsishni ta'minlaymiz.",
+      "Progress.uzb — Samarqanddagi marketing agentligi. 2019-yildan buyon SMM, targeting, brending, sayt yasash va sotuv tizimlarini quramiz.",
     ctaPrimary: "Konsultatsiyaga yozilish",
     ctaSecondary: "Xizmatlarimizni ko'rish",
     trustedBrandsLabel: "Bizga ishongan korxonalar",
@@ -63,9 +63,9 @@ export const contentUz: SiteContent = {
     },
     services: {
       eyebrow: "Xizmatlarimiz",
-      title: "Marketing va sotuvni bir tizimda rivojlantiradigan xizmatlar.",
+      title: "Samarqandda SMM, marketing va sotuv xizmatlari.",
       description:
-        "Bozordagi aniq yo'ldan boshlab sotuv bo'limini qurishgacha —\nbiznesingizga aynan kerakli yechimni tanlang.",
+        "SMM, targeting, brending, website yasash va sotuv bo'limini qurish —\nSamarqand bizneslari uchun bitta tizimda.",
       selectHint: "Ustiga bosib tanlang",
     },
     process: {
@@ -132,6 +132,24 @@ export const contentUz: SiteContent = {
       description:
         "Progress.uzb bilan konsultatsiyaga yoziling va biznesingiz uchun eng to'g'ri keyingi qadamni aniqlaymiz.",
       cta: "Konsultatsiyaga yozilish",
+    },
+    localSeo: {
+      eyebrow: "Samarqand",
+      title: "SMM va marketing agentligi — Samarqand",
+      lead:
+        "Progress.uzb — Samarqanddagi marketing agentligi. Biz SMM, targeting, brending, website yasash va sotuv bo‘limini qurish bilan shug‘ullanamiz.",
+      paragraphs: [
+        "Ko‘p tadbirkor «SMM Samarqand» yoki «marketing agentligi Samarqand» deb qidiradi — chunki mahalliy jamoa bozorni, tilni va mijoz odatlarini tushunadi. Biz 2019-yildan buyon shu yerda ishlaymiz.",
+        "Oddiy post joylash bilan cheklanmaymiz. Reklama, kontent, sayt va sotuvni bitta tizimga ulaymiz — natija o‘lchanadigan bo‘lishi kerak.",
+      ],
+      servicesTitle: "Samarqandda nima qilamiz",
+      services: [
+        "SMM Samarqand — Instagram, Telegram, YouTube",
+        "Targeting va performance marketing",
+        "Brending va shaxsiy brend",
+        "Website va landing page yasash",
+        "Sotuv bo‘limini qurish va CRM",
+      ],
     },
     contact: {
       badge: "Bog'lanish",
@@ -208,7 +226,7 @@ export const contentUz: SiteContent = {
         {
           title: "Kontent marketing & SMM",
           description:
-            "Brendingizning ijtimoiy tarmoqlardagi professional qiyofasi va mijoz bilan aloqa tili.",
+            "Samarqand va O'zbekiston bozorida Instagram, Telegram va YouTube orqali mijoz jalb qiladigan SMM.",
         },
         {
           title: "Brending",
@@ -390,16 +408,6 @@ export const contentUz: SiteContent = {
     {
       title: "Mijoz fikri 2",
       src: "https://youtube.com/shorts/CzkN8vtf71U",
-      formatLabel: "1080 × 1920",
-    },
-    {
-      title: "Mijoz fikri 3",
-      src: "/videos/testimonial-2.mp4",
-      formatLabel: "1080 × 1920",
-    },
-    {
-      title: "Mijoz fikri 4",
-      src: "/videos/testimonial-3.mp4",
       formatLabel: "1080 × 1920",
     },
   ],

@@ -118,6 +118,7 @@ const galleryFiles = [
   "08-office-study.png",
   "09-computer-lab.png",
   "10-grant-edu.png",
+  "11-systemic-leader.png",
 ] as const;
 
 function biographyGallery(alts: string[]): { src: string; alt: string }[] {
@@ -410,6 +411,7 @@ const contentUz: ShaxzodProfile = {
       "Ofisda kitob o'qiyotgan payt",
       "Kompyuter laboratoriyasida hamkasblar bilan",
       "Grant Edu o'quv markazi oldida",
+      "Tizimli rahbar dasturi sertifikati bilan guruh surati",
     ]),
   },
   mentors: {
@@ -530,6 +532,7 @@ const contentEn: ShaxzodProfile = {
       "Reading in the office",
       "With colleagues in a computer lab",
       "In front of the Grant Edu learning center",
+      "Group photo with a Systemic Leader program certificate",
     ]),
   },
   mentors: {
@@ -801,6 +804,7 @@ const contentRu: ShaxzodProfile = {
       "Чтение книги в офисе",
       "С коллегами в компьютерной лаборатории",
       "У учебного центра Grant Edu",
+      "Групповое фото с сертификатом программы «Системный руководитель»",
     ]),
   },
   mentors: {

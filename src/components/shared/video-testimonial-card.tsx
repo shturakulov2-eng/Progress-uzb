@@ -20,6 +20,7 @@ type YTNamespace = {
   PlayerState: {
     ENDED: number;
     PLAYING: number;
+    PAUSED: number;
   };
 };
 
@@ -87,12 +88,18 @@ export function VideoTestimonialCard({
     onPauseRef.current = onPause;
   }, [onPlay, onPause]);
 
+  const [pageOrigin, setPageOrigin] = useState("");
+
+  useEffect(() => {
+    setPageOrigin(window.location.origin);
+  }, []);
+
   const youtubeId = src.match(
     /(?:youtube\.com\/(?:shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/,
   )?.[1];
 
   const youtubeEmbedSrc = youtubeId
-    ? `https://www.youtube.com/embed/${youtubeId}?rel=0&playsinline=1&modestbranding=1&controls=1&enablejsapi=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`
+    ? `https://www.youtube.com/embed/${youtubeId}?rel=0&playsinline=1&modestbranding=1&controls=1&enablejsapi=1${pageOrigin ? `&origin=${encodeURIComponent(pageOrigin)}` : ""}`
     : null;
 
   useEffect(() => {
@@ -106,11 +113,14 @@ export function VideoTestimonialCard({
       playerRef.current = new window.YT.Player(iframeId, {
         events: {
           onStateChange: (event) => {
-            if (event.data === window.YT!.PlayerState.PLAYING) {
+            const { PLAYING, PAUSED, ENDED } = window.YT!.PlayerState;
+            if (event.data === PLAYING) {
               setCaptureClicks(false);
               onPlayRef.current?.();
+              return;
             }
-            if (event.data === window.YT!.PlayerState.ENDED) {
+            // Pause/stop or natural end → treat as finished so the marquee resumes
+            if (event.data === PAUSED || event.data === ENDED) {
               setCaptureClicks(true);
               onPauseRef.current?.();
             }
@@ -172,6 +182,7 @@ export function VideoTestimonialCard({
             preload="metadata"
             onError={() => setHasVideo(false)}
             onPlay={() => onPlayRef.current?.()}
+            onPause={() => onPauseRef.current?.()}
             onEnded={() => onPauseRef.current?.()}
             aria-label={title}
           />

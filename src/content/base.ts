@@ -1,7 +1,17 @@
 export const baseSiteConfig = {
   name: "Progress.uzb",
   shortName: "Progress",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://progress.uzb",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://progressgroup.uz",
+  address: {
+    street: "Bo'ston saroy ko'chasi, 24",
+    locality: "Samarqand",
+    localityEn: "Samarkand",
+    region: "Samarqand viloyati",
+    country: "UZ",
+    postalCode: "140100",
+    latitude: 39.659982,
+    longitude: 66.962769,
+  },
   phoneDisplay: "+998 93 963 33 63",
   phoneHref: "tel:+998939633363",
   phones: [

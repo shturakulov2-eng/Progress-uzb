@@ -76,11 +76,11 @@ export function ShaxzodFooter() {
   ];
 
   return (
-    <footer id="contact" className="scroll-mt-24 bg-slate-950 py-12 text-white sm:py-16">
+    <footer id="contact" className="scroll-mt-24 bg-slate-950 py-10 text-white sm:py-16">
       <div
         className={cn(
           profileShell,
-          "grid gap-10 sm:grid-cols-2 xl:grid-cols-[auto_minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1.35fr)] xl:items-start xl:gap-8",
+          "grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 xl:grid-cols-[auto_minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1.35fr)] xl:items-start xl:gap-8",
         )}
       >
         <Link href="/" className="inline-flex w-fit shrink-0 self-start">
@@ -90,7 +90,7 @@ export function ShaxzodFooter() {
             width={180}
             height={180}
             unoptimized
-            className="h-auto w-[9.5rem] brightness-0 invert sm:w-[11rem] xl:w-[12.5rem]"
+            className="h-auto w-[8rem] brightness-0 invert sm:w-[11rem] xl:w-[12.5rem]"
           />
         </Link>
 
@@ -146,7 +146,7 @@ export function ShaxzodFooter() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.label}
-                  className="flex size-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/20"
+                  className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/20 sm:size-12"
                 >
                   {social.icon}
                 </a>
@@ -179,7 +179,7 @@ export function ShaxzodFooter() {
                 <ArrowUpRight className="size-3.5" />
               </a>
             </div>
-            <div className="mt-3 aspect-[16/10] w-full">
+            <div className="mt-3 aspect-[4/3] w-full sm:aspect-[16/10]">
               <iframe
                 src={baseSiteConfig.mapEmbedSrc}
                 title={contact.addressValue}

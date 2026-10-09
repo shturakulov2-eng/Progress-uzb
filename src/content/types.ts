@@ -72,6 +72,14 @@ export type SiteContent = {
       description: string;
       cta: string;
     };
+    localSeo: {
+      eyebrow: string;
+      title: string;
+      lead: string;
+      paragraphs: string[];
+      servicesTitle: string;
+      services: string[];
+    };
     contact: {
       badge: string;
       title: string;

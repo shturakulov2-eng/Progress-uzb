@@ -67,12 +67,7 @@ function MarketerPortrait({
   }
 
   return (
-    <div
-      className={cn(
-        "relative z-20 [mask-image:linear-gradient(180deg,#000_0%,#000_48%,transparent_92%)] [-webkit-mask-image:linear-gradient(180deg,#000_0%,#000_48%,transparent_92%)]",
-        className,
-      )}
-    >
+    <div className={cn("relative z-20", className)}>
       <Image
         src={src.includes("?") ? src : `${src}?v=12`}
         alt={alt}
@@ -80,7 +75,7 @@ function MarketerPortrait({
         height={1024}
         unoptimized
         priority
-        className="h-auto w-[min(100%,15.5rem)] sm:w-[19.5rem] lg:w-[24rem] xl:w-[28rem]"
+        className="h-auto w-[min(100%,15.5rem)] mx-auto sm:w-[19.5rem] lg:mx-0 lg:w-[24rem] xl:w-[28rem]"
         sizes="(max-width: 640px) 15.5rem, (max-width: 1024px) 19.5rem, 28rem"
         onError={() => setUsePhoto(false)}
       />
@@ -118,13 +113,20 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
-          className="pointer-events-none absolute inset-x-0 top-[28%] z-0 select-none text-center text-[18vw] font-black leading-none tracking-tight text-[#0C3272]/[0.07] sm:top-[22%] sm:text-[14vw] lg:top-[26%] lg:text-[11rem] dark:text-blue-300/10"
+          className="pointer-events-none absolute inset-x-0 top-[12%] z-0 select-none text-center text-[18vw] font-black leading-none tracking-tight text-[#0C3272]/[0.07] sm:top-[16%] sm:text-[14vw] lg:top-[26%] lg:text-[11rem] dark:text-blue-300/10"
         >
           {copy.watermark}
         </motion.p>
 
-        <div className="section-shell relative z-10 grid min-h-[34rem] items-end gap-8 py-14 sm:min-h-[40rem] sm:py-16 lg:min-h-[46rem] lg:grid-cols-[1.15fr_0.7fr_1.15fr] lg:items-center lg:gap-4 lg:py-20 2xl:min-h-[52rem] 2xl:gap-8">
-          <div className="order-1 relative z-30 space-y-5 lg:order-none lg:pb-8">
+        <div className="section-shell relative z-10 grid min-h-[34rem] grid-cols-1 items-stretch gap-6 py-10 sm:min-h-[40rem] sm:gap-8 sm:py-14 lg:min-h-[46rem] lg:grid-cols-[1.15fr_0.7fr_1.15fr] lg:items-center lg:gap-4 lg:py-20 2xl:min-h-[52rem] 2xl:gap-8">
+          <div
+            className={cn(
+              "relative z-30 col-start-1 row-start-1 space-y-4 self-end",
+              "bg-[linear-gradient(180deg,transparent_0%,rgba(246,248,255,0.72)_28%,rgba(246,248,255,0.96)_62%,#eef4ff_100%)] pt-28 pb-2",
+              "dark:bg-[linear-gradient(180deg,transparent_0%,rgba(11,18,32,0.55)_28%,rgba(11,18,32,0.92)_62%,#0b1220_100%)]",
+              "lg:col-auto lg:row-auto lg:space-y-5 lg:bg-none lg:pt-0 lg:pb-8 dark:lg:bg-none",
+            )}
+          >
             <motion.h2
               initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -207,9 +209,13 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="order-2 z-20 flex translate-y-2 justify-center self-end sm:translate-y-3 lg:order-none lg:self-end lg:translate-y-4 xl:translate-y-6"
+            className="z-20 col-start-1 row-start-1 flex w-full justify-center justify-self-center self-end lg:col-auto lg:row-auto lg:w-auto lg:translate-y-4 xl:translate-y-6"
           >
-            <MarketerPortrait src={copy.portraitSrc} alt={copy.nameLine} />
+            <MarketerPortrait
+              src={copy.portraitSrc}
+              alt={copy.nameLine}
+              className="mx-auto lg:[mask-image:linear-gradient(180deg,#000_0%,#000_48%,transparent_92%)] lg:[-webkit-mask-image:linear-gradient(180deg,#000_0%,#000_48%,transparent_92%)]"
+            />
           </motion.div>
 
           <motion.div
@@ -217,9 +223,9 @@ export function MarketerShowcase({ copy, social }: MarketerShowcaseProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="order-3 relative z-30 min-w-0 lg:order-none lg:justify-self-stretch"
+            className="relative z-30 col-start-1 row-start-2 flex w-full min-w-0 justify-center justify-self-center lg:col-auto lg:row-auto lg:block lg:justify-self-stretch"
           >
-            <div className="relative w-full max-w-[17rem] min-w-0 sm:max-w-[19rem] lg:max-w-[18rem] xl:max-w-[20rem] 2xl:max-w-[22rem]">
+            <div className="relative mx-auto w-full max-w-[17rem] min-w-0 sm:max-w-[19rem] lg:mx-0 lg:max-w-[18rem] xl:max-w-[20rem] 2xl:max-w-[22rem]">
               <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0C3272]/70 dark:text-blue-300/80">
                 {copy.videoTitle}
               </span>

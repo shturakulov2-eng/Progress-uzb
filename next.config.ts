@@ -5,7 +5,9 @@ const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
   : undefined;
 
 const nextConfig: NextConfig = {
+  output: "export", // <- Statik eksport rejimini yoqadi
   images: {
+    unoptimized: true, // <- Statik rejimda rasmlar xatosiz chiqishi uchun
     remotePatterns: supabaseHost
       ? [
           {

@@ -5,7 +5,11 @@ import "./globals.css";
 
 import { AppProviders } from "@/components/providers/app-providers";
 import { Toaster } from "sonner";
-import { defaultMetadata, getLocalBusinessSchema } from "@/lib/seo";
+import {
+  defaultMetadata,
+  getFaqSchema,
+  getLocalBusinessSchema,
+} from "@/lib/seo";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -49,6 +53,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getLocalBusinessSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getFaqSchema()),
           }}
         />
       </body>

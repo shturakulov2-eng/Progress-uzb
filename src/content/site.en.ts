@@ -24,10 +24,10 @@ export const contentEn: SiteContent = {
   ],
   hero: {
     navTagline: "From brand to sales\ncomplete solutions",
-    badge: "Systematic sales and marketing agency",
+    badge: "SMM and marketing agency in Samarkand",
     title: "We don't just post content,\nwe build a SYSTEM\nthat grows your sales!",
     subtitle:
-      "Progress marketing agency — since 2019 we systematize sales and deliver sustainable growth for manufacturing, retail, and service businesses.",
+      "Progress.uzb is a Samarkand marketing agency. Since 2019 we build SMM, targeting, branding, websites, and sales systems.",
     ctaPrimary: "Book a Consultation",
     ctaSecondary: "View Our Services",
     trustedBrandsLabel: "Brands that trust us",
@@ -63,9 +63,9 @@ export const contentEn: SiteContent = {
     },
     services: {
       eyebrow: "Our Services",
-      title: "Services that develop marketing and sales as one connected system.",
+      title: "SMM, marketing, and sales services in Samarkand.",
       description:
-        "From defining your market direction to building the sales department, choose the solution your business needs.",
+        "SMM, targeting, branding, website development, and sales-department setup — one system for Samarkand businesses.",
       selectHint: "Click to select",
     },
     process: {
@@ -131,6 +131,24 @@ export const contentEn: SiteContent = {
       description:
         "Book a consultation with Progress.uzb and we will identify the smartest next step for your business.",
       cta: "Book a Consultation",
+    },
+    localSeo: {
+      eyebrow: "Samarkand",
+      title: "SMM and marketing agency — Samarkand",
+      lead:
+        "Progress.uzb is a marketing agency in Samarkand. We handle SMM, targeting, branding, website development, and sales-department setup.",
+      paragraphs: [
+        "Business owners search “SMM Samarkand” and “marketing agency Samarkand” because a local team understands the market, the language, and how customers buy. We have worked here since 2019.",
+        "We do more than posting. Ads, content, website, and sales are connected into one system — results should be measurable.",
+      ],
+      servicesTitle: "What we do in Samarkand",
+      services: [
+        "SMM Samarkand — Instagram, Telegram, YouTube",
+        "Targeting and performance marketing",
+        "Branding and personal brand",
+        "Website and landing page development",
+        "Sales department setup and CRM",
+      ],
     },
     contact: {
       badge: "Contact",
@@ -207,7 +225,7 @@ export const contentEn: SiteContent = {
         {
           title: "Content Marketing & SMM",
           description:
-            "A professional social presence and a clear communication language for your customers.",
+            "SMM in Samarkand and Uzbekistan — Instagram, Telegram, and YouTube that bring customers, not just followers.",
         },
         {
           title: "Branding",
@@ -389,16 +407,6 @@ export const contentEn: SiteContent = {
     {
       title: "Client review 2",
       src: "https://youtube.com/shorts/CzkN8vtf71U",
-      formatLabel: "1080 × 1920",
-    },
-    {
-      title: "Client review 3",
-      src: "/videos/testimonial-2.mp4",
-      formatLabel: "1080 × 1920",
-    },
-    {
-      title: "Client review 4",
-      src: "/videos/testimonial-3.mp4",
       formatLabel: "1080 × 1920",
     },
   ],

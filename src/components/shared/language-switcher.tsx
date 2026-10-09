@@ -8,12 +8,20 @@ import type { Locale } from "@/content/types";
 import { useLanguage } from "@/context/language-context";
 import { cn } from "@/lib/utils";
 
+const localeCodes: Record<Locale, string> = {
+  uz: "UZ",
+  en: "EN",
+  ru: "RU",
+};
+
 export function LanguageSwitcher({
   className,
   dropUp = false,
+  compact = false,
 }: {
   className?: string;
   dropUp?: boolean;
+  compact?: boolean;
 }) {
   const { locale, setLocale, content } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -41,14 +49,23 @@ export function LanguageSwitcher({
         aria-expanded={open}
         aria-label={content.common.selectLanguage}
         onClick={() => setOpen((current) => !current)}
-        className="inline-flex h-11 w-full items-center justify-between gap-2 rounded-full border border-slate-200 bg-white/90 px-4 text-sm font-medium text-slate-700 shadow-sm transition hover:border-[#0C3272] hover:text-[#0C3272]"
+        className={cn(
+          "inline-flex w-full items-center justify-between rounded-full border border-slate-200 bg-white/90 font-medium text-slate-700 shadow-sm transition hover:border-[#0C3272] hover:text-[#0C3272] dark:border-white/20 dark:bg-white/10 dark:text-slate-200 dark:hover:border-white/40 dark:hover:text-white",
+          compact
+            ? "h-9 gap-1 px-2.5 text-xs"
+            : "h-11 gap-2 px-4 text-sm",
+        )}
       >
-        <span className="inline-flex items-center gap-2">
-          <Globe className="size-4" />
-          <span>{localeLabels[locale]}</span>
+        <span className="inline-flex items-center gap-1.5">
+          {compact ? null : <Globe className="size-4" />}
+          <span>{compact ? localeCodes[locale] : localeLabels[locale]}</span>
         </span>
         <ChevronDown
-          className={cn("size-4 transition-transform", open && "rotate-180")}
+          className={cn(
+            "transition-transform",
+            compact ? "size-3.5" : "size-4",
+            open && "rotate-180",
+          )}
         />
       </button>
 

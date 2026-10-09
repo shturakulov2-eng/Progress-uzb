@@ -1,62 +1,75 @@
 import type { Metadata } from "next";
 
+import { baseSiteConfig } from "@/content/base";
 import { siteConfig } from "@/content/site";
 
 /** Target search queries for Progress.uzb (Samarkand marketing agency). */
 export const seoKeywords = [
-  "Marketing",
-  "Marketing samarkand",
-  "Marketing samarqand",
-  "SMM",
-  "SMM samarkand",
-  "SMM samarqand",
-  "Brending",
-  "Branding",
-  "Rebrand",
-  "Branding samarkand",
-  "Brending samarkand",
-  "Sotuv",
-  "Website yasash",
-  "Vebsayt yasash",
-  "Avtomatlashtirish",
-  "Sotuv bo'limini qurib berish",
-  "Sotuvni oshirish",
-  "Marketing xizmatlari",
-  "Marketing ximatlari",
-  "Avtomatlashtirish, sun'iy intellekt integratsiya qilish",
-  "Landing page",
-  "IT yechimlar",
-  "marketing agentligi samarqand",
-  "digital marketing uzbekistan",
-  "smm agentligi samarqand",
+  "SMM Samarqand",
+  "SMM Samarkand",
+  "SMM Самарканд",
+  "Marketing Samarqand",
+  "Marketing Samarkand",
+  "Marketing Самарканд",
+  "SMM agentligi Samarqand",
+  "marketing agentligi Samarqand",
+  "маркетинговое агентство Самарканд",
+  "targeting Samarqand",
+  "targеt Самарканд",
+  "brending Samarqand",
+  "branding Samarkand",
+  "sayt yasash Samarqand",
+  "website yasash Samarqand",
+  "reklama Samarqand",
+  "digital marketing Uzbekistan",
+  "Progress.uzb",
 ] as const;
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default:
-      "Progress.uzb | Marketing, SMM, Branding & Website Yasash — Samarkand / Samarqand",
+    default: "SMM va Marketing agentligi Samarqand | Progress.uzb",
     template: "%s | Progress.uzb",
   },
   description:
-    "Samarqanddagi marketing agentligi: SMM, brending/branding, rebrand, website va vebsayt yasash, landing page, sotuvni oshirish, sotuv bo‘limini qurish, avtomatlashtirish, sun’iy intellekt integratsiyasi va IT yechimlar. Progress.uzb — Marketing Samarkand / Marketing Samarqand.",
+    "Samarqanddagi SMM va marketing agentligi. SMM, targeting, brending, website yasash, landing page va sotuv tizimlari. Progress.uzb — SMM Samarkand, Marketing Samarqand.",
   keywords: [...seoKeywords],
+  applicationName: siteConfig.name,
+  authors: [{ name: "Progress.uzb", url: siteConfig.url }],
+  creator: "Progress.uzb",
+  publisher: "Progress.uzb",
+  category: "marketing",
+  other: {
+    "geo.region": "UZ-SA",
+    "geo.placename": "Samarkand",
+    "geo.position": `${baseSiteConfig.address.latitude};${baseSiteConfig.address.longitude}`,
+    ICBM: `${baseSiteConfig.address.latitude}, ${baseSiteConfig.address.longitude}`,
+  },
   openGraph: {
-    title:
-      "Progress.uzb | Marketing, SMM, Branding — Samarkand / Samarqand",
+    title: "SMM va Marketing agentligi Samarqand | Progress.uzb",
     description:
-      "Marketing, SMM, brending, website yasash, landing page, sotuvni oshirish, avtomatlashtirish va AI/IT yechimlar — Samarqand, O‘zbekiston.",
+      "Samarqandda SMM, targeting, brending, sayt yasash va sotuv tizimlari. Mahalliy marketing agentligi — Progress.uzb.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: "uz_UZ",
+    alternateLocale: ["ru_RU", "en_US"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Progress.uzb | Marketing, SMM, Branding — Samarkand / Samarqand",
+    title: "SMM va Marketing agentligi Samarqand | Progress.uzb",
     description:
-      "Marketing Samarkand, SMM, brending, vebsayt yasash, landing page, sotuv va avtomatlashtirish xizmatlari.",
+      "SMM Samarkand, Marketing Samarqand — targeting, brending, website yasash va sotuv tizimlari.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   alternates: {
     canonical: "/",
@@ -64,74 +77,114 @@ export const defaultMetadata: Metadata = {
 };
 
 export function getLocalBusinessSchema() {
+  const { address, social } = baseSiteConfig;
+
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": ["ProfessionalService", "LocalBusiness"],
     name: siteConfig.name,
-    alternateName: ["Progress.uzb", "Progress Marketing Agentligi"],
+    alternateName: [
+      "Progress.uzb",
+      "Progress Marketing Agentligi",
+      "Progress Group",
+    ],
     description:
-      "Marketing, SMM, branding/brending, website yasash, landing page, sotuvni oshirish, avtomatlashtirish, sun'iy intellekt integratsiyasi va IT yechimlar — Samarqand.",
+      "Samarqanddagi SMM va marketing agentligi: SMM, targeting, brending, website yasash, landing page, sotuv bo‘limini qurish va avtomatlashtirish.",
     url: siteConfig.url,
     telephone: siteConfig.phoneDisplay,
     email: siteConfig.email,
-    image: `${siteConfig.url}/opengraph-image.png`,
+    image: `${siteConfig.url}/opengraph-image`,
+    logo: `${siteConfig.url}/opengraph-image`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Samarkand",
-      addressRegion: "Samarkand",
-      addressCountry: "UZ",
+      streetAddress: address.street,
+      addressLocality: address.localityEn,
+      addressRegion: "Samarkand Region",
+      postalCode: address.postalCode,
+      addressCountry: address.country,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: address.latitude,
+      longitude: address.longitude,
+    },
+    hasMap: siteConfig.mapHref,
     areaServed: [
       { "@type": "City", name: "Samarkand" },
       { "@type": "City", name: "Samarqand" },
+      { "@type": "AdministrativeArea", name: "Samarkand Region" },
       { "@type": "Country", name: "Uzbekistan" },
     ],
     priceRange: "$$",
-    knowsAbout: [
-      "Marketing",
-      "Marketing Samarkand",
-      "Marketing Samarqand",
-      "SMM",
-      "SMM Samarkand",
-      "SMM Samarqand",
-      "Brending",
-      "Branding",
-      "Rebrand",
-      "Branding Samarkand",
-      "Brending Samarkand",
-      "Sotuv",
-      "Website yasash",
-      "Vebsayt yasash",
-      "Avtomatlashtirish",
-      "Sotuv bo'limini qurib berish",
-      "Sotuvni oshirish",
-      "Marketing xizmatlari",
-      "Sun'iy intellekt integratsiya",
-      "Landing page",
-      "IT yechimlar",
-    ],
+    sameAs: [social.instagram, social.telegram, social.youtube],
+    knowsAbout: [...seoKeywords],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Marketing xizmatlari",
+      name: "SMM va marketing xizmatlari Samarqand",
       itemListElement: [
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Marketing" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "SMM" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Branding / Brending" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rebrand" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website / Vebsayt yasash" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Landing page" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Sotuvni oshirish" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Sotuv bo'limini qurib berish" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Avtomatlashtirish" } },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Avtomatlashtirish va sun'iy intellekt integratsiya",
+            name: "SMM Samarqand",
+            areaServed: "Samarkand",
           },
         },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "IT yechimlar" } },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Marketing Samarqand",
+            areaServed: "Samarkand",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: "Targeting / Performance marketing" },
+        },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Brending" } },
+        {
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: "Website / landing page yasash" },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: "Sotuv bo'limini qurish" },
+        },
       ],
     },
+  };
+}
+
+export function getFaqSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Samarqandda SMM agentligi bormi?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ha. Progress.uzb — Samarqanddagi SMM va marketing agentligi. Instagram, Telegram va YouTube uchun SMM, targeting, brending va sayt yasash xizmatlarini ko‘rsatamiz.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Marketing agentligi Samarqandda nima qiladi?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Progress.uzb marketing strategiyasi, SMM, targeting, brending, website yasash va sotuv bo‘limini qurishni bitta tizimda beradi. Manzil: Bo‘ston saroy ko‘chasi, 24, Samarqand.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "SMM Samarkand xizmati qancha turadi?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Narx biznes hajmi va vazifaga qarab belgilanadi. Bepul konsultatsiyada aniq reja va smeta beramiz — progressgroup.uz orqali ariza qoldiring.",
+        },
+      },
+    ],
   };
 }

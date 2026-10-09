@@ -35,7 +35,7 @@ import { BrandLogoMarquee } from "@/components/shared/brand-logo-marquee";
 import { ContactForm } from "@/components/shared/contact-form";
 import { HeroBlogSpotlight } from "@/components/shared/hero-blog-spotlight";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { LeadPopup, openLeadPopup } from "@/components/shared/lead-popup";
+import { openLeadPopup } from "@/components/shared/lead-popup";
 import { Magnetic } from "@/components/shared/magnetic";
 import { MarketerShowcase } from "@/components/shared/marketer-showcase";
 import { PortfolioScrollShowcase } from "@/components/shared/portfolio-scroll-showcase";
@@ -267,7 +267,7 @@ export default function Home() {
           <div className="flex shrink-0 flex-col items-center px-3 pt-0 text-center lg:pt-0.5 xl:pt-2 2xl:pt-4">
             <Image
               src={logoImage}
-              alt="Progress.uzb logo"
+              alt="Progress.uzb — SMM va marketing agentligi Samarqand"
               width={100}
               className="h-auto w-[64px] brightness-0 invert sm:w-[72px] lg:w-[60px] xl:w-[76px] 2xl:w-[96px]"
               priority
@@ -718,6 +718,36 @@ export default function Home() {
           </Reveal>
         </section>
 
+        <section id="smm-samarqand" className="section-shell py-14 sm:py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow={sections.localSeo.eyebrow}
+              title={sections.localSeo.title}
+              description={sections.localSeo.lead}
+            />
+            <div className="mt-8 max-w-3xl space-y-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
+              {sections.localSeo.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
+                {sections.localSeo.servicesTitle}
+              </h3>
+              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                {sections.localSeo.services.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-2xl border border-[#0C3272]/10 bg-white/70 px-4 py-3 text-sm font-medium text-slate-800 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </section>
+
         <section className="section-shell py-14 sm:py-20">
           <Reveal>
             <div className="relative overflow-hidden rounded-[28px] bg-[#0C3272] px-5 py-10 text-white shadow-[0_30px_90px_rgba(12,50,114,0.28)] sm:rounded-[40px] sm:px-10 sm:py-12 lg:px-14">
@@ -751,8 +781,8 @@ export default function Home() {
       </main>
 
       <footer id="contact" className="relative z-10 bg-slate-950 py-14 text-white sm:py-20 lg:pl-[12rem] xl:pl-[13.25rem] 2xl:pl-[14.5rem]">
-        <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal>
+        <div className="section-shell flex flex-col gap-10 lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <Reveal className="order-1 lg:order-none lg:col-start-1">
             <div className="space-y-6">
               <h2 className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl 2xl:max-w-2xl 2xl:text-6xl">
                 {sections.contact.title}
@@ -760,7 +790,17 @@ export default function Home() {
               <p className="max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8 2xl:max-w-2xl 2xl:text-xl">
                 {sections.contact.description}
               </p>
+            </div>
+          </Reveal>
 
+          <Reveal delay={0.08} className="order-2 lg:order-none lg:col-start-2 lg:row-start-1">
+            <div className="rounded-[28px] border border-white/10 bg-white/6 p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:rounded-[36px] sm:p-8">
+              <ContactForm key={content.locale} content={content} />
+            </div>
+          </Reveal>
+
+          <Reveal className="order-3 lg:order-none lg:col-start-1">
+            <div className="space-y-6">
               <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200/80">
                   {sections.contact.socialLabel}
@@ -840,38 +880,32 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <div className="space-y-6">
-                <div className="rounded-[28px] border border-white/10 bg-white/6 p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:rounded-[36px] sm:p-8">
-                <ContactForm key={content.locale} content={content} />
+          <Reveal delay={0.08} className="order-4 lg:order-none lg:col-start-2">
+            <div className="overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-2xl shadow-black/20 backdrop-blur-xl">
+              <div className="flex flex-col gap-3 px-4 pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
+                <div className="flex min-w-0 items-start gap-2 text-sm font-semibold text-white">
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-blue-200" />
+                  <span className="min-w-0 break-words">{sections.contact.addressValue}</span>
+                </div>
+                <a
+                  href={baseSiteConfig.mapHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-blue-100 transition hover:bg-white/20"
+                >
+                  {sections.contact.mapCta}
+                  <ArrowUpRight className="size-3.5" />
+                </a>
               </div>
-
-              <div className="overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-2xl shadow-black/20 backdrop-blur-xl">
-                <div className="flex flex-col gap-3 px-4 pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
-                  <div className="flex min-w-0 items-start gap-2 text-sm font-semibold text-white">
-                    <MapPin className="mt-0.5 size-4 shrink-0 text-blue-200" />
-                    <span className="min-w-0 break-words">{sections.contact.addressValue}</span>
-                  </div>
-                  <a
-                    href={baseSiteConfig.mapHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-blue-100 transition hover:bg-white/20"
-                  >
-                    {sections.contact.mapCta}
-                    <ArrowUpRight className="size-3.5" />
-                  </a>
-                </div>
-                <div className="mt-4 aspect-[4/3] w-full sm:aspect-[16/10]">
-                  <iframe
-                    src={baseSiteConfig.mapEmbedSrc}
-                    title={sections.contact.addressValue}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    allowFullScreen
-                    className="h-full w-full border-0 grayscale-[0.15]"
-                  />
-                </div>
+              <div className="mt-4 aspect-[4/3] w-full sm:aspect-[16/10]">
+                <iframe
+                  src={baseSiteConfig.mapEmbedSrc}
+                  title={sections.contact.addressValue}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className="h-full w-full border-0 grayscale-[0.15]"
+                />
               </div>
             </div>
           </Reveal>
@@ -892,7 +926,6 @@ export default function Home() {
         <ChevronUp className="size-5" />
       </button>
 
-      <LeadPopup content={content} />
     </div>
   );
 }
@@ -901,10 +934,12 @@ function Reveal({
   children,
   delay = 0,
   variant = "rise",
+  className,
 }: {
   children: ReactNode;
   delay?: number;
   variant?: "rise" | "card";
+  className?: string;
 }) {
   const initial =
     variant === "card" ? { opacity: 0, y: 24, scale: 0.94 } : { opacity: 0, y: 24 };
@@ -913,6 +948,7 @@ function Reveal({
 
   return (
     <motion.div
+      className={className}
       initial={initial}
       whileInView={whileInView}
       viewport={{ once: false, amount: 0.2 }}
