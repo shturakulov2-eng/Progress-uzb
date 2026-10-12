@@ -1,6 +1,9 @@
 ---
 deployment:
   tasks:
+    - export DEPLOYPATH=/home/progres9/public_html/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R out/. $DEPLOYPATH
     - export DEPLOYPATH=/home/progres9/Progress-uzb/
     - /bin/mkdir -p $DEPLOYPATH
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R out/. $DEPLOYPATH

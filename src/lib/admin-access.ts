@@ -1,4 +1,8 @@
-const allowedAdminEmails = (process.env.ADMIN_ALLOWED_EMAILS || "")
+const allowedAdminEmails = (
+  process.env.NEXT_PUBLIC_ADMIN_ALLOWED_EMAILS ||
+  process.env.ADMIN_ALLOWED_EMAILS ||
+  ""
+)
   .split(",")
   .map((value) => value.trim().toLowerCase())
   .filter(Boolean);

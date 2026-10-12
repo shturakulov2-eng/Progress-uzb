@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import type { SiteContent } from "@/content/types";
+import { submitLead } from "@/lib/submit-lead";
 import {
   createServiceInquirySchema,
   type ServiceInquiryFormValues,
@@ -52,25 +53,25 @@ export function ServiceInquiryForm({
       .join("\n\n");
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...values,
-          problem,
-        }),
-      });
-      const payload = (await response.json()) as { error?: string; message?: string };
-
-      if (!response.ok) {
-        toast.error(payload.error || serviceInquiry.errorGeneric);
+      if (values.website) {
+        form.reset();
+        setIsSuccess(true);
+        onClearSelectedServices?.();
+        toast.success(serviceInquiry.success);
         return;
       }
+
+      await submitLead({
+        fullName: values.fullName,
+        phoneNumber: values.phoneNumber,
+        problem,
+        source: values.source,
+      });
 
       form.reset();
       setIsSuccess(true);
       onClearSelectedServices?.();
-      toast.success(payload.message || serviceInquiry.success);
+      toast.success(serviceInquiry.success);
     } catch {
       toast.error(serviceInquiry.errorNetwork);
     } finally {

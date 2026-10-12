@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
+import { ClientRedirect } from "@/components/shared/client-redirect";
 
-/** Convenience alias: /blog/admin → /admin/blog */
 export default function BlogAdminAliasPage() {
-  redirect("/admin/blog");
+  return <ClientRedirect href="/admin/blog" />;
 }

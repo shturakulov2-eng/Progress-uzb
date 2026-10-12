@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BlogPostModal } from "@/components/shared/blog-post-modal";
 import type { SiteContent } from "@/content/types";
 import type { PublicBlogPost } from "@/lib/blog";
+import { fetchPublishedPosts } from "@/lib/blog-client";
 import { cn } from "@/lib/utils";
 
 type BlogCopy = SiteContent["sections"]["blog"];
@@ -89,10 +90,8 @@ export function HeroBlogSpotlight({
     async function loadPosts() {
       setLoading(true);
       try {
-        const response = await fetch(`/api/blog?limit=${limit}`);
-        const json = (await response.json()) as { posts?: PublicBlogPost[] };
+        const fetched = await fetchPublishedPosts(limit);
         if (!cancelled) {
-          const fetched = json.posts ?? [];
           const withImages = fetched.filter((post) => post.image);
           setPosts(withImages.length > 0 ? withImages : fetched);
         }

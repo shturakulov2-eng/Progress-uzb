@@ -5,9 +5,20 @@ const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
   : undefined;
 
 const nextConfig: NextConfig = {
-  output: "export", // <- Statik eksport rejimini yoqadi
+  output: "export",
+  trailingSlash: true,
+  env: {
+    NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL:
+      process.env.NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL ||
+      process.env.GOOGLE_SHEETS_WEBHOOK_URL ||
+      "",
+    NEXT_PUBLIC_ADMIN_ALLOWED_EMAILS:
+      process.env.NEXT_PUBLIC_ADMIN_ALLOWED_EMAILS ||
+      process.env.ADMIN_ALLOWED_EMAILS ||
+      "",
+  },
   images: {
-    unoptimized: true, // <- Statik rejimda rasmlar xatosiz chiqishi uchun
+    unoptimized: true,
     remotePatterns: supabaseHost
       ? [
           {

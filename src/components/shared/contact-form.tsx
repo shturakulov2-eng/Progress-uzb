@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import type { SiteContent } from "@/content/types";
+import { submitLead } from "@/lib/submit-lead";
 import { createLeadSchema, type LeadFormValues } from "@/lib/validators";
 
 export function ContactForm({
@@ -42,22 +43,25 @@ export function ContactForm({
     setIsSuccess(false);
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      const payload = (await response.json()) as { error?: string; message?: string };
-
-      if (!response.ok) {
-        toast.error(payload.error || form.errorGeneric);
+      if (values.website) {
+        formMethods.reset();
+        setIsSuccess(true);
+        toast.success(form.success);
+        onSuccess?.();
         return;
       }
 
+      await submitLead({
+        fullName: values.fullName,
+        phoneNumber: values.phoneNumber,
+        companyName: values.companyName,
+        businessType: values.businessType,
+        source: "contact",
+      });
+
       formMethods.reset();
       setIsSuccess(true);
-      toast.success(payload.message || form.success);
+      toast.success(form.success);
       onSuccess?.();
     } catch {
       toast.error(form.errorNetwork);

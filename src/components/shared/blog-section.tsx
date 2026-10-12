@@ -10,6 +10,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import type { SiteContent } from "@/content/types";
 import type { PublicBlogPost } from "@/lib/blog";
+import { fetchPublishedPosts } from "@/lib/blog-client";
 import { cn } from "@/lib/utils";
 
 type BlogCopy = SiteContent["sections"]["blog"];
@@ -139,18 +140,12 @@ export function BlogSection({
     }
 
     let cancelled = false;
-    const query = fetchLimit ? `?limit=${fetchLimit}` : "";
 
     async function loadPosts() {
       setLoading(true);
       try {
-        const response = await fetch(`/api/blog${query}`);
-        const json = (await response.json()) as {
-          posts?: PublicBlogPost[];
-        };
-        if (!cancelled) {
-          setPosts(json.posts ?? []);
-        }
+        const fetched = await fetchPublishedPosts(fetchLimit);
+        if (!cancelled) setPosts(fetched);
       } catch {
         if (!cancelled) setPosts([]);
       } finally {

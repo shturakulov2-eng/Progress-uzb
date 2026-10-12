@@ -8,6 +8,12 @@ import type { FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import type { PublicBlogPost } from "@/lib/blog";
+import {
+  deleteBlogPost,
+  publishBlogPost,
+  updateBlogPost,
+  uploadBlogImage,
+} from "@/lib/blog-client";
 import { validateBlogPostInput } from "@/lib/blog-validation";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
@@ -94,23 +100,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
   }
 
   async function uploadImage(file: File) {
-    const uploadData = new FormData();
-    uploadData.append("file", file);
-
-    const uploadResponse = await fetch("/api/blog/upload", {
-      method: "POST",
-      body: uploadData,
-    });
-    const uploadJson = (await uploadResponse.json()) as {
-      path?: string;
-      error?: string;
-    };
-
-    if (!uploadResponse.ok || !uploadJson.path) {
-      throw new Error(uploadJson.error || "Image upload failed.");
-    }
-
-    return uploadJson.path;
+    return uploadBlogImage(file);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -141,31 +131,16 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
       }
 
       if (isEditing && editingPostId) {
-        const updateResponse = await fetch(`/api/blog/${editingPostId}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title,
-            author: author.trim() || undefined,
-            excerpt: excerpt.trim() || undefined,
-            body,
-            ...(imagePath ? { imagePath } : {}),
-          }),
+        const updated = await updateBlogPost(editingPostId, {
+          title,
+          author: author.trim() || undefined,
+          excerpt: excerpt.trim() || undefined,
+          body,
+          ...(imagePath ? { imagePath } : {}),
         });
-        const updateJson = (await updateResponse.json()) as {
-          post?: PublicBlogPost;
-          error?: string;
-        };
-
-        if (!updateResponse.ok || !updateJson.post) {
-          setError(updateJson.error || "Update failed.");
-          return;
-        }
 
         setPosts((current) =>
-          current.map((post) =>
-            post.id === updateJson.post!.id ? updateJson.post! : post,
-          ),
+          current.map((post) => (post.id === updated.id ? updated : post)),
         );
         resetForm();
         setSuccess("Updated. Changes are live on /blog and the homepage.");
@@ -178,28 +153,15 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
         return;
       }
 
-      const publishResponse = await fetch("/api/blog", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title,
-          author: author.trim() || undefined,
-          excerpt: excerpt.trim() || undefined,
-          body,
-          imagePath,
-        }),
+      const published = await publishBlogPost({
+        title,
+        author: author.trim() || undefined,
+        excerpt: excerpt.trim() || undefined,
+        body,
+        imagePath,
       });
-      const publishJson = (await publishResponse.json()) as {
-        post?: PublicBlogPost;
-        error?: string;
-      };
 
-      if (!publishResponse.ok || !publishJson.post) {
-        setError(publishJson.error || "Publish failed.");
-        return;
-      }
-
-      setPosts((current) => [publishJson.post!, ...current]);
+      setPosts((current) => [published, ...current]);
       resetForm();
       setSuccess(
         "Published. It now appears on /blog and the homepage Blog section.",
@@ -225,15 +187,7 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
     setDeletingPostId(post.id);
 
     try {
-      const response = await fetch(`/api/blog/${post.id}`, {
-        method: "DELETE",
-      });
-      const json = (await response.json()) as { error?: string };
-
-      if (!response.ok) {
-        setError(json.error || "Delete failed.");
-        return;
-      }
+      await deleteBlogPost(post.id);
 
       setPosts((current) => current.filter((item) => item.id !== post.id));
 
@@ -243,8 +197,8 @@ export function BlogAdmin({ adminEmail, initialPosts }: BlogAdminProps) {
 
       setSuccess("Post deleted.");
       router.refresh();
-    } catch {
-      setError("Network error while deleting.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Network error while deleting.");
     } finally {
       setDeletingPostId(null);
     }

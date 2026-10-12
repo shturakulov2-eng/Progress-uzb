@@ -8,7 +8,7 @@ import { useLanguage } from "@/context/language-context";
 import { cn } from "@/lib/utils";
 import type { PublicBlogPost } from "@/lib/blog";
 
-export function BlogPageClient({ posts }: { posts: PublicBlogPost[] }) {
+export function BlogPageClient({ posts }: { posts?: PublicBlogPost[] }) {
   const { content } = useLanguage();
 
   return (
