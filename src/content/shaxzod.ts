@@ -99,26 +99,26 @@ export type ShaxzodProfile = {
 
 /** Shared media paths — drop files into public/shaxzod/ to fill placeholders. */
 export const shaxzodMedia = {
-  portrait: "/marketer/portrait.png?v=12",
-  biography: "/shaxzod/biography-1.png?v=2",
+  portrait: "/marketer/portrait.webp?v=12",
+  biography: "/shaxzod/biography-1.webp?v=2",
   mentors: "/shaxzod/mentors.jpg",
   journey: "/shaxzod/journey.jpg",
   ecosystem: "/shaxzod/ecosystem.jpg",
-  vacancies: "/shaxzod/vacancies.jpg?v=1",
+  vacancies: "/shaxzod/vacancies.webp?v=1",
   contact: "/shaxzod/contact.jpg",
 } as const;
 
 const galleryFiles = [
-  "01-classroom.png",
-  "03-brands.png",
-  "04-sales-board.png",
-  "05-conference-group.png",
-  "06-certificate.png",
-  "07-awards-group.png",
-  "08-office-study.png",
-  "09-computer-lab.png",
-  "10-grant-edu.png",
-  "11-systemic-leader.png",
+  "01-classroom.webp",
+  "03-brands.webp",
+  "04-sales-board.webp",
+  "05-conference-group.webp",
+  "06-certificate.webp",
+  "07-awards-group.webp",
+  "08-office-study.webp",
+  "09-computer-lab.webp",
+  "10-grant-edu.webp",
+  "11-systemic-leader.webp",
 ] as const;
 
 function biographyGallery(alts: string[]): { src: string; alt: string }[] {

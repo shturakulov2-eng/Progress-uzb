@@ -112,7 +112,7 @@ export const contentUz: SiteContent = {
       videoTitle: "Video",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png?v=12",
+      portraitSrc: "/marketer/portrait.webp?v=12",
       closeLabel: "Yopish",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",
@@ -307,7 +307,7 @@ export const contentUz: SiteContent = {
       duration: "2019-yildan hozirgacha (loyiha boshidan beri)",
       result: "2025-yilda savdo hajmi o'tgan yilga nisbatan 127% ga ko'tarildi.",
       process: "Hozirgi kunda sotuv bo'limini yanada mukammal tizimlashtirish ishlari ketmoqda.",
-      imageSrc: "/portfolio/kolizey-showcase.png",
+      imageSrc: "/portfolio/kolizey-showcase.webp",
     },
     {
       name: "Ishonch Mebel",
@@ -316,7 +316,7 @@ export const contentUz: SiteContent = {
       result:
         "Atigi 3 yilda brend 0 dan oyiga 500 million so'mlik onlayn savdoga olib chiqildi. 400 kv.m maydonga ega yangi do'kon ochildi.",
       process: "Hozirda showroom do'konsiz to'g'ridan-to'g'ri onlayn sotish yo'llari qo'yilmoqda.",
-      imageSrc: "/portfolio/ishonch-mebel-showcase.png",
+      imageSrc: "/portfolio/ishonch-mebel-showcase.webp",
     },
     {
       name: "Tropik Palma",
@@ -325,7 +325,7 @@ export const contentUz: SiteContent = {
       result:
         "Butun O'zbekiston bo'ylab tizimli savdo yo'lga qo'yildi. Biznesga minglab yangi lidlar olib kelindi.",
       process: "Sotuv bo'limi qurilmoqda.",
-      imageSrc: "/portfolio/tropik-palma-showcase.png",
+      imageSrc: "/portfolio/tropik-palma-showcase.webp",
     },
     {
       name: "Milliy Brend",
@@ -333,7 +333,7 @@ export const contentUz: SiteContent = {
       duration: "2025-yildan beri",
       result: "Har oylik doimiy va barqaror yangi mijozlar oqimi shakllantirildi.",
       process: "Sotuv bo'limi va ulgurji savdo tizimi yo'lga qo'yilmoqda.",
-      imageSrc: "/portfolio/milliy-brend-showcase.png",
+      imageSrc: "/portfolio/milliy-brend-showcase.webp",
     },
     {
       name: "Mirankul Ceiling",
@@ -341,7 +341,7 @@ export const contentUz: SiteContent = {
       duration: "2023–2024 yillar (1 yillik shartnoma)",
       result: "Biznes oyiga 150 tadan 600 tagacha barqaror lidlar bilan ta'minlandi.",
       process: "CRM tizimi va sotuv bo'limi avtomatizatsiya qilib topshirildi.",
-      imageSrc: "/portfolio/mirankul-ceiling-showcase.png",
+      imageSrc: "/portfolio/mirankul-ceiling-showcase.webp",
     },
     {
       name: "Fox Pipes",
@@ -349,7 +349,7 @@ export const contentUz: SiteContent = {
       duration: "2023-yil fevraldan 2025-yil avgustgacha (2 yillik shartnoma)",
       result: "Oyiga 350–500 ta sifatli lidlar olib kelindi.",
       process: "Sotuv bo'limi qurildi va tizimlashtirish jarayonida loyiha muvaffaqiyatli yakunlandi.",
-      imageSrc: "/portfolio/fox-pipes-ig-showcase.png",
+      imageSrc: "/portfolio/fox-pipes-ig-showcase.webp",
     },
     {
       name: "Saturn Stainless / Primo",
@@ -358,7 +358,7 @@ export const contentUz: SiteContent = {
       duration: "2024-yil yanvardan 2025-yil oxirigacha (2 yillik shartnoma)",
       result:
         "Yangi yo'nalishda kreativ kontentlar chiqarildi va oyiga 50 tadan 450 tagacha lid generatsiya qilindi.",
-      imageSrc: "/portfolio/primo-showcase.png",
+      imageSrc: "/portfolio/primo-showcase.webp",
     },
     {
       name: "Chagurt",
@@ -366,7 +366,7 @@ export const contentUz: SiteContent = {
       duration: "3 oylik shartnoma",
       result:
         "Brend uchun to'liq brending ishlab chiqildi va maqsadli kontent marketing strategiyasi yo'lga qo'yildi.",
-      imageSrc: "/portfolio/chagurt-showcase.png",
+      imageSrc: "/portfolio/chagurt-showcase.webp",
     },
     {
       name: "Neo",
@@ -374,7 +374,7 @@ export const contentUz: SiteContent = {
       duration: "2026-yil fevraldan hozirgacha",
       result:
         "Ijtimoiy tarmoqlarda 15 000 dan ortiq sof organik obunachilar yig'ildi va videolar millionlab ko'rishlarga erishdi.",
-      imageSrc: "/portfolio/neo-showcase.png",
+      imageSrc: "/portfolio/neo-showcase.webp",
     },
     {
       name: "IELTS Center",
@@ -382,7 +382,7 @@ export const contentUz: SiteContent = {
       duration: "2021-yildan boshlangan, 2025-yilda yangilangan",
       result:
         "2021-yilda SMM noldan boshlanib brending qilindi. 2025-yilda 3 oy davomida yangi yo'nalishda kuchli kontent marketing ishga tushirildi.",
-      imageSrc: "/portfolio/ielts-center-showcase.png",
+      imageSrc: "/portfolio/ielts-center-showcase.webp",
     },
     {
       name: "Sofana Mebel",
@@ -390,7 +390,7 @@ export const contentUz: SiteContent = {
       duration: "3 oylik shartnoma",
       result:
         "Kelajakda patentlanadigan mutlaqo yangi brending yaratildi. Performance va kontent marketing orqali savdo yo'llari ochildi.",
-      imageSrc: "/portfolio/sofana-showcase.png",
+      imageSrc: "/portfolio/sofana-showcase.webp",
     },
   ],
   statistics: [

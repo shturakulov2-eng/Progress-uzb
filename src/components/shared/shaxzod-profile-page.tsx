@@ -132,7 +132,7 @@ export function ShaxzodProfilePage() {
               className="hidden shrink-0 sm:inline-flex"
             >
               <Image
-                src="/shaxzod/progress-horizontal.png"
+                src="/shaxzod/progress-horizontal.webp"
                 alt="Progress"
                 width={521}
                 height={107}

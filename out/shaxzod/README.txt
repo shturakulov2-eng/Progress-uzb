@@ -8,4 +8,4 @@ ecosystem.jpg     # Progress Group ecosystem section
 vacancies.jpg     # Vacancies section
 contact.jpg       # Contact section
 
-Hero main portrait uses: /public/shaxzod/portrait.png
+Hero main portrait uses: /public/marketer/portrait.webp

@@ -112,7 +112,7 @@ export const contentEn: SiteContent = {
       videoTitle: "Video",
       watermark: "WELCOME",
       youtubeId: "aI1OzDw6_Ts",
-      portraitSrc: "/marketer/portrait.png?v=12",
+      portraitSrc: "/marketer/portrait.webp?v=12",
       closeLabel: "Close",
       instagramLabel: "Instagram",
       telegramLabel: "Telegram",
@@ -306,7 +306,7 @@ export const contentEn: SiteContent = {
       duration: "Since 2019 to present (from the start of the project)",
       result: "In 2025, sales volume grew 127% year over year.",
       process: "The sales department is currently being further systematized.",
-      imageSrc: "/portfolio/kolizey-showcase.png",
+      imageSrc: "/portfolio/kolizey-showcase.webp",
     },
     {
       name: "Ishonch Mebel",
@@ -315,7 +315,7 @@ export const contentEn: SiteContent = {
       result:
         "In just 3 years the brand went from zero to 500 million UZS in monthly online sales. A new 400 sq.m store was opened.",
       process: "Direct online sales channels without a showroom store are now being built.",
-      imageSrc: "/portfolio/ishonch-mebel-showcase.png",
+      imageSrc: "/portfolio/ishonch-mebel-showcase.webp",
     },
     {
       name: "Tropik Palma",
@@ -324,7 +324,7 @@ export const contentEn: SiteContent = {
       result:
         "Systematic nationwide sales across Uzbekistan were established. Thousands of new leads were delivered.",
       process: "A sales department is currently being built.",
-      imageSrc: "/portfolio/tropik-palma-showcase.png",
+      imageSrc: "/portfolio/tropik-palma-showcase.webp",
     },
     {
       name: "Milliy Brend",
@@ -332,7 +332,7 @@ export const contentEn: SiteContent = {
       duration: "Since 2025",
       result: "A steady monthly flow of new customers was established.",
       process: "A sales department and wholesale sales system are being launched.",
-      imageSrc: "/portfolio/milliy-brend-showcase.png",
+      imageSrc: "/portfolio/milliy-brend-showcase.webp",
     },
     {
       name: "Mirankul Ceiling",
@@ -340,7 +340,7 @@ export const contentEn: SiteContent = {
       duration: "2023–2024 (1-year contract)",
       result: "The business was provided with a stable 150 to 600 leads per month.",
       process: "A CRM system and sales department automation were delivered.",
-      imageSrc: "/portfolio/mirankul-ceiling-showcase.png",
+      imageSrc: "/portfolio/mirankul-ceiling-showcase.webp",
     },
     {
       name: "Fox Pipes",
@@ -348,7 +348,7 @@ export const contentEn: SiteContent = {
       duration: "February 2023 to August 2025 (2-year contract)",
       result: "350–500 quality leads were delivered every month.",
       process: "A sales department was built and the project was completed during systematization.",
-      imageSrc: "/portfolio/fox-pipes-ig-showcase.png",
+      imageSrc: "/portfolio/fox-pipes-ig-showcase.webp",
     },
     {
       name: "Saturn Stainless / Primo",
@@ -357,7 +357,7 @@ export const contentEn: SiteContent = {
       duration: "January 2024 to end of 2025 (2-year contract)",
       result:
         "Creative content for a new direction was launched and lead generation grew from 50 to 450 per month.",
-      imageSrc: "/portfolio/primo-showcase.png",
+      imageSrc: "/portfolio/primo-showcase.webp",
     },
     {
       name: "Chagurt",
@@ -365,7 +365,7 @@ export const contentEn: SiteContent = {
       duration: "3-month contract",
       result:
         "A full branding system was developed and a targeted content marketing strategy was launched.",
-      imageSrc: "/portfolio/chagurt-showcase.png",
+      imageSrc: "/portfolio/chagurt-showcase.webp",
     },
     {
       name: "Neo",
@@ -373,7 +373,7 @@ export const contentEn: SiteContent = {
       duration: "February 2026 to present",
       result:
         "More than 15,000 pure organic social followers were gained and videos reached millions of views.",
-      imageSrc: "/portfolio/neo-showcase.png",
+      imageSrc: "/portfolio/neo-showcase.webp",
     },
     {
       name: "IELTS Center",
@@ -381,7 +381,7 @@ export const contentEn: SiteContent = {
       duration: "Started in 2021, refreshed in 2025",
       result:
         "In 2021 SMM and branding were built from zero. In 2025 a strong content marketing push ran for 3 months in a new direction.",
-      imageSrc: "/portfolio/ielts-center-showcase.png",
+      imageSrc: "/portfolio/ielts-center-showcase.webp",
     },
     {
       name: "Sofana Mebel",
@@ -389,7 +389,7 @@ export const contentEn: SiteContent = {
       duration: "3-month contract",
       result:
         "A completely new brand identity was created for future patenting. Performance and content marketing opened new sales channels.",
-      imageSrc: "/portfolio/sofana-showcase.png",
+      imageSrc: "/portfolio/sofana-showcase.webp",
     },
   ],
   statistics: [

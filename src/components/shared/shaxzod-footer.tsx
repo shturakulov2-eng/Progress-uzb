@@ -85,7 +85,7 @@ export function ShaxzodFooter() {
       >
         <Link href="/" className="inline-flex w-fit shrink-0 self-start">
           <Image
-            src="/shaxzod/progress-logo.png"
+            src="/shaxzod/progress-logo.webp"
             alt={baseSiteConfig.name}
             width={180}
             height={180}

@@ -56,7 +56,7 @@ export type SiteContent = {
       videoTitle: string;
       watermark: string;
       youtubeId: string;
-      /** PNG path under /public, e.g. /marketer/portrait.png */
+      /** Image path under /public, e.g. /marketer/portrait.webp */
       portraitSrc: string;
       closeLabel: string;
       instagramLabel: string;
