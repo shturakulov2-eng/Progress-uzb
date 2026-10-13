@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:3000</loc>
-<lastmod>2026-10-13T12:27:20.734Z</lastmod>
+<loc>https://progressgroup.uz</loc>
+<lastmod>2026-10-13T13:05:26.547Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>1</priority>
 </url>
 <url>
-<loc>http://localhost:3000/blog</loc>
-<lastmod>2026-10-13T12:27:20.734Z</lastmod>
+<loc>https://progressgroup.uz/blog</loc>
+<lastmod>2026-10-13T13:05:26.547Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 <url>
-<loc>http://localhost:3000/shaxzod-turakulov</loc>
-<lastmod>2026-10-13T12:27:20.734Z</lastmod>
+<loc>https://progressgroup.uz/shaxzod-turakulov</loc>
+<lastmod>2026-10-13T13:05:26.547Z</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>

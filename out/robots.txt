@@ -2,5 +2,5 @@ User-Agent: *
 Allow: /
 Disallow: /admin
 
-Host: http://localhost:3000
-Sitemap: http://localhost:3000/sitemap.xml
+Host: https://progressgroup.uz
+Sitemap: https://progressgroup.uz/sitemap.xml
